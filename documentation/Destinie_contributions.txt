@@ -1,0 +1,61 @@
+# Destinie 2
+# Copyright © 2005-2018, Institut national de la statistique et des études économiques
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+Le modèle Destinie 2 est un modèle de microsimulation
+dynamique conçu à l’Insee et dont l'objectif principal 
+est la simulation des droits à retraite d'un échantillon
+représentatif de la population résidant en France.
+Il fait suite au modèle Destinie 1, initié à l'Insee dans
+les années 1990.
+
+Il est le résultat d'un effort de collaboration mené au 
+cours du temps au sein du département des Études Économiques 
+(initialement le département des Études Économiques d’Ensemble),
+et en particulier au sein de sa division Redistribution et 
+Politiques Sociales.
+
+Auteurs de Destinie 2
+Cédric 			  Afsa 
+Patrick 		  Aubert
+Marion 			  Bachelet
+Magali 			  Beffy
+Didier 			  Blanchet 
+Sophie 			  Buffeteau
+Alexandre 		Cazenave-Lacroutz
+Emmanuelle 		Crenner
+Yves 			    Dubois
+Michel 			  Duée 
+Jean-François Foucher 
+Fanny 			  Godet
+Shengzhan		  Jia
+Aude 			    Leduc
+Sylvie 			  Le Minez
+Vieu			    Lin
+Claire 			  Marbot
+Anthony 		  Marino
+Simon 			  Rabaté
+Cyril 			  Rebillard 
+Sophie 			  Ricci
+Delphine 		  Roy
+
+La construction du modèle Destinie 2 a également bénéficié 
+de la collaboration de 
+Bertrand 		Garbinti
+
+Le modèle Destinie 2 a également bénéficié des travaux 
+menés par l'ensemble des contributeurs au modèle Destinie 1.
+
+Par ailleurs, une reconnaissance particulière est due à 
+Didier Blanchet, dont les travaux ont été à l'origine du 
+premier modèle Destinie 1, et qui a continué par la suite
+à contribuer au modèle Destinie 2.

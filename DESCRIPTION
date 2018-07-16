@@ -1,0 +1,15 @@
+Package: destinie
+Type: Package
+Title: Destinie 2
+Version: 2.0
+Date: 2005-2018
+Author: Insee 
+Encoding: utf8
+Maintainer: Division Redistribution et Politiques Sociales <dg75-g201@insee.fr>
+Description: Le modele Destinie 2 est un modèle de microsimulation dynamique conçu à l'Insee et dont l'objectif principal est la simulation des droits à retraite d'un échantillon représentatif de la population résidant en France.
+License: GPL-3.0-or-later
+LazyLoad: yes
+Depends: methods, Rcpp (>= 0.9.4.1), openxlsx, xlsx, dplyr, tidyr, reshape2, ggplot2
+SystemRequirements: C++11
+LinkingTo: Rcpp
+RoxygenNote: 6.0.1

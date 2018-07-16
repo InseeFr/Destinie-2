@@ -1,0 +1,21 @@
+*.RData
+*.Rda
+*.RDataTmp
+*.Ruserdata
+#previous commands excluded all .Rda/.RData
+!test_RIENconfidentiel_NONrepresentatif.Rda
+#previous command makes an exception
+.Rproj.user
+.Rhistory
+Thumbs.db
+src/*.o
+src/*.so
+src/*.dll
+*.bak
+documentation/doxygen/latex/*
+!documentation/doxygen/latex/bibliography.bib
+!documentation/doxygen/latex/chapter1.tex
+!documentation/doxygen/latex/refman2.tex
+!documentation/doxygen/latex/Diagramme2.dia
+man/*.Rd
+documentation/doxygen/*

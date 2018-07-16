@@ -1,0 +1,138 @@
+﻿# Destinie 2
+# Copyright © 2005-2018, Institut national de la statistique et des études économiques
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+###############################################################################################
+Plan:
+Les documents de travail
+Les publications Insee Analyses/Insee Références
+Les publications dans des revues à comité de lecture
+
+###############################################################################################
+Les documents de travail de l'Insee suivants ont été réalisés à l'aide du modèle Destinie 2,
+du plus récent au plus ancien: (liste exhaustive)
+
+G2017/03 A. CAZENAVE-LACROUTZ et F. GODET
+L'espérance de vie en retraite sans incapacité sévère des générations nées entre 1960 et 1990 : une projection à partir du modèle Destinie
+
+F1702 M. KOUBI et A. MARRAKCHI
+Projections de la population active à l'horizon 2070
+
+G2017/02 Y. DUBOIS et M. KOUBI
+Règles d’indexation des pensions et sensibilité des dépenses de retraites à la croissance économique et aux chocs démographiques
+
+G2016/10 T. BLANCHET, Y. DUBOIS, Anthony MARINO et M. ROGER
+Patrimoine privé et retraite en France
+
+G2016/08 Y. DUBOIS et M. KOUBI
+Relèvement de l'âge de départ à la retraite : quel impact sur l'activité des séniors de la réforme des retraites de 2010 ?
+
+G2015/15 C. GEAY, M. KOUBI et G. de LAGASNERIE
+Projections des dépenses de soins de ville, construction d’un module pour Destinie
+
+G2015/10 P. AUBERT
+La modulation du montant de pension selon la durée de carrière et l’âge de la retraite : quelles disparités entre assurés ?
+
+G2015/06 Y. DUBOIS et A. MARINO
+Disparités de rendement du système de retraite dans le secteur privé. Approches intergénérationnelle et intragénérationnelle
+
+G2015/02 Y. DUBOIS et A. MARINO
+Indicateurs de rendement du système de retraite français
+
+G2014/15 P. AUBERT et S.RABATÉ
+Durée passée en carrière et durée de vie en retraite : quel partage des gains d'espérance de vie ?
+
+G2014/04 P. AUBERT
+Modalités d’application des réformes des retraites et prévisibilité du montant de pension
+
+G2014/01 M. BACHELET, A. LEDUC et A. MARINO
+Les biographies du modèle Destinie II : rebasage et projection
+
+M2014/01 D. BLANCHET
+La microsimulation dynamique : principes généraux et exemples en langage R
+
+G2012/14 D. BLANCHET - S. LE MINEZ
+Joint macro/micro evaluations of accrued-to-date pension liabilities: an application to French reforms
+
+G2012/10 C. MARBOT et D. ROY
+Projections du coût de l'APA et des caractéristiques de ses bénéficiaires à l'horizon 2040 à l'aide du modèle Destinie
+
+G2012/06 P. AUBERT et M. BACHELET
+Disparités de montant de pension et redistribution dans le système de retraite français
+
+G2011/08 M. BACHELET, M. BEFFY, D. BLANCHET
+Projeter l’impact des réformes des retraites sur l’activité des 55 ans et plus : une comparaison de trois modèles
+
+G2010/14 D. BLANCHET et E. CRENNER
+Le bloc retraites du modèle Destinie 2 : guide de l’utilisateur
+
+G2010/13 D. BLANCHET , S. BUFFETEAU, E. CRENNER, S. LE MINEZ
+Le modèle de microsimulation Destinie 2 : principales caractéristiques et premiers résultats
+
+
+###############################################################################################
+Les publications Insee Analyses/Insee Références, de la plus récente à la plus ancienne (liste à compléter)
+
+
+Insee Analyses - n°30
+DUBOIS Y. et KOUBI M., 2017
+Report de l’âge de la retraite et taux d’emploi des séniors : le cas de la réforme des retraites de 2010 
+
+Insee Références - France Portrait Social, édition 2016
+CAZENAVE-LACROUTZ A. et GODET A., 2016
+L’espérance de vie en retraite sans incapacité sévère devrait être stable pour les générations nées entre 1960 et 1990 
+
+Insee Analyses - n°21
+CUVILLIEZ J., LEFEBVRE G., LISSOT P., DUBOIS Y. et KOUBI M., 2015
+L'exercice européen de projection des dépenses de retraites : à l'horizon 2060, leur poids dans le PIB reculerait fortement en France
+
+Insee Analyses - n°17
+MARINO A., 2014
+Vingt ans de réformes des retraites : quelle contribution des règles d’indexation ?
+
+Insee Analyses - n°11
+ROY D. et MARBOT C., 2013
+L'allocation personnalisée d'autonomie à l'horizon 2040
+
+Insee Références - L'économie française, édition 2012
+AUBERT P. et BACHELET M., 2012
+Disparités de montant de pension et redistribution dans le système de retraite français
+
+
+
+
+
+
+
+###############################################################################################
+Les publications dans des revues à comité de lecture, de la plus récente à la plus ancienne  (liste à compléter)
+
+
+Blanchet, D., Le Minez, S., & Marino, A. (2017). 
+Building and Interpreting Macro/Micro Estimates of Accrued‐to‐Date Pension Liabilities: French Reforms as a Case Study. 
+Review of Income and Wealth, 63(1), 70-94.*
+
+Marbot C. et Roy D. (2015)
+Projections du coût de l’APA et des caractéristiques de ses bénéficiaires à l’horizon 2040 à l’aide du modèle Destinie
+Economie et Statistique, 481-482, 185-209 
+
+Aubert P. et Rabaté S. (2015)
+Durée passée en carrière et durée de vie en retraite : quel partage des gains d'espérance de vie ?
+Économie et Statistique n° 474 - 2014
+
+Buffeteau, S., Crenner, E., Le Minez, S., & Blanchet, D. (2011). 
+Le modèle de microsimulation Destinie 2: principales caractéristiques et premiers résultats. 
+Économie et statistique, 441(1), 101-121.
+
+Blanchet, D. (2011). 
+Microsimuler l’avenir des retraites en France: l’exemple du modèle Destinie. 
+Cahiers québécois de démographie, 40(2), 209-238.

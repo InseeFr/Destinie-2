@@ -1,0 +1,27 @@
+
+######################## QUELQUES CONSEILS PRATIQUES ########################
+
+1-Dans les fichiers excels, il y a de nombreux liens entre fichiers dont le
+répertoire source est possiblement figé dans excel, et à changer par 
+l'utilisateur extérieur à l'Insee.
+Suggestion: cloner le dossier destinie dans "votre" U:\\Destinie
+
+2-Attention, pour des raisons (historiques) de mémoire, l'année est parfois
+codée modulo 1900. u=79 peut par exemple faire référence à l'année 1979.
+Cela peut facilement générer une erreur de code.
+
+3-Ne pas créer de fichiers avec des accents ou caractères spéciaux dans leur titre.
+
+4-AVERTISSEMENT : Bien que l'échantillon de Destinie soit basé sur l'enquète Patrimoine présente dans Quételet, 
+il n'est pas pertinent de chercher à relier les deux. En effet, de nombreuses modifications de 
+paramètres sociodémographiques basiques (l'année de naissance, le sexe, le diplôme, etc.) ont été
+mises en oeuvre pour répondre aux besoins du modèle. Un individu dans l'échantillon de base de 
+Destinie peut être assez différent de son alter-ego dans l'enquête Patrimoine.
+
+5-AVERTISSEMENT : Un échantillon test est par ailleurs fourni pour être en mesure de commencer de faire tourner 
+le code et de s'y familiariser, même sans accès initial à  l'chantillon de départ de Destinie. 
+Cet échantillon test est obtenu à partir de personnes dont la vie a été entièrement simulée 
+(avec par exemple des espérance de vie très longues), et dont l'année de naissance a ensuite 
+été décalée. Il est non confidentiel et n'a aucune représentativité.
+Un fichier R est fourni conjointement qui montre comment il a été construit à partir de l'échantillon 
+initial de Destinie.
