@@ -276,7 +276,7 @@ void Transitions::ProbTrans(Indiv& X, int t) {
   if(age <= X.findet && X.statuts[age]== S_SCO) { 
     champ[X.Id]=1; probas[TRANS1][X.Id] = 1; destination[TRANS1][X.Id] = INA;   
     return;
-  } // année de l'age de fin d'étude traité à part
+  } // année de l'âge de fin d'étude traité à part
   if(X.statuts[age-1] == 0) { transMigr(X,age); champ[X.Id] = 1; return;} // migrant : année d'arrivée traitée à part. 
   // Rmq  : la condition X.est_present(t) est testée dans la méthode make_transitions(), donc on travaille bien 
   // sur l'âge d'arrivée du migrant.

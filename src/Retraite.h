@@ -56,7 +56,7 @@ public:
 		      pension_ag_ar =0; ///< Pension au regime complementaire unifié
   
   ///\}\{ \name Pensions de droits dérivés
-  double  rev_tot = 0,      ///< Réverion total tous régimes
+  double  rev_tot = 0,      ///< Réversion totale tous régimes
           rev_rg = 0,       ///< Réversion au Régime Général
           rev_fp = 0,       ///< Réversion à la FP
           rev_in = 0,       ///< Réversion au RSI
@@ -81,14 +81,16 @@ public:
   Retraite(Indiv& X, int t);
   /**
    * \fn SimDir(int age)
-   * \brief La fonction \ref SimDir teste la liquidation (et de primo-liquidation le cas échéant) pour un individu X pour une année donnée, ainsi
+   * \brief La fonction \ref SimDir teste la liquidation (et la primo-liquidation le cas échéant) pour un individu X pour une année donnée, ainsi
    * que les droits directs.
    * 
+   * Cette fonction est une alternative à SimDirIndiv qui teste et calcule les droits pour toute la durée de vie de l'individu.
+   * Les arguments sont  :
+   * - X : L'individu
+   * - age : âge de l'individu
    * La fonction stocke les variables de liquidation dans le tableau deque_liq pour chaque liquidation.
-   *  
    * 
    * Les `pas` de test de la liquidation des droits peuvent prendre les valeurs (1= annuel, 0.25 = trimestriel, 1/12=mensuel).
-   * 
    * Deux pas sont spécifiés : le premier est utilisé entre l'âge d'ouverture des droits et l'âge d'annulation de la décote
    * au RG, le second est utilisé en dehors de cette fenêtre d'âge. L'idée est qu'on veut souvent tester la liquidation
    * avec un pas temporel plus fin dans le premier cas que dans le second (par exemple, pas1 = 0.25 et pas2 = 1).
@@ -115,7 +117,7 @@ public:
   
    /**
    * \fn tx_cotis_sur_les_retraites(int t)
-   * \brief Calcul le taux de CSG/Crds à appliquer à la pension
+   * \brief Calcule le taux de CSG/Crds à appliquer à la pension
    * \param t année de projection
    */
   void tx_cotis_sur_les_retraites(int t);
@@ -198,7 +200,7 @@ public:
   
   /**
    * \fn pension(int regime)
-   * \brief envoie la valeur annuelle au 31/12 des pensions de droits directs touchées.
+   * \brief Renvoie la valeur annuelle au 31/12 des pensions de droits directs touchées.
    * \param regime régime d'affiliation
    **/
   double pension(int regime) {
@@ -214,7 +216,7 @@ public:
   
   /**
    * \fn pension_prorat(int regime)
-   * \brief renvoie la pension proratisée
+   * \brief Renvoie la pension proratisée
    * \param regime régime d'affiliation
    **/
   double pension_prorat(int regime) {

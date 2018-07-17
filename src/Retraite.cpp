@@ -44,13 +44,11 @@
     Teste la liquidation (et de primo-liquidation le cas échéant) pour un individu X pour une année donnée, ainsi
     que les droits directs.
     
-    Cette fonction est une alternative à SimDirIndiv qui teste et ne calcule les droits pour toute la durée de vie de l'individu.
+   
     
     La fonction stocke les variables de liquidation dans le tableau deque_liq pour chaque liquidation.
     
-    Les arguments sont  :
-    - X : L'individu
-    - age : age de l'individu
+    
     
     Les "pas" de test de la liquidation des droits peuvent prendre les valeurs (1= annuel, 0.25 = trimestriel, 1/12=mensuel).
     

@@ -18,7 +18,7 @@
  * \ref Leg contient les valeurs des paramètres législatifs pour un individu X et une année
  * donnés. Ces paramètres sont ceux qui ne sont pas directement importés depuis le
  * fichier Excel de paramètres sociaux. Ces paramètres législatitifs 
- * dépendent en général des caractéristiques individuelles, tels que la génération le sexe
+ * dépendent en général des caractéristiques individuelles, tels que la génération, le sexe,
  * l'année, et qui sont utiles pour le calcul des droits à la liquidation avec DroitsRetr.
  * 
  */
@@ -43,25 +43,25 @@ class  Leg {
     double DureeProratFP;           ///<	durée de référence pour une carrière complète à la FP (au dénominateur du coefficient de proratisation)
     double DecoteFP;                ///<	 Decote fonction publique
     double SurcoteFP;               ///<	 Surcote fonction publique
-    double AgeAnnDecFP;             ///<	 Age d'annulation de la décote fonction publique.
-    double AgeMinMG;                ///<	 Age minimum pour toucher le minimum garanti (ajout  27/10/2010)
-    double AgeMaxFP;                ///<	 Age de liquidation maximal FP
+    double AgeAnnDecFP;             ///<	 Âge d'annulation de la décote fonction publique.
+    double AgeMinMG;                ///<	 Âge minimum pour toucher le minimum garanti (ajout  27/10/2010)
+    double AgeMaxFP;                ///<	 Âge de liquidation maximal FP
     int    LegMin;                  ///<	 Millésime de la législation appliquée pour le calcul des minima de pensions
     int    LegDRA;                  ///<	 Millésime de la législation appliquée pour les départs anticipés
     int    LegSAM;                  ///<	 Millésime de la législation appliquée pour le calcul du SAM
-    double AgeMinRG;                ///<	 Age minimum d'ouverture des droits, RG
-    double AgeMaxRG;                ///<	 Age de liquidation maximal RG
-    double AgeAnnDecRG;             ///<	 Age d'annulation de la décote au RG
+    double AgeMinRG;                ///<	 Âge minimum d'ouverture des droits, RG
+    double AgeMaxRG;                ///<	 Âge de liquidation maximal RG
+    double AgeAnnDecRG;             ///<	 Âge d'annulation de la décote au RG
     double DureeMinFP;              ///<	 Durée minimale de carrière pour bénéficier d'une pension de fonctionnaire (ajout  25/10/2010)
     double AnOuvDroitFP;            ///<	 année d'ouverture des droits dans la fonction publique (peut être différent de l'année des 60 ans pour les catégories actives et les mères de 3 enfants) (ajout Patrick 09/12/2011)
-    double AgeSurcote;              ///<	 Age minimal pour le calcul de la surcote (60 ans avant la réforme de 2010, 62 ans progressivement après)
+    double AgeSurcote;              ///<	 Âge minimal pour le calcul de la surcote (60 ans avant la réforme de 2010, 62 ans progressivement après)
     double DeplafProrat;            ///<	 Durée au-delà de la durée de référence prise en compte dans le calcul du coefficient de proratisation (dans tous les régimes) (dans le cadre d'un déplafonnement progressif de ce coefficient)
     double DureeValCibDRA[5];       ///<	 Durée validée requise pour une départ anticipée pour carrière longue (plusieurs "jeux" de condition de départ sont possibles, il s'agit donc d'un tableau)
     double DureeCotCibDRA[5];       ///<	 Durée cotisée requise pour une départ anticipée pour carrière longue (plusieurs "jeux" de condition de départ sont possibles, il s'agit donc d'un tableau)
-    double DebActCibDRA[5];         ///<	 âge de début d'activité requis pour une départ anticipée pour carrière longue (plusieurs "jeux" de condition de départ sont possibles, il s'agit donc d'un tableau)
-    double AgeDRA[5];               ///<	 âge d'ouverture des droits dans le cadre d'un départ anticipée pour carrière longue (sous condition de durée et âge défini par l'indice)
-    double AgeMinFP;                ///<	 Age minimum d'ouverture des droits, FP (cet âge est défini par individu, après analyse de la catégorie pertinente 
-    double ageouvdroitfp;           ///<	 Age d'ouverture des droits pour les fonctionnaires sédentaires calculé en fonction de la génération
+    double DebActCibDRA[5];         ///<	 Âge de début d'activité requis pour une départ anticipée pour carrière longue (plusieurs "jeux" de condition de départ sont possibles, il s'agit donc d'un tableau)
+    double AgeDRA[5];               ///<	 Âge d'ouverture des droits dans le cadre d'un départ anticipée pour carrière longue (sous condition de durée et âge défini par l'indice)
+    double AgeMinFP;                ///<	 Âge minimum d'ouverture des droits, FP (cet âge est défini par individu, après analyse de la catégorie pertinente) 
+    double ageouvdroitfp;           ///<	 Âge d'ouverture des droits pour les fonctionnaires sédentaires calculé en fonction de la génération
     int    durfpa;                  ///<	 Durée passée dans la catégorie active
     
     
@@ -69,9 +69,9 @@ class  Leg {
      * \fn Leg(const Indiv& X, int age, int an_leg)
      * \brief Créer un objet législation pour un individu particulier, à un age donné.
      * 
-     * Créer un objet législation pour un individu particulier, à un age donné, et une législation donnée.
+     * Crée un objet législation pour un individu particulier, à un age donné, et une législation donnée.
      * 
-     * appelle les sous-méthodes suivantes :
+     * Appelle les sous-méthodes suivantes :
      * - leg_priv (Législation régimes RG, RSI, Arrco, Agirc)
      * - leg_pub  (Législation régime FP)
      * - leg_spe  (Régimes spéciaux)

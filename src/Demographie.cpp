@@ -112,12 +112,12 @@ void imputations_base() {
         X.statuts[age] = S_SCO;
       }
       else if(age == X.findet && X.statuts[age]==999) {
-        // impute les trous de carrière liés à l'age de fin d'étude
+        // impute les trous de carrière liés à l'âge de fin d'étude
         bool cumEmpEtude = alea() < 0.75 * partTx(age,16,30) * partTx(X.anaiss,1950,1990);
         X.statuts[age] = cumEmpEtude ? imput_statut(X,age) : S_SCO ;
       }
       else if(X.statuts[age]==999) {
-        // impute les trous de carrière liés à l'age de fin d'étude
+        // impute les trous de carrière liés à l'âge de fin d'étude
         X.statuts[age] = !in(X.statuts[age-1],{0,999,63}) ? X.statuts[age-1] : imput_statut(X,age);
       }
     }

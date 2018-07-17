@@ -15,20 +15,19 @@ class Indiv;
 class DroitsRetr {
   /**
  * \class DroitsRetr
- * \brief Droits à retraite, à la fois pour le privé et le public
+ * \brief Droits à retraite dans les différents régimes.
  * 
  * Cette classe détermine les droits directs à la liquidation pour un individu,
  * une législation et un âge de liquidation donné. 
  * 
  * L'objet est créé et utilisé par les fonctions \ref TestLiq et \ref TestSecondLiq
  * dans le fichier \ref OutilsComp.h.
- * Ces dernières fonctions sont appelée depuis la classe Retraite dans laquelle est
- * conservé ces droits à liquidation, si l'individu décide de liquider et sont ensuite
- * actualisées les pensions perçues.
+ * Ces dernières fonctions sont appelée depuis la classe \ref Retraite dans laquelle les droits à liquidation
+ * sont conservés. Les pensions perçues sont ensuite actualisées si l'individu décide de liquider.
  * 
  * Un objet de cette classe est créé pour chaque individu à chaque âge testé. 
  * Un (ou deux si liquidation en deux étapes) objet est ensuite conservé pour l'âge
- * auquels l'individu liquide.
+ * auquel l'individu liquide.
  * 
  * Calcul des pensions de droits directs des régimes de base (régimes en annuités) 
  * ===============================================================================
@@ -43,7 +42,7 @@ class DroitsRetr {
  * à partir de 2005.
  * - tauxliq = Taux de liquidation = fixé en fonction de la durée d'assurance, tous
  * régimes confondus. Le taux maximum, dit « taux plein », est de 50% (75% pour la fonction publique).
- * - taux_prorat = Coefficient de proratisation = est le rapport entre les nombre de trimestres d'assurance (cotisés ou non) et la durée de référence de 150 à 164 trimestres, en fonction de l'année
+ * - taux_prorat = Coefficient de proratisation. C'est le rapport entre le nombre de trimestres d'assurance (cotisés ou non) et la durée de référence de 150 à 164 trimestres, en fonction de l'année
  * de naissance (durée d’assurance requise à partir de la génération 1948).
  * 
  * 
@@ -51,7 +50,7 @@ class DroitsRetr {
  * 
  * Cette formule de base est en outre modifiée par le minimum contributif (ou garanti pour la FP) et majorée d’une bonification pour les mères de 3 enfants.
  * 
- * Il existe des minima de pension (« minimum contributif » au régime général RG et aux régimes alignés RSI MSA, « minimum garanti » dans la fonction publique). Le montant du minimum est calculé au prorata de la durée validée (et peut donc être très faible) : il ne s’agit donc pas rigoureusement d’une logique de revenu minimum. La comparaison pension/minimum de pension est faite à la liquidation avec la fonction AppliqueMin.
+ * Il existe des minima de pension (« minimum contributif » au régime général RG et aux régimes alignés RSI MSA, «~minimum garanti~» dans la fonction publique). Le montant du minimum est calculé au prorata de la durée validée (et peut donc être très faible) : il ne s’agit donc pas rigoureusement d’une logique de revenu minimum. La comparaison pension/minimum de pension est faite à la liquidation avec la fonction AppliqueMin.
  *  
  * 
  * Calcul des pensions de droits directs des régimes complémentaires (régimes en points)
@@ -64,15 +63,16 @@ class DroitsRetr {
  *	Le taux de liquidation dépend de 
  *   - l'âge à la liquidation 
  *   - de la durée validée dans les régimes de base 
- *	- Application d’un taux d’abattement, équivalent de la décote à l’AGIRC ARRCO
+ *	Un taux d’abattement, équivalent de la décote à l’AGIRC ARRCO, est ensuite appliqué.
  *
- *   Le nombre de points dépend de la carrière :
- *   Au cours de la carrière : acquisition de points, en fonction des cotisations
- *   Nombre de points = (Revenu salarial * taux de cotisation) / valeur d’achat du point
- *   Le taux d’appel, qui fixe la part de cotisation ne donnant pas droit à des points, est égal à 125% actuellement. 
+ *   Le nombre de points dépend de la carrière.\\
+ *   Au cours de la carrière, l'acquisition de points se fait en fonction des cotisations suivant la formule:
+ *   Nombre de points = (Revenu salarial * taux de cotisation) / valeur d’achat du point.\\
+ *   Le taux d’appel, qui fixe la part de cotisations ne donnant pas droit à des points, est égal à 125% actuellement. 
  * 
  * Les droits à liquidation sont calculés en quatre étapes :
  * =========================================================
+ * 
  * 
  * - calcul des durées de base (\ref durees_base)
  * - calcul des durées majorées (\ref durees_majo ). Ceci permet la détermination de l'âge d'ouverture des droits.
@@ -115,7 +115,7 @@ class DroitsRetr {
   double agefin_totliq = 0,       ///< Âge fin de mois de liquidation totale  
          agefin_primoliq = 0;     ///< Âge fin de mois de primo-liquidation 
          
-  int    ageliq = 0,              ///< Âge à la liquidation de la totalité des droits (age entier au 31/12 de l'année) 
+  int    ageliq = 0,              ///< Âge à la liquidation de la totalité des droits (âge entier au 31/12 de l'année) 
          ageprimoliq = 0;
   
   double  duree_cho = 0,          ///< Durée cumulée au chômage (au RG)   
@@ -140,7 +140,7 @@ class DroitsRetr {
   
   double duree_rg_maj = 0,        ///< Durée RG incluant AVPF et MDA (selon options)  
          duree_fp_maj = 0,        ///< Durée FP incluant MDA éventuelle (selon options) 
-         duree_in_maj = 0,        ///< Durée indépendant incluant MDA éventuelle(selon options) 
+         duree_in_maj = 0,        ///< Durée indépendant incluant MDA éventuelle (selon options) 
          duree_tot_maj  = 0;      ///< Durée totale incluant AVPF et MDA (selon options) 
   
   double durdecote_fp = 0,        ///< Durée (en année) déterminant la surcote à la fp (durée = 0 pour un départ sans surcote)  
@@ -153,12 +153,12 @@ class DroitsRetr {
          tauxliq_ar = 0;          ///< taux de liquidation à l'ARRCO età l'AGIRC (=1 en cas de départ sans décote ni surcote) 
   
   double  majo_min_rg = 0,        ///< montant de la majoration de pension au RG liée à l'application du minimum contributif (montant différentiel inclus dans $pension_rg) 
-          majo_min_in = 0,        ///< montant de la majoration de pension au régime d'indépendant liée à l'application du minimum contributif (montant différentiel inclus dans $pension_rg) 
+          majo_min_in = 0,        ///< montant de la majoration de pension chez les indépendants liée à l'application du minimum contributif (montant différentiel inclus dans $pension_rg) 
           majo_min_fp = 0,        ///< montant de la majoration de pension à la FP liée à l'application du minimum garanti (montant différentiel inclus dans $pension_rg) 
           majo_3enf_rg = 0,       ///< montant de la majoration de pension totale (droits directs + réversion) pour 3 enfants au RG 
           majo_3enf_ar = 0,       ///< montant de la majoration de pension totale (droits directs + réversion) pour 3 enfants à l'ARRCO 
           majo_3enf_ag = 0,       ///< montant de la majoration de pension totale (droits directs + réversion) pour 3 enfants à l'AGIRC 
-          majo_3enf_in = 0,       ///< montant de la majoration de pension totale (droits directs + réversion) pour 3 enfants au régime d'indépendant 
+          majo_3enf_in = 0,       ///< montant de la majoration de pension totale (droits directs + réversion) pour 3 enfants chez les indépendants 
           majo_3enf_fp = 0,       ///< montant de la majoration de pension totale (droits directs + réversion) pour 3 enfants à la FP 
 		      majo_3enf_ag_ar = 0;	  ///< montant de la majoration de pension totale (droits directs + réversion) pour 3 enfants à l'ARRCO 
   
@@ -174,7 +174,7 @@ class DroitsRetr {
   
   double points_arrco = 0,        ///< cumul points ARRCO 
          points_agirc = 0,        ///< cumul points AGIRC 
-         ntp_FP = 0 ,             ///< nombre de points ARRCO "fictifs", calculé sur la base des salaires des fonctionnaires (ne seront pris en compte que si le fonctionnaire n'atteint pas la condition de fidélité)*/
+         ntp_FP = 0 ,             ///< nombre de points ARRCO "fictifs", calculé sur la base des salaires des fonctionnaires (ne seront pris en compte que si le fonctionnaire n'atteint pas la condition de fidélité)
 		 points_agirc_arrco =0,   ///< cumul points régime unifié AGIRC-ARRCO (cf. accord de 2015)
 		 maj_points_arrco = 0,	  ///< cumul des points ARRCO dus pour majoration au titre des 3 enfants
 		 maj_points_agirc = 0,	  ///< cumul des points AGIRC dus pour majoration au titre des 3 enfants
@@ -200,7 +200,7 @@ class DroitsRetr {
 
   
   double coeffTemp = 1.0;         ///< coefficient temporaire Agirc Arrco
-  double ageAnnulCoeffTemp = 0.0; ///< age d'annulation du coefficient temporaire Agirc Arrco
+  double ageAnnulCoeffTemp = 0.0; ///< âge d'annulation du coefficient temporaire Agirc Arrco
   
   
   double tp = 0;                  ///< indicatrice taux plein 
@@ -217,16 +217,16 @@ class DroitsRetr {
   int age = 0;                    ///< age au 31/12 testé 
   double datetest = 0;            ///< date testée 
 
-  /** \brief Contruit un nouvel objet DroitsRetr pour un individu, une législation et un age de test donnés */
+  /** \brief Contruit un nouvel objet DroitsRetr pour un individu, une législation et un âge de test donnés */
   DroitsRetr(const Indiv& X, Leg& leg, double f_agetest);
   
   /**  \fn Méthode duree_trim
-   *   \brief Calcul la durée en trimestres passée dans un ou plusieurs statuts donnés 
+   *   \brief Calcule la durée en trimestres passée dans un ou plusieurs statuts donnés 
    * 
-   *     @param status_cpt : vector des statuts comptabilisés 
+   *     @param status_cpt : vecteur des statuts comptabilisés 
    *     @return durée en années (multiple de 0.25)
    * 
-   *   Complément de la fonction \ref durees_base, en fonction de l'age de test.
+   *   Complément de la fonction \ref durees_base, en fonction de l'âge de test.
    *   Calcule les durées passées par l'individu X dans un ou plusieurs états, jusqu'à
    *   l'âge de test. Les durées pour l'année civile de l'âge en argument sont arrondies 
    *   au nombre de trimestres civils jusqu'au
@@ -239,7 +239,7 @@ class DroitsRetr {
   
   /** 
    *  \fn Méthode durees_base()
-   *  \brief calcul des durées de base (durées cotisations et AVPF) 
+   *  \brief Calcul des durées de base (durées cotisations et AVPF) 
    * 
    *  Calcule les durées cotisées dans les différents régimes et la durée AVPF pour
    *  l'individu X. 
@@ -252,14 +252,14 @@ class DroitsRetr {
    * 
    * 
    *  NB :  pour l'instant on interdit de percevoir de l'AVPF aux personnes
-   *  qui n'ont jamais validé de période en emploi au RG mais seulement du chômage
+   *  qui n'ont jamais validé de période en emploi au RG mais seulement du chômage.
    *  Elles ont quand même des CodeAvpf parce que ce n'est pas pris en compte
    *  dans ImputSupp  
    * 
   */
   void durees_base();
   
-  /** \brief calcul des durées majorées 
+  /** \brief Calcul des durées majorées 
    * 
    *  Repart des durées calculées par \ref durees_base, et calcule les durées majorées 
    *  (\ref duree_rg_maj , \ref duree_fp_maj , \ref duree_in_maj , \ref duree_tot_maj)
@@ -268,7 +268,7 @@ class DroitsRetr {
   */
   void durees_majo();
   
-  /** \brief calcule les durées de décote et surcote et les taux de liquidation
+  /** \brief Calcule les durées de décote et surcote et les taux de liquidation
    * 
    * Calcule les durées de décote et surcote et les taux de liquidation
    * ( les durées de décote et surcote sont exprimées en année, 
@@ -278,7 +278,7 @@ class DroitsRetr {
    *  Cette fonction nécessite d'avoir auparavant lancé les fonctions de calcul des durées 
    *  (durees_majo et durees_base)
    * 
-   *  cette méthode renseigne les variables suivantes :
+   *  Cette méthode renseigne les variables suivantes :
    *  - \ref dursurcote , \ref durdecote_fp , \ref dursurcote_fp , \ref durdecote_rg
    *  - \ref tauxliq_rg , \ref tauxliq_fp , \ref tauxliq_ar
    * 
@@ -290,7 +290,7 @@ class DroitsRetr {
   void DecoteSurcote();
   
   /** 
-   *  \brief Indique si l'individu a atteint l'age minimum d'ouverture des droits. 
+   *  \brief Indique si l'individu a atteint l'âge minimum d'ouverture des droits. 
    *  @return retourne true si l'individu a atteint l'âge minimum d'ouverture des droits, false sinon.
    *  
    *  Cette méthode indique si l'individu a atteint l'age minimum d'ouverture des droits, en particulier elle
@@ -309,9 +309,9 @@ class DroitsRetr {
    */
   double AgeMax();
   
-  /** \brief calcule les pensions aux différents régime hors FP lors de la seconde liquidation (appel de \ref liq_privee et \ref liq_public) 
+  /** \brief Calcule les pensions aux différents régime hors FP lors de la seconde liquidation (appel de \ref liq_privee et \ref liq_public) 
    * 
-   * calcule les pensions aux différents régime hors FP lors de la seconde liquidation (appel de \ref liq_privee et \ref liq_public) 
+   * Calcule les pensions aux différents régime hors FP lors de la seconde liquidation (appel de \ref liq_privee et \ref liq_public) 
     Permet la liquidation finale de tous les droits pour les personnes qui liquident en 2 temps
 	(cas des polyaffiliés public-privé, dont le niveau de pension FP (seule) suffit pour déterminer
 	leur âge de départ à la retraite, mais qui n'ont pas encore atteint l'âge d'ouverture des droits dans le privé
@@ -322,18 +322,16 @@ class DroitsRetr {
   */
   void SecondLiq();
   
-  /** \brief calcule les pensions aux différents régime (appel de liq_privee et liq_public)
+  /** \brief Calcule les pensions aux différents régime (appel de liq_privee et liq_public)
 
-  Simule la liquidation a l'âge courant. Cette fonction n'a pas de valeur de
-  retour. Elle modifie les variables pension_rg,
-  pension_fp ... et pension et ageliq.   
+  Simule la liquidation à l'âge courant. Cette fonction n'a pas de valeur de
+  retour. Elle modifie les variables pension_rg, pension_fp ... et pension et ageliq.   
   
   Remarque (09/12/2011) :
-  
   Pour permettre la programmation de la liquidation en deux temps des polyaffiliés public/privé,
   deux sous-modules LiqPrive et LiqPublic ont été créés, reprennant la partie de Liq correspondante.
   Ces deux fonctions calculent l'avantage principal de droit direct, HORS MINIMUM et hors bonification.
-  Il faut donc ensuite appeler les fonctions qui applications ces deux types de majoration.
+  Il faut donc ensuite appeler les fonctions qui appliquent ces deux types de majoration.
 
   */ 
   void Liq();
@@ -353,12 +351,12 @@ class DroitsRetr {
   /** \brief calcul du SAM à partir des salaires portés aux compte pour les n meilleurs années 
    * 
    * Calcul du salaire annuel moyen à partir des salaires versés
-   * aux comptes. Le calcul prend en compte que les n meilleurs années
+   * aux comptes. Le calcul ne prend en compte que les n meilleurs années
    * contrairement à \ref calc_sam
   */
   double calc_sam(double* spc_begin, double* spc_end, int duree_calc);
   
-  /** \brief calcul des SAM et du salaire de référence pour la FP 
+  /** \brief Calcul des SAM et du salaire de référence pour la FP 
    * 
    * Calcule les salaires servant de base au calcul des pensions de base, ie. les
    * SAM pour le RG et les régimes d'indépendants et le salaire de référence FP.
@@ -380,17 +378,17 @@ class DroitsRetr {
    * 
    * Prise en compte de l'avpf en fonction des options NoAVPF et NoSpcAVPF.
    * 
-   * Pour calcul du sam prise en compte des options SAMRgInUnique, SAMUnique et SAMSepare pour législations fictives, en particulier pour l'hypothèse de fusion des régimes (impact pour les polyaffiliés).
+   * Pour le calcul du sam, prise en compte des options SAMRgInUnique, SAMUnique et SAMSepare pour législations fictives, en particulier pour l'hypothèse de fusion des régimes (impact pour les polyaffiliés).
    *
    */
   void SalBase(int AnneeRefAnticip=9999);
   
-  /** \brief calcul des décomptes de points ARRCO, AGIRC et comptes notionnels
+  /** \brief Calcul des décomptes de points ARRCO et AGIRC.
    * 
     Calcule les nombres de points accumulés dans les régimes ARRCO et AGIRC et stocke les résultats dans
     les variables \ref points_arrco, \ref points_agirc.
 	
-    La fonction intègre dorénavant le calcul des points gratuits attribués au titre des périodes de chômage et de préretraite, ainsi que les points gratuits de GMP (garantie minimale de points) à l'Agirc
+    La fonction intègre le calcul des points gratuits attribués au titre des périodes de chômage et de préretraite, ainsi que les points gratuits de GMP (garantie minimale de points) à l'Agirc
   */
   void Points(int AnneeRefAnticip=9999);
   
@@ -416,10 +414,10 @@ class DroitsRetr {
 		Fonction appelée par liq ou secondLiq.
 		Cette fonction applique les dispositifs de minimum contributif et de minimum garanti 
 		à l'ensemble des pensions, le calcul des avantages principaux
-		de droits directs hors min ayant été déjà réalisés au préalable.
+		de droits directs hors min ayant été réalisé au préalable.
   
-		L'écrêtement des minimum selon une règle tous régimes, prise dans la LFSS 2009 
-		pour une application à partir de 2012 est programmée.
+		L'écrêtement des minimum est programmée selon une règle tous régimes, prise dans la LFSS 2009 
+		pour une application à partir de 2012.
   */
   void AppliqueMin();
   
@@ -431,12 +429,12 @@ class DroitsRetr {
     Comme cette fonction n'est appelée que juste après le calcul des avantages principaux 
     de droit direct OU dérivé, on utilise les variables
     $agefin_primoliq, $agefin_totliq et $agerevliq pour savoir à quelles pensions la bonification 
-    doit être appliquée (et, a contrario,
+    doit être appliquée (et, \textit{a contrario},
      auxquelles elle l'a déjà été au cours d'étapes précédentes).
      
     Remarque : on utilise notamment le fait que, pour les droits directs, 
     la fonction est appelée APRES le calcul du montant de pension (hors bonification)
-    mais AVANT la définition des variables d'âge fin
+    mais AVANT la définition des variables d'âge fin.
     
     Remarque : ne sont pas encore programmées ici :
     - la modification du taux de bonification à l'Agirc et à l'Arrco pour les points acquis après 2012

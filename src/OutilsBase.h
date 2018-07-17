@@ -61,7 +61,7 @@ using namespace Rcpp;
 
 
 /**
- * Macro testant une assertion et arretant le programme 
+ * Macro testant une assertion et arrêtant le programme 
  * si l'assertion est invalide
  */
 
@@ -69,12 +69,12 @@ using namespace Rcpp;
 
 
 /**
- * \brief Calcul la valeur d'une fonction affine par morceaux.
+ * \brief Calcule la valeur d'une fonction affine par morceaux.
  * 
  * Calcule la valeur en un point donné d’une fonction affine par morceaux.
  * On donne le point où on souhaite l'évaluer et un nombre arbitraire de paires xi,yi 
  * (avec x croissant) correspondant aux points anguleux. 
- * La fonction est supposée constante avant et aprés le dernier point fournis
+ * La fonction est supposée constante avant et après le dernier point fournis
  * 
  * Exemple :
  * ` double y = affn(x, {2010,0,2020,10});`
@@ -95,10 +95,10 @@ inline double affn(double v, const vector<double> & u) {
 /**
  * \brief Retourne la valeur d'une fonction constante par morceaux.
  * 
- * Calcule valeur en un point donné d’une fonction constante par morceaux.
+ * Calcule la valeur en un point donné d’une fonction constante par morceaux.
  * On donne le point où on souhaite l'évaluer et un nombre arbitraire de paires xi,yi 
  * (avec x croissant) correspondant aux points de discontinuités. 
- * La fonction est supposée constante avant et aprés le dernier point fournis
+ * La fonction est supposée constante avant et après le dernier point fournis
  * 
  * Exemple :
  * ` double y = esc(x, {0, 2010, 5,2020,10});`
@@ -187,9 +187,9 @@ inline int int_mois(double annee, double mois) {
 
 
 /**
- * \brief test appartenance à un ensemble de taille quelconque
+ * \brief Test d'appartenance à un ensemble de taille quelconque
  * 
- * Test appartenance à un ensemble de taille quelconque
+ * Test d'appartenance à un ensemble de taille quelconque
  * \return true si x est présent dans le vecteur ens, false sinon
  * \param x entier dont l'appartenance est testé
  * \param ens vecteur de l'ensemble des valeurs auquel on teste l'appartenance
@@ -239,16 +239,13 @@ inline double ArrTrimInf(double x) {
 \brief fonction LogLogist
 
 Tirage d'une VA selon une loi LogLogistique de fonction de répartition
-z**a/(b+z**a) paramétrée par deux quelconques de ses quantiles, par
-exemple
-
+z**a/(b+z**a) paramétrée par deux quelconques de ses quantiles. Par exemple
  `x=LogLogist(.25,2,.5,3,S.alea())`
-
 tirera une VA à valeurs positives dont le premier quartile est à 2 et la
 médiane est à 3.
 
 Si l'on ajoute un argument supplémentaire, cet argument est pris comme valeur de l'aléa par défaut.
-Sinon, un aléa est tiré selon une loi uniforme.   (modif le 21/12/2011)
+Sinon, un aléa est tiré selon une loi uniforme.   
 
 **/
 inline double LogLogist(double q1, double v1, double q2, double v2, double alea) {

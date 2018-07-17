@@ -88,7 +88,7 @@ struct Salaire {
   *  cadres correspondent alors aux salariés du privé faisant partie des p% plus hauts salaires. Cela revient à calculer le quantile d’ordre
   *  1-p de la distribution des salaires dans le privé et à sélectionner les salaires supérieurs à ce quantile. p est
   *  une fonction affine par morceaux de t, déterminée par les valeurs suivantes : p(1930)=5%, p(2005)=20%, p(2015)=23%, p(2025)=24%
-  *  et p(2050)=25%. Afin de rendre compte de la faible mobilité sociale, les salaires des individus ayant été cadres en t-1 sont multipliés
+  *  et p(2050)=25%. Le statut de cadre étant supposé relativement absorbant, les salaires des individus ayant été cadres en t-1 sont multipliés
   *  par 2, de sorte à accroître leur rang dans l’échelle des salaires et à augmenter leur chance de rester cadres.
   */
   void imput_statut_cadre(int t);

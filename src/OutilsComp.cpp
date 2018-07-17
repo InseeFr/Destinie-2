@@ -246,7 +246,7 @@
   
   /**
    * \fn TestLiq
-   * Teste si départ en retraite de l'individu X, pour un age donné  selon l'option de
+   * Teste si départ en retraite de l'individu X, pour un âge donné  selon l'option de
    * comportement choisie. La mise à la reraite est systématique à 70 ans,
    * quelle que soit l'option de comportement choisie
    */

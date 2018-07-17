@@ -214,15 +214,8 @@ void destinieCalageSalaires(Environment envSim) {
   
 }
 
-/**
-  Fonction destinieSim : Lance une simulation en utilisant la fonction SimDir. La fonction boucle sur chaque année
-  de simulation. Pour chaque année elle boucle sur chaque individu pour le calcul des droits directs, puis boucle
-  à nouveau sur chaque individu pour le calcul des droits indirects et enfin boucle sur chaque individu pour le calcul
-  du minimum vieillesse.
-  
-  L'avantage de la fonction destinieSim sur la fonction destinieSimIndiv est qu'elle calcul les droits indirects et le minimum vieillesse.
-  
-*/
+//Note: la description qui suit permet de documenter le package R.
+
 //' Fonction destinieSim
 //' @description Calcule les droits retraites des individus.
 //' Lance une simulation en utilisant la fonction SimDir. 

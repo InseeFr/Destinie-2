@@ -1,7 +1,7 @@
 #pragma once
 /**
  * \file Naissance.h
- * \brief Naissances contient la fonction qui simule les naissances.
+ * \brief Contient la fonction \ref naissance qui simule les naissances.
  */
 
 

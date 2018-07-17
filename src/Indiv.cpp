@@ -184,7 +184,7 @@ bool present(int id, int t)
     return X.est_present(t) ;
 }
 
-/** Probabilité de survie à l'âge age1 sachant survie à l'âge age0 */
+/** Probabilité de survie à l'âge age1 sachant la survie à l'âge age0 */
 double Indiv::survie(int age1, int age0) {
   return M->survie[sexe](min(date(age1),160), min(age1,120)) /
       M->survie[sexe](min(date(age0),160), min(age0,120));

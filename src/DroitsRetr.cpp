@@ -104,7 +104,7 @@ void DroitsRetr::durees_base() {
     }
 
     if (t>48 && t<72)       
-        duree_rg = max( duree_rg, 0.5*duree_rg+15);       ///???
+        duree_rg = max( duree_rg, 0.5*duree_rg+15);       // ?? à comprendre
 
     // Durées agrégées
     duree_fp  =    duree_fps +   duree_fpa;
@@ -132,7 +132,7 @@ void DroitsRetr::durees_base() {
         duree_fp    = duree_fpa = duree_fps = 0;
     }
 	
-	if(l.an_leg < 2015 || t < 119 || options->NoAccordAgircArrco || options->NoRegUniqAgircArrco) { // gros doute. Prendre en compte les points acquis en cas de chômage indemnisé ?
+	if(l.an_leg < 2015 || t < 119 || options->NoAccordAgircArrco || options->NoRegUniqAgircArrco) { // A revoir: faut-il prendre en compte les points acquis en cas de chômage indemnisé ?
 		duree_ar = duree_trim(statuts_emprg)+resteTrimPrimo;
 		//duree_ag_ar = 0;
 	}
@@ -259,13 +259,9 @@ void DroitsRetr::durees_majo() {
 	
 }
 
-/** Fonction DecoteSurcote
-
-  Cette fonction calcul les durées de décote et surcote 
-  (exprimées en année, mais pouvant prendre des valeurs arrondies à 0.25 près,
-  c'est-à-dire au trimestre près). Remplit les variables 
+// Fonction DecoteSurcote
+/*  Cette fonction calcule les durées de décote et surcote.  Remplit les variables 
   durdecote_rg, dursurcote_rg, durdecote_fp, dursurcote_fp.
-  
   Cette fonction nécessite d'avoir auparavant lancé les fonctions de calcul des durées 
   (durees_majo et durees_base)
 */
@@ -347,7 +343,7 @@ void DroitsRetr::DecoteSurcote()
     // (RQ : modification des valeurs le 28/03/2013 suite à la prise en compte des statuts invalidité => on diminue forfaitairement toutes les proportions d'inaptes de 6 points )
     if (k_val_q_ho != k_median_ho && k_val_q_fe != k_median_fe && !options->NoInaptLiqTauxPlein)
     {
-        // Modif Y.D. 2015/11/20 : rapprochement taux d'inaptes hommes / femmes
+        // Modif 2015/11/20 : rapprochement taux d'inaptes hommes / femmes
         /*static vector<double> inaptes_ho = {1910,0.24 , 1916,0.34 , 1925,0.07};
         static vector<double> inaptes_fe = {1910,0.09 , 1916,0.24 , 1928,0.14};*/
         static vector<double> inaptes_ho = {1910,0.24 , 1916,0.34 , 1925,0.07};
@@ -497,10 +493,9 @@ double DroitsRetr::AgeMax()
 }
   
   
-  /**
-   * Calcul du salaire annuel moyen à partir des salaires versés
-   * aux comptes
-   */
+  
+  //Calcul du salaire annuel moyen à partir des salaires versés
+  //aux comptes
   double DroitsRetr::calc_sam(double* spc_begin, double* spc_end) {
       double sum=0;
       int cpt = (spc_end-spc_begin);
@@ -511,10 +506,9 @@ double DroitsRetr::AgeMax()
       return cpt  ?  sum / cpt  :  0;
   }
 
-  /**
-   * Calcul du salaire annuel moyen à partir des salaires versés
-   * aux comptes des n meilleurs années
-   */
+  
+  //Calcul du salaire annuel moyen à partir des salaires versés
+  //aux comptes des n meilleurs années
   double DroitsRetr::calc_sam(double* spc_begin, double* spc_end, int duree_calc) {
       double* nth_elt = max(spc_begin,spc_end-duree_calc);
       int cpt= (spc_end - nth_elt);
@@ -532,12 +526,11 @@ double DroitsRetr::AgeMax()
   
   
   
-  /** Fonction SalBase
-   * Calcule les salaires servant de base au calcul des pensions de base, ie. les
-    SAM pour le RG et les régimes d'indépendants et le salaire de référence FP.
-    Les résultats sont stockés dans sam_rg, sam_in et sr_fp.
-   */
-  void DroitsRetr::SalBase(int AnneeRefAnticip) {
+  // Fonction SalBase
+  // Calcule les salaires servant de base au calcul des pensions de base, ie. les
+  //  SAM pour le RG et les régimes d'indépendants et le salaire de référence FP.
+  //  Les résultats sont stockés dans sam_rg, sam_in et sr_fp.
+     void DroitsRetr::SalBase(int AnneeRefAnticip) {
       static const vector<double> dureeCalcSAM_in1993 = {1933,10,1943,15,1953,25};
         
       int date = int_mois(X.anaiss + agetest,X.moisnaiss + 1) % 1900;
@@ -563,7 +556,7 @@ double DroitsRetr::AgeMax()
       int u = age;
       if(!options->FPCarTot) {
           while(!in(X.statuts[u], {311,321,331,312,322,332}) && u >= 15)   u--;		// Modif 22/06/2017 : on ne retient pas les années passées en invalidité dans la FP pour déterminer le dernier salaire FP
-          /// TODO: Annee ref anticipée
+          // TODO: Annee ref anticipée
           sr_fp = X.salaires[u] * M->PointFP[date] / M->PointFP[max(date-age+u, 30)];
       }
       else {
@@ -574,7 +567,7 @@ double DroitsRetr::AgeMax()
               int t = (X.anaiss + a ) % 1900;
               if( in(X.statuts[a], Statuts_FP )) {
                  spc_fp[spc_fp_cpt++] = min(X.salaires[a], M->PlafondSS[t]) * revalcum;
-                 revalcum *= M->RevaloSPC[t]; /// TODO: Annee ref anticipée
+                 revalcum *= M->RevaloSPC[t]; // TODO: Annee ref anticipée
               }
           }
   
@@ -586,18 +579,18 @@ double DroitsRetr::AgeMax()
               sr_fp = calc_sam(spc_fp, spc_fp + spc_fp_cpt, l.DureeCalcSAM);
           
       }
-      /// Prise en compte du salaire hors primes
+      // Prise en compte du salaire hors primes
       sr_fp /= (1+X.taux_prim);
   
       t = date;
   
-      /// si l'individu n'a pas atteint l'âge de liquider au RG, on s'arrête là, sinon on calcule les SAM et RAM au RG et pour les indépendants
+      // Si l'individu n'a pas atteint l'âge de liquider au RG, on s'arrête là, sinon on calcule les SAM et RAM au RG et pour les indépendants
   
       if (agetest < l.AgeMinRG) return;
   
-      /// Pour les carrières du privé, calcul des séquences de salaires revalorisés
-      /// et portés au compte (on exclut les années à salaire nul, et on range les
-      ///  valeurs par ancienneté croissante)
+      // Pour les carrières du privé, calcul des séquences de salaires revalorisés
+      // et portés au compte (on exclut les années à salaire nul, et on range les
+      //  valeurs par ancienneté croissante)
   
       double revalcum = (date <= AnneeRefAnticip) ? M->RevaloSPC[date] : M->Prix[date] / M->Prix[date-1];
   
@@ -899,14 +892,14 @@ struct Retraite_comp {
     Comme cette fonction n'est appelée que juste après le calcul des avantages principaux 
     de droit direct OU dérivé, on utilise les variables
     $agefin_primoliq, $agefin_totliq et $agerevliq pour savoir à quelles pensions la bonification 
-    doit être appliquée (et, a contrario,
+    doit être appliquée (et, \textit{a contrario},
      auxquelles elle l'a déjà été au cours d'étapes précédentes).
      
     Remarque : on utilise notamment le fait que, pour les droits directs, 
     la fonction est appelée APRES le calcul du montant de pension (hors bonification)
-    mais AVANT la définition des variables d'âge fin
+    mais AVANT la définition des variables d'âge fin.
     
-    Remarque : ne sont pas encore programmés ici :
+    Remarque : ne sont pas encore programmées ici :
     - la modification du taux de bonification à l'Agirc et à l'Arrco pour les points acquis après 2012
     - la proratisation de la limite de 1000 euros par an pour la bonification Agirc et Arrco après 2012
    */
@@ -929,7 +922,7 @@ struct Retraite_comp {
      
      tauxmajo_in = 0.1;
   
-     /// modification des valeurs des variables, selon les cas
+     // modification des valeurs des variables, selon les cas
      
      // primoliquidation des droits directs (à la FP)
      if (!X.retr->primoliq && pension_fp)   
@@ -966,7 +959,7 @@ struct Retraite_comp {
         majo_min_in  *= (1+tauxmajo_in);
      }
      
-     /// pour la réversion (A REVOIR : ce serait sans doute mieux de traiter la réversion de manière spécifique ...)
+     // pour la réversion (A REVOIR : ce serait sans doute mieux de traiter la réversion de manière spécifique ...)
   }
   
   
@@ -1082,16 +1075,12 @@ struct Retraite_comp {
   }
   
   
-  /**
-  Fonction AppliqueMin
-
-  Cette fonction applique les dispositifs de minimum contributif et de minimum garanti 
-  à l'ensemble des pensions, le calcul des avantages principaux
-  de droits directs hors min ayant été déjà réalisés au préalable.
   
-  L'écrêtement des minimum selon une règle tous régimes, prise dans la LFSS 2009 
-  pour une application à partir de 2012 est programmée.
-  */
+
+  // Cette fonction applique les dispositifs de minimum contributif et de minimum garanti 
+  //à l'ensemble des pensions, le calcul des avantages principaux
+  //de droits directs hors min ayant été déjà réalisés au préalable.*/
+
   void DroitsRetr::AppliqueMin()
   {
      double date = arr_mois(X.anaiss + agetest, X.moisnaiss+1);
@@ -1118,7 +1107,7 @@ struct Retraite_comp {
         if (min_garanti>0 && tauxliq_fp>1)  min_garanti    += (tauxliq_fp-1)/tauxliq_fp*pension_fp;
      }
   
-     /// calcul du plafond d'écrêtement : revaloration comme le SMIC à partir de la valeur prévue pour 2012
+     // calcul du plafond d'écrêtement : revaloration comme le SMIC à partir de la valeur prévue pour 2012
      //if ((l.LegMin<2009) || (t<112))        plafecret = 999999;
      //else if ((l.LegMin<2013) || (t<114))   plafecret = (12*1005)*sqrt(M->SMIC[t]/M->SMIC[112]);  //modification pour la réforme 2013
      //else                                   plafecret = (12*1120)*sqrt(M->SMIC[t]/M->SMIC[114]);  //modification pour la réforme 2013
@@ -1146,9 +1135,9 @@ struct Retraite_comp {
   
      double diff_tot        = diff_mincont + diff_mincont_in + diff_mingaranti;
   
-     if ( l.LegMin>=2009 && t>=112 && diff_tot>majomax )    ///PLFSS 2009 : application à partir de 2012 d'un écrêtement des minimum selon une condition de pension tous régimes
+     if ( l.LegMin>=2009 && t>=112 && diff_tot>majomax )    // PLFSS 2009 : application à partir de 2012 d'un écrêtement des minimum selon une condition de pension tous régimes
      {
-        if (X.retr->primoliq) /// si les droits FP ont déjà été liquidés -> l'écrêtement ne concerne que le MICO au RG et au RSI
+        if (X.retr->primoliq) // si les droits FP ont déjà été liquidés -> l'écrêtement ne concerne que le MICO au RG et au RSI
         {
            min_cont    = pension_rg + max(0.0, min ( diff_mincont    , majomax*diff_mincont   /(diff_mincont+diff_mincont_in)));
            min_cont_in = pension_in + max(0.0, min ( diff_mincont_in , majomax*diff_mincont_in/(diff_mincont+diff_mincont_in)));
@@ -1262,7 +1251,7 @@ struct Retraite_comp {
      else if (arr_mois(X.anaiss+65,X.moisnaiss)<arr_mois(1983,3))
         pension_rg=min(   taux*M->PlafondSS[t],    taux*prorat*sam_rg  );
      else
-        pension_rg=min(   taux*M->PlafondSS[t],    taux*prorat*sam_rg  ); ///TODO: ????
+        pension_rg=min(   taux*M->PlafondSS[t],    taux*prorat*sam_rg  ); // TODO: ????
 
   
      //versement en VFU si le montant annuel de la pension est trop faible
@@ -1382,30 +1371,15 @@ struct Retraite_comp {
      if (agetest>=l.AgeMinFP)
         taux = 0.75 * tauxliq_fp;
   
-     /// Calcul de la pension
+     // Calcul de la pension
      pension_fp = taux * prorat * sr_fp;
 
   }  //fin de la fonction LiqPublic
   
   
-/**
-
-  Simule la liquidation a l'âge courant. Cette fonction n'a pas de valeur de
-  retour. Elle modifie les variables pension_rg,
-  pension_fp ... et pension et ageliq. 
-  //TODO: Elle modifie aussi les
-  variables $statut_[$i][$age[$i]] et $statut[$i].
-  
-  
-  Remarque (09/12/2011) :
-  
-  Pour permettre la programmation de la liquidation en deux temps des polyaffiliés public/privé,
-  deux sous-modules LiqPrive et LiqPublic ont été créés, reprennant la partie de Liq correspondante.
-  Ces deux fonctions calculent l'avantage principal de droit direct, HORS MINIMUM et hors bonification.
-  Il faut donc ensuite appeler les fonctions qui applications ces deux types de majoration.
-
-*/ 
-  
+  //Simule la liquidation a l'âge courant. Cette fonction n'a pas de valeur de
+  //retour. Elle modifie les variables pension_rg,  pension_fp ... et pension et ageliq. 
+  //TODO: Elle modifie aussi les  variables $statut_[$i][$age[$i]] et $statut[$i].
 void DroitsRetr::Liq()
 {
    if (arr_mois(agetest) < min(arr_mois(l.AgeMinFP), arr_mois(l.AgeMinRG))  || (duree_tot_maj == 0))
@@ -1455,7 +1429,7 @@ void DroitsRetr::Liq()
    else    
       LiqPrive();
 
-   // Modif  Y.D. 12/02/2015 : Simulation pour D.B. option correcteur demo
+   // Modif 12/02/2015 : Simulation pour option correcteur demo
    if(options->coeff_demo && M->correct_demo.size()>0) {
       pension_rg *= M->correct_demo[t];
       pension_fp *= M->correct_demo[t];
@@ -1477,7 +1451,7 @@ void DroitsRetr::Liq()
 	  
 coeffTempo();
   
-   // Modif  Y.D. 12/02/2015 : Simultation pour D.B. option correcteur demo
+   // Modif 12/02/2015 : Simulation pour option correcteur demo
    //if(options->coeff_demo && M->correct_demo.size()>0) {
     //   pension_ar *= M->correct_demo[t] ;//* M->ValPtARRCO[115] / M->ValPtARRCO[t] ;
     //   pension_ag *= M->correct_demo[t] ;//* M->ValPtAGIRC[115] / M->ValPtAGIRC[t] ;
@@ -1543,17 +1517,11 @@ coeffTempo();
    return;
 }
 
-/** Fonction SecondLiq
+//Fonction SecondLiq
+//Permet la liquidation finale de tous les droits pour les personnes qui liquident en 2 temps
+//Par hypothèse, on considère que la liquidation finale a lieu dès que la possibilité de partir au taux plein dans le privé
+//est atteinte
 
-Permet la liquidation finale de tous les droits pour les personnes qui liquident en 2 temps
-(cas des polyaffiliés public-privé, dont le niveau de pension FP (seule) suffit pour déterminer
-leur âge de départ à la retraite, mais qui n'ont pas encore atteint l'âge d'ouverture des droits dans le privé
-au moment de la liquidation dans le public)
-
-Par hypothèse, on considère que la liquidation finale a lieu dès que la possibilité de partir au taux plein dans le privé
-est atteinte
-*/
-  
 void DroitsRetr::SecondLiq() {
 
    int t = int_mois(X.anaiss + agetest, 1+X.moisnaiss)%1900;
@@ -1564,7 +1532,7 @@ void DroitsRetr::SecondLiq() {
    
    LiqPrive();
    
-   // Modif  Y.D. 12/02/2015 : Simultation pour D.B. option correcteur demo
+   // Modif  12/02/2015 : Simulation option correcteur demo
    if(options->coeff_demo && M->correct_demo.size()>0) {
       pension_rg *= M->correct_demo[t];
       pension_in *= M->correct_demo[t];
@@ -1576,7 +1544,7 @@ void DroitsRetr::SecondLiq() {
        AppliqueBonif();
 
 coeffTempo();
-   // Modif  Y.D. 12/02/2015 : Simultation pour D.B. option correcteur demo
+   // Modif 12/02/2015 : Simulation option correcteur demo
    //if(options->coeff_demo && M->correct_demo.size()>0) {
   //     pension_ar *= M->correct_demo[t];// * M->ValPtARRCO[115] / M->ValPtARRCO[t] ;
   //     pension_ag *= M->correct_demo[t];// * M->ValPtAGIRC[115] / M->ValPtAGIRC[t] ;

@@ -4,7 +4,7 @@
 # include "OutilsBase.h"
 using namespace std;
 
-/** comparer les individus en fonction de leur âge de fin d'étude*/
+/** Compare les individus en fonction de leur âge de fin d'étude*/
 struct ordre_findet {
   inline bool operator() (const int c1,const int c2) const
   { Indiv& X1=pop[c1];

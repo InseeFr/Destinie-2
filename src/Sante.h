@@ -1,9 +1,9 @@
 #pragma once
 /**
  * \file Sante.h
- * \brief Imputation d'un état de sante pour les plus de 50 ans.
+ * \brief Imputation d'un état de sante pour les plus de 50 ans (adl, iadl, gali).
  * 
- * Ce module correspond à l'étude sur l'espérance de vie sans incapacité sévère réalisée par \cite evrsi .
+ * Ce module a été implémenté à l'occasion de l'étude sur l'espérance de vie sans incapacité sévère réalisée par \cite evrsi .
  */
 	
 

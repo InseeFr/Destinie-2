@@ -26,9 +26,9 @@ int NEnfunion(Indiv& X, int age);
 *  \fn mise_en_couple(int t)
 *  \brief La fonction mise_en_couple choisit les personnes seules qui vont se mettrent en couple et les apparient.
 *  
-*  Il y a deux grandes parties dans la fonction mise_en_couple : la première est le calcul de la probabilité 
-*  de mettre en couple ou remettre en couple pour chaque hommes et chaque femme de l'échantillon ; la deuxième partie est de faire
-*  l'appariement entre femme et homme. Pour réaliser l'appariement, on calcule un score basé sur la différence d'âge et la différence
+*  Il y a deux grandes parties dans la fonction mise_en_couple. D'abord le calcul de la probabilité 
+*  de mettre en couple ou remettre en couple pour chaque hommes et chaque femme de l'échantillon. Puis
+*  l'appariement entre femmes et hommes. Pour réaliser l'appariement, on calcule un score basé sur la différence d'âge et la différence
 *  d'âge de fin d'étude pour respecter l'homogamie des couples. Puis successivement à chaque femme ayant été choisie comme se mettant 
 *  en couple, on attribue le partenaire le plus proche au sens du score précédemment calculé. Une fois le couple
 *  formé, les caractaristiques des deux membres du couple sont mises à jour. <br>

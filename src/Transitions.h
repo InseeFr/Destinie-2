@@ -29,194 +29,165 @@ struct EqTrans {
   
       /**
        * \brief Coefficient devant l'indicatrice d'âge égale à 55 ans <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
       */
       _(a55)         ,
       /**
        * \brief Coefficient devant l'indicatrice d'âge égale à 56 ans <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(a56)             , 
       /**
        * \brief Coefficient devant l'indicatrice d'âge égale à 57 ans <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(a57),     
       /**
        * \brief Coefficient devant l'indicatrice d'âge égale à 58 ans <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(a58),
       
       /**
        * \brief  Coefficient devant l'âge <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(age)             ,
       /**
        * \brief Coefficient devant l'âge l'année suivant la fin des études <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(age_a),   
       /**
        * \brief Coefficient devant l'âge, de 1 à 3 ans après la fin des études <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(age_b),
       
       /**
        * \brief Coefficient devant l'âge au carré  <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(age2)        , 
       /**
       * \brief Coefficient devant l'âge l'année suivant la fin des études, au carré <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
       */
       _(age2_a)          ,  
       /**
        * \brief Coefficient devant l'âge, de 1 à 3 ans après la fin des études, au carré <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(age2_b),  
       /**
        * \brief  Coefficient devant l'âge au cube <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(age3),
       
       /**
        * \brief  Coefficient devant l'âge l'année suivant la fin des études, au cube <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(age3_a)      ,  
       /**
        * \brief  Coefficient devant l'âge, de 1 à 3 ans après la fin des études, au cube <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(age3_b)          ,  
       /**
        * \brief Coefficient devant le nombre d’années en emploi depuis la fin de la formation initiale <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(dur_emp),
       
       /**
        * \brief Coefficient devant le nombre d’années consécutives dans le dernier statut <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(dur_statut)  ,  
       /**
        * \brief Coefficient devant la durée au chômage dans les 5 dernières années <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(durchom)         ,  
       /**
        * \brief Coefficient devant la durée en inactivité dans les 5 dernières années <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(durINA), 
       /**
       * \brief Coefficient devant le nombre d’années en inactivité (hors scolarité) dans les 5 dernières années <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        *Note: les descriptions de durINA et de durina sont peut-être interverties.
       */
       _(durina),
       /**
       * \brief Coefficient devant une variable caractéristique d'avoir de 1 à 3 
       * années d'expériences après les études <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
       */
       _(exp1a3)      ,  
       /**
        * \brief Coefficient devant l’âge de fin d’études relatif <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(findet_rel)      ,  
       /**
        * \brief Coefficient devant l’âge de fin d’études relatif, l'année suivant la fin de la scolarité <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014 
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(findet_rel_a),
       
       /**
        * \brief Coefficient devant l’âge de fin d’études relatif, de 1 à 3 ans d'expérience
        *  suivant la fin de la scolarité <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014 
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(findet_rel_b),  
       /**
        * \brief Coefficient devant la constante <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014 
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(Intercept)       ,  
       /**
        * \brief Coefficient devant le nombre d'enfants <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014 
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(nbenf),
       
       /**
        * \brief Coefficient devant le nombre d'enfants de moins de 1 an <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014 
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(NbEnf1)      ,  
       /**
        * \brief Coefficient devant le nombre d'enfants de moins de 3 ans <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014 
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */ 
       _(NbEnf3)          , 
       /**
        * \brief Coefficient devant le nombre d'enfants 
        * (pour les équations sur le début de la vie professionnelle) <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014 
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(nbenf98),
       
       /**
        * \brief Coefficient devant le nombre d'enfants la première année après la fin des études <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014 
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(nbenf98_a)   ,  
       /**
        * \brief Coefficient devantle nombre d'enfants entre 1 et 3 ans après la fin des études <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014 
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(nbenf98_b)       ,  
       /**
-       * \brief Coefficient, non utilisé dans le modèle, devant le fait d'être en pré-retraite. 
+       * \brief Coefficient, non utilisé dans le modèle, devant le fait d'être en pré-retraite. <br>
        * Note : Ce coefficient était nécessaire lors de la phase d'estimation, pour ne pas biaiser
        * les projections. En effet :
-       * "L’estimation des équations de transition a été effectuée à une période durant laquelle 
+       * \textit{L’estimation des équations de transition a été effectuée à une période durant laquelle 
        * les actifs pouvaient partir en préretraite ; le volume d’inactifs y était donc particulièrement 
        * élevé. Afin de neutraliser cet effet des préretraites et donc de ne pas surestimer en projection 
        * les volumes d’inactifs,deux variables ont été créées sur l’échantillon d’estimation :
@@ -224,9 +195,8 @@ struct EqTrans {
        *  l’année etla durée cotisée ; une variable relative au volume de préretraites l’année d’observation.
        *  Le produit de ces deux variables permet de créer une nouvelle variable utilisée comme variable 
        *  explicative des équations de transition pour tenir compte des préretraites et notamment mieux
-       *  modéliser l’effet de l’extinction de certains dispositifs." <br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014 
+       *  modéliser l’effet de l’extinction de certains dispositifs.} <br>
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(PreRetr_ARPE),
       
@@ -247,8 +217,7 @@ struct EqTrans {
       
       /**
        * \brief Coefficient devant une indicatrice pour la première transition à la sortie des études initiales.<br>
-       * Source : estimé à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-       *de Bachelet, Leduc, Marino, 2014 
+       * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(sortant)     ;
   int

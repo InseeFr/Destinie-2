@@ -23,20 +23,20 @@ public:
   int Id        = 0;              ///< Identifiant de l'individu
   int sexe      = 0;              ///< Sexe 
   int anaiss    = 0;              ///< Année de naissance 
-  int findet    = 0;              ///< âge de fin d'étude 
-  int typeFP    = NONFP;          ///< type de fonctionnaire (fonction publique d'état ou fonction publique territoriale ou hospitalière) 
+  int findet    = 0;              ///< Âge de fin d'étude 
+  int typeFP    = NONFP;          ///< Type de fonctionnaire (fonction publique d'état ou fonction publique territoriale ou hospitalière) 
   int neFrance  = 0;              ///< Indicatrice né en france 
   int emigrant	= 0;			        ///< Indicatrice  emigrant
-  int ageMax    = 0;              ///< Age maximal de statut renseigné (min âge décès, âge en fin de projection) 
+  int ageMax    = 0;              ///< Âge maximal de statut renseigné (min âge décès, âge en fin de projection) 
   int moisnaiss = 0;              ///< Mois de naissance (0=janvier, 11=décembre)
-  int dateMinFlux=999999;         ///< date d'entrée dans le minimum vieillesse. Variable créée uniquement pour l'exercice de projection du Cor. A supprimer
+  int dateMinFlux=999999;         ///< Date d'entrée dans le minimum vieillesse. Variable créée uniquement pour l'exercice de projection du Cor. A supprimer
   
   int peudip = 0;				          ///<Indicatrice d'être peu diplomé par rapport à sa génération et son sexe
   int tresdip= 0;				          ///<Indicatrice d'être tres diplomé par rapport à sa génération et son sexe
   int dipl   = 0;                 ///<Niveau de diplôme de l'individu en classes
   
-  double  taux_prim = 0;          ///< taux de prime pour les fonctionnaires 
-  double  k         = 0;          ///< préférence pour le loisir 
+  double  taux_prim = 0;          ///< Taux de prime pour les fonctionnaires 
+  double  k         = 0;          ///< Préférence pour le loisir 
   double  age_exo   = 0;          ///< Âge de liquidation exogène
   
  vector<double> salaires   		= vector<double>(AGE_MAX, 0.0) ;  ///< tableau des salaires indicés par l'âge 
@@ -102,7 +102,7 @@ public:
   
   /** \brief Salaire moyen brut 
    *  \return Renvoie le salaire moyen de l'individu
-   *  pour un age donnée et un nombre de salaires donnés
+   *  pour un âge donné et un nombre de salaires donné
   */
   double SalMoyBrut(double agefin, int nb) const;
   
@@ -126,10 +126,10 @@ public:
   /** \brief Indique si la personne est personne de référence de son ménage l'année t */
   bool est_persRef(int t);
   
-  /** \brief Indique si la personne est décédé l'année */
+  /** \brief Indique si la personne est décédée l'année */
   bool est_decede(int t);
   
-  /** \brief Probabilité de survie à l'âge age1 sachant survie à l'âge age0 */
+  /** \brief Probabilité de survie à l'âge age1 sachant la survie à l'âge age0 */
   double survie(int age1, int age0);
 
   /** \brief Espérance de vie à l'âge age0 */

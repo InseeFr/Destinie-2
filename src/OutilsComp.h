@@ -8,10 +8,10 @@
  * à l'âge tester
  * ou au contraire de reporter encore son départ à la retraite.
  * L'individu pouvant liquider en deux fois (primo-liquidation à la FP, avant une 
- * seconde liquidation au régimes privés), cette bibliothèques contient deux fonctions,
- * une première \ref TestLiq testant la première liquidation, et une seconde \ref TestSecondeLiq
- * pour tester, si les droits ne sont pas intégralement liquidés à la première liquidation,
- * la seconde liquidation.
+ * seconde liquidation au régimes privés), cette bibliothèques contient deux fonctions.\\
+ * La première fonction, \ref TestLiq , teste la première liquidation. 
+ * Si les droits ne sont pas intégralement liquidés à la première liquidation, la seconde fonction, \ref TestSecondeLiq ,
+ * teste la seconde liquidation.
  * 
  * Contrairement à DroitsRetr, les fonctions de cette bibliothèque sont des
  * outils généraux qui pourraient être utilisés pour simuler des comportements

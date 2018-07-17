@@ -2,7 +2,7 @@
 
 /**
  * \file Migration.h
- * \brief Migrations détermine les individus qui émigrent et créent de nouveaux individus immigrants en respectant les cibles de 
+ * \brief Migration détermine les individus qui émigrent et crée de nouveaux individus immigrants en respectant les cibles de 
  * solde migratoire par tranche d'âge.
  */
 
@@ -48,7 +48,7 @@ int findet_migrant (Indiv& X);
  *  
  *   L'émigration concerne la tranche des 1-60 ans, et le nombre d'émigrants est calé
  *   par tranches quinquennales, soit 10 tranches entre 1 et 60 ans. Pour chaque sexe, des enfants et des adultes sont ajoutés
- *   à l’échantillon, conformément aux cibles. Une fois ajoutés, leur âge est simulé via un appel à la fonction \ref age_arrive.
+ *   à l’échantillon, conformément aux cibles. Une fois qu'ils sont ajoutés, leur âge est simulé via un appel à la fonction \ref age_arrive.
  *   S'agissant des liens conjuguaux, les migrants sont tous célibataires : aucune vie de couple ne leur est imputée. Le seul 
  *   lien familial simulé concerne le lien mère/enfant. Une migrante a au plus trois enfants selon la procédure suivante. 
  *   Chaque enfant se voit attribuer comme mère une femme ayant terminé ses études au plus tard un an après sa naissance, et minimisant

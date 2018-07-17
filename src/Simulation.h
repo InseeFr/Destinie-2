@@ -1,16 +1,19 @@
 #pragma once
 /**
  * \file Simulation.h
- * \brief Fichier contenant la structure Simulation
- * Simulation importe les paramètres et l'échantillon depuis les objets en R et
- * les rend accessibles en C avec les objets globaux (accessibles dans tout le programme):
- * - pop : vector d'objets individus contenant l'information pour chaque individu (info issue des tables ech, emp et fam) 
- * - M : pour les séries macroéconomiques et les séries de paramètres législatifs
- * - options : Options spécifiques à une simulation
- * - mortalite_diff : table de la mortalité différentielle
- * - finEtudeMoy : table des âges de fin d'étude moyens par génération
- * - ciblesdemo : table des cibles démographiques
- * - AN_FIN : dernière année de simulation  
+ * \brief Fichier contenant la structure \ref Simulation, qui importe les paramètres et l'échantillon depuis les objets en R et
+ * les rend accessibles en C avec des objets globaux (accessibles dans tout le programme).
+ * 
+ * Les objets globaux correspondant sont:
+ * <ul>
+ * <li> pop : vector d'objets individus contenant l'information pour chaque individu (info issue des tables ech, emp et fam) 
+ * <li> M : pour les séries macroéconomiques et les séries de paramètres législatifs
+ * <li> options : Options spécifiques à une simulation
+ * <li> mortalite_diff : table de la mortalité différentielle
+ * <li> finEtudeMoy : table des âges de fin d'étude moyens par génération
+ * <li> ciblesdemo : table des cibles démographiques
+ * <li> AN_FIN : dernière année de simulation  
+ * </ul>
  * Lorsque l'objet Simulation est détruit les tables R créées avec les objets Rdout sont exportées en R.
  * Usage :
  * ```
@@ -48,7 +51,7 @@ struct CiblesDemo {
    * En revanche, pour les années 2010 à 2012 inclues, elles ont été fournies aux fins de ces exercices 
    * de modélisation par la division Enquêtes et études démographiques de l'Insee, avec l'avertissement 
    * que certaines peuvent être fragiles. Pour cette raison, elles ne sont pas publiées. Ces valeurs sont donc utilisées 
-   * pour affiner un peu le modèle Destinie 2, mais ne devrait pas être utilisées pour elles-mêmes.
+   * pour affiner un peu le modèle Destinie 2, mais ne doivent pas être utilisées pour elles-mêmes.
    */
   NumericVector 
   /** 
@@ -330,8 +333,8 @@ struct Mortalite_diff {
  * Le calcul de ces quotients de mortalité a été réalisée par \cite blanpain2016esperance .
  * Pour les années 2010 à 2012 inclues, elles ont été fournies aux fins de ces exercices 
  * de modélisation par la division Enquêtes et études démographiques de l'Insee, avec l'avertissement 
- * que certaines peuvent être fragiles pour certains âgs fins. Pour cette raison, elles ne sont pas publiées. 
- * Ces valeurs sont donc utilisées pour affiner un peu le modèle Destinie 2, mais ne devrait pas être utilisées pour elles-mêmes.
+ * que certaines peuvent être fragiles pour certains âges fins. Pour cette raison, elles ne sont pas publiées. 
+ * Ces valeurs sont donc utilisées pour affiner un peu le modèle Destinie 2, mais ne doivent pas être utilisées pour elles-mêmes.
  */
 struct Mortadiff_dip_F {
   NumericVector 
@@ -410,7 +413,7 @@ struct Ech {
    */
   _(moisnaiss), 
   /**
-   * \brief Age de fin d'étude de l'individu
+   * \brief Âge de fin d'étude de l'individu
    */
     _(findet),  
   /**
@@ -566,8 +569,8 @@ struct Fam {
  * \struct Options
  * \brief Options contient l'ensemble des options qui peuvent être passées en paramètres de la simulations.
  * 
- * Les options regroupent à la fois les options réglementaires sur le calcul des droits retraites mais aussi des 
- * les hypothèses de comportement de liquidations des individus ou encore le pas de simulation.
+ * Les options regroupent à la fois les options réglementaires sur le calcul des droits retraites, les hypothèses 
+ * de comportement de liquidations des individus ou encore le pas de simulation.
  */
 struct Options {  
 ///\{ \name Options réglementaires  
@@ -577,13 +580,13 @@ struct Options {
     */
     _(NoRetrAntFPA)          , 
     /**
-     *  \brief Supprime le dispositif de retraites anticipées pour les fonctionnaires parents de 3 enfants
-     *  qui a été supprimé par la réforme de 2010
+     *  \brief Supprime le dispositif de retraites anticipées pour les fonctionnaires parents de 3 enfants.
+     *  Ce dispositif a par ailleurs été supprimé par la réforme de 2010
      */
     _(NoRetrAntFP3Enf)     , 
     /**
      *  \brief Ne tient pas compte des réformes des retraites qui ont porté au-delà de 40 ans la durée 
-     *  d'assurance nécessaire à l'atteinte du taux plein'
+     *  d'assurance nécessaire à l'atteinte du taux plein.
      */   
     _(BlockDuree40),
     /**
@@ -592,7 +595,7 @@ struct Options {
     _(NoAssimil),
     /**
      * \brief Neutralise les périodes d'AVPF dans le calcul de la pension au régime général (ni prise en compte 
-     * de la durée validée, ni des salaires portés au compte)'
+     * de la durée validée, ni des salaires portés au compte).
      */
     _(NoAVPF), 
     /**
@@ -679,7 +682,7 @@ struct Options {
      */    
     _(age60_65ans)           , 
     /**
-     * \brief Maintient l'âge d'ouvertue des droits à 60 ans mais l'âge d'aanulation de la décôte est porté à 67 ans
+     * \brief Maintient l'âge d'ouvertue des droits à 60 ans mais l'âge d'anulation de la décôte est porté à 67 ans
      */
     _(age60_67ans)         ,
     /**
@@ -718,8 +721,11 @@ struct Options {
     /**
      * \brief Liquidation des assurés au taux plein
      */
-    _(tp)
-              ,  _(uinst_old)         ,  _(inapte_exo)  ;    
+    _(tp)      , 
+     /**
+      * * \brief Option obsolète, à supprimer
+      */ 
+     _(uinst_old)         ,  _(inapte_exo)  ;    
     ///\}
 bool 
     _(plafecretMinContSMPT)  ,  _(coeff_demo)          ,    
@@ -1622,8 +1628,8 @@ struct Macro {
   _(correct_demo,0)  ;
   
 
-  NumericVector daterevalobase;      		///< mois de revalorisation des régimes de base 
-	NumericVector   daterevalocomp;		   	///< mois de revalorisation des régimes complémentaires
+  NumericVector daterevalobase;      		///< Mois de revalorisation des régimes de base 
+	NumericVector   daterevalocomp;		   	///< Mois de revalorisation des régimes complémentaires
     //correct_demo,
   NumericVector   RevaloCumFP;         		///< Revalorisations cumulées des pensions liquidées au FP
   NumericVector   RevaloCumRG;         		///< Revalorisations cumulées des pensions liquidées au RG
@@ -1635,7 +1641,7 @@ struct Macro {
   vector<NumericMatrix> espvie;  ///< Tables des espérance de vie
  
  
-  double poids;                  ///< pondération de la population
+  double poids;                  ///< Pondération de la population
 };
   
   

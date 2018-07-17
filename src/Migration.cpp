@@ -232,7 +232,7 @@ void migrant (int t) {
   
   
   
-  /// Emigration entre 18 et 26 ans
+  // Emigration entre 18 et 26 ans
   vector<int> vecteur_H; 
   vector<double> probas_H;
   vector<int> vecteur_F; 

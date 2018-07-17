@@ -24,10 +24,10 @@ enum code_sexe {
 /// Enumération des statuts matrimoniaux :
 enum code_matri {
   CELIB=1,      ///< Statut matrimonial : modalité célibataire
-  MARIE=2,      ///< Statut matrimonial : modalité marié/mariée
-  VEUF=3,       ///< Statut matrimonial : modalité VEUF/veuve
-  SEPAR=4,      ///< Statut matrimonial : séparé(e)
-  CONCUBINAGE=5 ///< Statut matrimonial : en concubinage ou pacsé
+  MARIE=2,      ///< Statut matrimonial : modalité marié(e)
+  VEUF=3,       ///< Statut matrimonial : modalité veuf/veuve
+  SEPAR=4,      ///< Statut matrimonial : modalité séparé(e)
+  CONCUBINAGE=5 ///< Statut matrimonial : modalité en concubinage ou pacsé(e)
 };
 
 /// Enumération des codes diplôme :
