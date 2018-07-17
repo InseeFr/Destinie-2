@@ -13,9 +13,17 @@ src/*.so
 src/*.dll
 *.bak
 man/*.Rd
-documentation/doxygen/*
-documentation/doxygen/latex/*
+
+#when making the documentation
+documentation/doxygen/Doxyfile*
+documentation/doxygen/latex/*.tex
+documentation/doxygen/latex/*.bib
+documentation/doxygen/latex/*.bat
+documentation/doxygen/latex/*.pdf
+documentation/doxygen/latex/*.eps
+documentation/doxygen/latex/doxygen.sty
+documentation/doxygen/latex/makefile
+!documentation/doxygen/latex/Diagramme2.dia
 !documentation/doxygen/latex/bibliography.bib
 !documentation/doxygen/latex/chapter1.tex
 !documentation/doxygen/latex/refman2.tex
-!documentation/doxygen/latex/Diagramme2.dia

@@ -1,0 +1,230 @@
+\documentclass[twoside]{article}
+
+% Packages required by doxygen
+\usepackage{fixltx2e}
+\usepackage{calc}
+\usepackage{doxygen}
+\usepackage[export]{adjustbox} % also loads graphicx
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{makeidx}
+\usepackage{multicol}
+\usepackage{multirow}
+\PassOptionsToPackage{warn}{textcomp}
+\usepackage{textcomp}
+\usepackage[nointegrals]{wasysym}
+\usepackage[table]{xcolor}
+
+% NLS support packages
+\usepackage[french]{babel}
+
+% Font selection
+\usepackage[T1]{fontenc}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\usepackage{amssymb}
+\usepackage{sectsty}
+\renewcommand{\familydefault}{\sfdefault}
+\allsectionsfont{%
+  \fontseries{bc}\selectfont%
+  \color{darkgray}%
+}
+\renewcommand{\DoxyLabelFont}{%
+  \fontseries{bc}\selectfont%
+  \color{darkgray}%
+}
+\newcommand{\+}{\discretionary{\mbox{\scriptsize$\hookleftarrow$}}{}{}}
+
+% Page & text layout
+\usepackage{geometry}
+\geometry{%
+  a4paper,%
+  top=2.5cm,%
+  bottom=2.5cm,%
+  left=2.5cm,%
+  right=2.5cm%
+}
+\tolerance=750
+\hfuzz=15pt
+\hbadness=750
+\setlength{\emergencystretch}{15pt}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{3ex plus 2ex minus 2ex}
+\makeatletter
+\renewcommand{\paragraph}{%
+  \@startsection{paragraph}{4}{0ex}{-1.0ex}{1.0ex}{%
+    \normalfont\normalsize\bfseries\SS@parafont%
+  }%
+}
+\renewcommand{\subparagraph}{%
+  \@startsection{subparagraph}{5}{0ex}{-1.0ex}{1.0ex}{%
+    \normalfont\normalsize\bfseries\SS@subparafont%
+  }%
+}
+\makeatother
+
+% Headers & footers
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead[LE]{\fancyplain{}{\bfseries\thepage}}
+\fancyhead[CE]{\fancyplain{}{}}
+\fancyhead[RE]{\fancyplain{}{\bfseries\leftmark}}
+\fancyhead[LO]{\fancyplain{}{\bfseries\rightmark}}
+\fancyhead[CO]{\fancyplain{}{}}
+\fancyhead[RO]{\fancyplain{}{\bfseries\thepage}}
+\fancyfoot[LE]{\fancyplain{}{}}
+\fancyfoot[CE]{\fancyplain{}{}}
+\fancyfoot[RE]{\fancyplain{}{\bfseries\scriptsize Généré le Mercredi 4 Juillet 2018 17\+:55\+:11 pour Destinie2 par Doxygen }}
+\fancyfoot[LO]{\fancyplain{}{\bfseries\scriptsize Généré le Mercredi 4 Juillet 2018 17\+:55\+:11 pour Destinie2 par Doxygen }}
+\fancyfoot[CO]{\fancyplain{}{}}
+\fancyfoot[RO]{\fancyplain{}{}}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\sectionmark}[1]{%
+  \markright{\thesection\ #1}%
+}
+
+% Indices & bibliography
+\usepackage{natbib}
+\usepackage[titles]{tocloft}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{5}
+\makeindex
+
+% Packages requested by user
+\usepackage{booktabs}
+\usepackage{lscape}
+\usepackage{natbib}
+
+% Hyperlinks (required, but should be loaded last)
+\usepackage{ifpdf}
+\ifpdf
+  \usepackage[pdftex,pagebackref=true]{hyperref}
+\else
+  \usepackage[ps2pdf,pagebackref=true]{hyperref}
+\fi
+\hypersetup{%
+  colorlinks=true,%
+  linkcolor=blue,%
+  citecolor=blue,%
+  unicode%
+}
+
+% Custom commands
+\newcommand{\clearemptydoublepage}{%
+  \newpage{\pagestyle{empty}\cleardoublepage}%
+}
+
+\usepackage{caption}
+\captionsetup{labelsep=space,justification=centering,font={bf},singlelinecheck=off,skip=4pt,position=top}
+
+%===== C O N T E N T S =====
+
+\begin{document}
+
+% Titlepage & ToC
+\hypersetup{pageanchor=false,
+             bookmarksnumbered=true,
+             pdfencoding=unicode
+            }
+\pagenumbering{alph}
+\begin{titlepage}
+\vspace*{7cm}
+\begin{center}%
+{\Large Destinie2 }\\
+\vspace*{1cm}
+{\large Généré par Doxygen 1.8.12}\\
+\vspace*{0.5cm}
+{\small Mercredi 4 Juillet 2018 17:55:11}\\
+\end{center}
+\end{titlepage}
+\pagenumbering{roman}
+\tableofcontents
+\pagenumbering{arabic}
+\hypersetup{pageanchor=true}
+
+%--- Begin generated contents ---
+
+\input{chapter1}
+\section{Index des classes}
+\input{annotated}
+\section{Index des fichiers}
+\input{files}
+\section{Documentation des classes}
+\input{struct_cibles_demo}
+\input{struct_cibles_trans}
+\input{struct_cibles_trans2}
+\input{class_cotisations}
+\input{struct_cotisations_t_r_i}
+\input{struct_c_struct_sexe_age}
+\input{class_droits_retr}
+\input{struct_ech}
+\input{struct_emp}
+\input{struct_eq_salaires}
+\input{struct_eq_sante}
+\input{struct_eq_trans}
+\input{struct_fam}
+\input{struct_fin_etude_moy}
+\input{struct_indic__annee}
+\input{struct_indic__gen}
+\input{struct_indic__gen__age}
+\input{struct_indicateur}
+\input{class_indiv}
+\input{class_leg}
+\input{struct_macro}
+\input{struct_mortadiff__dip___f}
+\input{struct_mortadiff__dip___h}
+\input{struct_mortalite__diff}
+\input{struct_mortalite__diff__dip___f}
+\input{struct_mortalite__diff__dip___h}
+\input{struct_moyenne}
+\input{struct_opt}
+\input{struct_option__optim}
+\input{struct_options}
+\input{struct_options__salaires}
+\input{struct_options_t_r_i}
+\input{structordre__findet}
+\input{struct_paire}
+\input{structquantile}
+\input{struct_ratio}
+\input{class_retraite}
+\input{struct_retraite__comp}
+\input{class_reversion}
+\input{struct_salaire}
+\input{struct_simulation}
+\input{struct_somme}
+\input{struct_taux}
+\input{struct_transitions}
+\section{Documentation des fichiers}
+\input{_constantes_8h}
+\input{_cotisations_8h}
+\input{_cotisations_t_r_i_8h}
+\input{_destinie_8h}
+\input{_droits_retr_8h}
+\input{_indiv_8h}
+\input{_legislation_8h}
+\input{_migration_8h}
+\input{_mortalite_8h}
+\input{_naissance_8h}
+\input{_outils_base_8h}
+\input{_outils_comp_8h}
+\input{_sante_8h}
+\input{_separations_8h}
+\input{_simulation_8h}
+\input{_transitions_8h}
+%--- End generated contents ---
+
+% Bibliography
+\newpage
+\phantomsection
+\bibliographystyle{apalike-fr}
+\bibliography{bibTmpFile_1}
+\addcontentsline{toc}{section}{Références bibliographiques}
+
+% Index
+\newpage
+\phantomsection
+\clearemptydoublepage
+\addcontentsline{toc}{section}{Index}
+\printindex
+
+\end{document}
