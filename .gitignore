@@ -12,10 +12,10 @@ src/*.o
 src/*.so
 src/*.dll
 *.bak
+man/*.Rd
+documentation/doxygen/*
 documentation/doxygen/latex/*
 !documentation/doxygen/latex/bibliography.bib
 !documentation/doxygen/latex/chapter1.tex
 !documentation/doxygen/latex/refman2.tex
 !documentation/doxygen/latex/Diagramme2.dia
-man/*.Rd
-documentation/doxygen/*
