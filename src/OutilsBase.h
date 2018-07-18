@@ -217,19 +217,23 @@ inline double min_max(double x, double y, double z){
 
 
 
-
+/**
+ * \brief à commenter
+ */
 inline int trimInf(double an, double mois) {
   return (an*12+mois > 0) ? int(floor(an*4+mois/3.0 + 0.25))  : 0;
 }
 
-/*** \brief Arrondi une valeur positive au trimestre supérieur
-***/
+/**
+ *  \brief Arrondi une valeur positive au trimestre supérieur
+ */  
 inline double ArrTrimSup(double x) {
     return (x > 0)  ?  (1+floor(4*x))/4.0  :  0.0 ;
 }
 
-/*** \brief Arrondi une valeur positive au trimestre inférieur
-***/
+/**
+ *  \brief Arrondi une valeur positive au trimestre inférieur
+ */
 inline double ArrTrimInf(double x) {
     return (x > 0)  ?  floor(4*x)/4.0  :  0.0 ;
 }
@@ -383,6 +387,10 @@ inline typename T::value_type sum(const T& vect)
  * \brief Paire contient les identifiants et leurs probabilités ainsi que la structure d'ordre associée.
  */
 struct Paire { int id; double proba; };
+
+/**
+ * \brief Indique si la première Paire a une probabilité supérieure à la seconde Paire.
+ */
 inline bool greatP(Paire& x, Paire& y) {
   return x.proba > y.proba;
 }  

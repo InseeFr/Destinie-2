@@ -21,7 +21,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Indiv& X = pop[12];
  * 
- * // créer un objet retraite
+ * // crée un objet retraite
  * Retraite retraite(X, t);
  * // calcule les droits directs
  * retraite.SimDir(65);
@@ -44,7 +44,7 @@
 class Retraite {
 public:
   Indiv& X;                 ///< Individu X
-  int age;                  ///< âge de l'individu
+  int age;                  ///< Âge de l'individu
   
   ///\{ \name Pensions de droits directs
   double  pension_tot = 0,  ///< Pension de droit direct total
@@ -84,10 +84,14 @@ public:
    * \brief La fonction \ref SimDir teste la liquidation (et la primo-liquidation le cas échéant) pour un individu X pour une année donnée, ainsi
    * que les droits directs.
    * 
+   * Teste la liquidation (et de primo-liquidation le cas échéant) pour un individu X pour une année donnée, ainsi
+   que les droits directs.
+   * 
    * Cette fonction est une alternative à SimDirIndiv qui teste et calcule les droits pour toute la durée de vie de l'individu.
    * Les arguments sont  :
    * - X : L'individu
-   * - age : âge de l'individu
+   * - age : Âge de l'individu.
+   * 
    * La fonction stocke les variables de liquidation dans le tableau deque_liq pour chaque liquidation.
    * 
    * Les `pas` de test de la liquidation des droits peuvent prendre les valeurs (1= annuel, 0.25 = trimestriel, 1/12=mensuel).
@@ -285,7 +289,7 @@ public:
 
   /**
    * \fn nbUCCouple()
-   * \brief Calcule le nombre d'UC du ménage (sans tenir compte d'enfants à charge)
+   * \brief Calcule le nombre d'unités de consommation (UC) du ménage (sans tenir compte d'enfants à charge)
    **/     
   double nbUCCouple() {
     double nbUC = 1;
@@ -319,7 +323,7 @@ public:
   /** 
    * \fn pension_prorat(int age, int regime)
    * \brief Renvoie la pension percue au cours de l'année en tenant compte de la proratisation et de la revalorisation
-   * \param age âge de l'individu
+   * \param age Âge de l'individu
    * \param regime régime servant la pension
    */ 
   double pension_prorat(int age, int regime);

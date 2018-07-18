@@ -9,10 +9,10 @@ class Retraite;
 
 /**
 * \class Indiv
-* \brief Classe contenant l'ensemble de l'information sur l'individu
-* Cette classe contient sur l'individu, l'ensemble de l'information 
-* lue dans les tables
-* ech, emp, et fam.
+* \brief Classe contenant l'ensemble de l'information sur l'individu.
+* 
+* Cette classe contient l'ensemble de l'information sur l'individu
+* lue dans les tables ech, emp, et fam.
 * Elle contient de plus un pointeur sur un objet Retraite relatif
 * à sa situation courante. 
 */
@@ -32,7 +32,7 @@ public:
   int dateMinFlux=999999;         ///< Date d'entrée dans le minimum vieillesse. Variable créée uniquement pour l'exercice de projection du Cor. A supprimer
   
   int peudip = 0;				          ///<Indicatrice d'être peu diplomé par rapport à sa génération et son sexe
-  int tresdip= 0;				          ///<Indicatrice d'être tres diplomé par rapport à sa génération et son sexe
+  int tresdip= 0;				          ///<Indicatrice d'être très diplomé par rapport à sa génération et son sexe
   int dipl   = 0;                 ///<Niveau de diplôme de l'individu en classes
   
   double  taux_prim = 0;          ///< Taux de prime pour les fonctionnaires 

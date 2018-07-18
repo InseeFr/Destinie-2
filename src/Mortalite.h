@@ -14,20 +14,25 @@
  *   d’alignement par tri en prenant pour cible K = (probabilité de décès) × (nombre de présents en t \f$-\f$ 1). Une fois la liste
  *   des morts constituée, leurs éventuels conjoints deviennent veufs et pourront se remettre en couple en t. Quant aux
  *   survivants, leurs statuts professionnels et matrimoniaux en t \f$-\f$ 1 sont prolongés - ils seront éventuellement mis
- *   à jour ultérieurement via les mises en couples, séparations et transitions sur le marché du travail.\\
+ *   à jour ultérieurement via les mises en couples, séparations et transitions sur le marché du travail.
+ *   
  *   Lorsque option_mort_diff=FALSE, option_mort_diff_dip=FALSE et option_mort_tirageCale=TRUE, les probabilités de décès
  *   correspondent aux quotients de mortalité des projections démographiques, déclinés par âge, par année et par sexe 
- *   (voir \cite blanpainprojections ).\\
+ *   (voir \cite blanpainprojections ).
+ *   
  *   Lorsque option_mort_diff_dip==TRUE, les quotients de mortalité dépendent, à partir de 31 ans, du sexe et du niveau de diplôme.
  *   Le niveau de diplôme dépend de la variable findet, et il est partionné en cinq classes: 
  *   sans diplôme, brevet, CAP-BEP, baccalauréat, diplôme du supérieur.
  *   En 2010, les quotients de mortalité par diplôme correspondent à ceux observés sur la
  *   période 2009-2013(voir \cite blanpain2016esperance ). En projection, ils évoluent comme les quotients de mortalité de 
- *   la population générale.\\
+ *   la population générale.
+ *   
  *   Lorsque option_mort_diff==TRUE, les quotients de mortalité dépendent, à partir de 31 ans, du sexe et de la tranche de findet 
  *   (cette dernière dépendant de la génération). Cette option reproduit la mortalité différentielle par CS via une table de
- *   passage entre CS et findet, obtenue à partir de l'enquête Patrimoine (voir \cite dubois2015taux ).\\
- *   Lorsque option_sante==TRUE, les quotients de mortalité dépendent de l'état de santé, alors défini à partir de 50 ans.
+ *   passage entre CS et findet, obtenue à partir de l'enquête Patrimoine (voir \cite dubois2015taux ).
+ *   
+ *   Lorsque option_sante==TRUE, les quotients de mortalité dépendent d'un état de santé, défini à partir de 50 ans.
+ *   
  *   \param t année
  *   \param option_mort_diff
  *   \param option_mort_tirageCale

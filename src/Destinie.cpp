@@ -452,7 +452,10 @@ void destinieSimAgefin(Environment envSim) {
   
 }
 
-
+/**
+ * \struct Opt
+ * \brief Structure utilisée pour coder destinieFinCar.
+ */
 struct Opt { bool _(redress_avpf);};
 
 // [[Rcpp::export]]
@@ -695,6 +698,11 @@ void destinieFinCar(Environment envSim) {
           df_stats_st4.push_line(i,j,k,l,stats_statuts4[i][j][k][l]);
         }
 }
+
+/**
+ * \struct Option_optim
+ * \brief Structure utilisée pour coder destinieSimOptim.
+ */
 
 struct Option_optim {
   bool _(min_prix), _(min_smpt), _(prix);

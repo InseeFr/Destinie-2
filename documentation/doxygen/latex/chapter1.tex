@@ -1,11 +1,11 @@
 \section{Introduction}
-Le modèle Destinie 2 (modèle Démographique Économique et Social de Trajectoires INdividuelles simulÉs, version 2) est un modèle de microsimulation dynamique, développé et géré par l'Insee, dont l'objectif principal est la projection à long terme des retraites.\\
+Le modèle Destinie 2 (modèle Démographique Économique et Social de Trajectoires INdividuelles sImulÉs, version 2) est un modèle de microsimulation dynamique, développé et géré par l'Insee, dont l'objectif principal est la projection à long terme des retraites.\\
 
-La simulation se fait au niveau individuel, sur la base d'un échantillon représentatif de la population française au 1er janvier 2010. Cet échantillon est construit à partir de l'enquête Patrimoine 2009-2010 et est composé de 62 000 individus. Le modèle projette les situations familiales, carrières professionnelles et départs à la retraite des personnes de cette population, dont le renouvellement est assuré par la simulation des naissances, décès et flux migratoires. Les individus sont répartis en trois grands groupes : les salariés du secteur privé, les titulaires de la fonction publique et les indépendants. Au niveau d’un individu, Destinie 2 permet de suivre l’ensemble de sa trajectoire professionnelle (statuts d’activité et revenus), et simule les liquidations à la retraite sous diverses hypothèses de comportement et de législation. Les liens familiaux (unions, naissances, séparations) étant simulés, ce modèle permet également de réaliser des estimations au niveau du ménage.\\
+La simulation se fait au niveau individuel, sur la base d'un échantillon représentatif de la population française au 1er janvier 2010. Cet échantillon est construit à partir de l'enquête Patrimoine 2009-2010 et est composé de 62 000 individus. Le modèle projette les situations familiales, carrières professionnelles et départs à la retraite des personnes de cette population, dont le renouvellement est assuré par la simulation des naissances, décès et flux migratoires. Les individus sont répartis en trois grands groupes : les salariés du secteur privé, les titulaires de la fonction publique et les indépendants. Il s'agit donc d'un modèle simplifié : par exemple, les membres des régimes spéciaux sont considérés comme affiliés au secteur privé ou aux titulaires de la fonction publique. Au niveau d’un individu, Destinie 2 permet de suivre l’ensemble de sa trajectoire professionnelle (statuts d’activité et revenus), et simule les liquidations à la retraite sous diverses hypothèses de comportement et de législation. Les liens familiaux (unions, naissances, séparations) étant également simulés, ce modèle permet également de réaliser des estimations au niveau du ménage.\\
 
 Le modèle comprend deux modules distincts : le module générateur de biographies et le module de simulation des droits retraite.\\
-La constitution des biographies démographiques s'appuie sur les dernières projections démographiques de l'Insee, couvrant la période 2013-2070 et le champ France entière. Les trajectoires professionnelles des individus sont connues jusqu’en 2009, année de base. \`A compter de 2010, leurs carrières (statuts d’activité et revenus) sont projetées en respectant des contraintes de calage sur des hypothèses macroéconomiques. Ces hypothèses portent sur la croissance de la productivité du travail et le taux de chômage, fournis par le COR, et le taux d'activité, repris des projections de population active de l'Insee.\\
-Le module retraite simule le départ à la retraite selon la date de législation et l'hypothèse de comportement de liquidation choisies, et calcule le montant des droits associés. Les droits couvrent la pension de droit direct et de réversion des régimes de base (régime général, SRE et CNRACL, RSI) et complémentaires (Arrco, Agirc). La dimension ménage permet d'inclure le minimum vieillesse.\\
+La constitution des biographies démographiques s'appuie sur les dernières projections démographiques de l'Insee, couvrant la période 2013-2070 et le champ France entière. Les trajectoires professionnelles des individus sont connues jusqu’en 2009, année de base. \`A compter de 2010, leurs carrières (statuts d’activité et revenus) sont projetées en respectant des contraintes de calage sur des hypothèses macroéconomiques. Ces hypothèses portent sur la croissance de la productivité du travail et le taux de chômage, fournis par le Conseil d'Orientation des Retraites (COR), et le taux d'activité, repris des projections de population active de l'Insee.\\
+Le module retraite simule le départ à la retraite selon la date de législation et l'hypothèse de comportement de liquidation choisies, et calcule le montant des droits associés. Les droits couvrent la pension de droit direct et de réversion des régimes de base (le régime général, le Service des Retraites de l'État (SRE) et la Caisse nationale de retraites des agents des collectivités locales (CNRACL), la Sécurité Sociale pour les Indépendants (SSI)) et complémentaires (Association pour le régime de retraite complémentaire des salariés(Arrco), Association générale des institutions de retraite complémentaire des cadres(Agirc)). La dimension ménage permet aussi d'inclure le minimum vieillesse.\\
 Ce document détaille le contenu des fichiers de code source du modèle. 
 
 
@@ -21,10 +21,10 @@ toujours depuis R. En revanche, le package en lui-même est écrit en C++.
 Structure des répertoires du package :
 
 	\begin{description}
-		\item[src] contient les fichiers sources écrits en C++ du package
-		\item[R] contient les fichiers sources écrits en R du package
+		\item[src] contient les fichiers sources du package écrits en C++
+		\item[R] contient les fichiers sources du package écrits en R
 		\item[parametres] contient les paramètres démographiques et macroéconomiques utilisés lors de la projection\\
-Le sous-répertoire {\tt Projections\_COR\_2018} comprend les 5 scénarios économiques du rapport de juin 2018 du COR. 
+Le sous-répertoire {\tt Projections\_COR\_2018} comprend les 5 scénarios économiques du rapport de juin 2018 du COR (voir la table \ref{tab:hypscCOR}). 
 \renewcommand{\arraystretch}{1.8}
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 
@@ -57,25 +57,26 @@ Le sous-répertoire {\tt Projections\_COR\_2018} comprend les 5 scénarios écon
 \subsection{Le package Destinie}
 
 
-Le programme est structuré principalement autour de cinq classes d'objets et de structures.\\
+Le programme est structuré autour de cinq classes d'objets et de structures (voir la figure \ref{fig:structGenePack}).\\
 \begin{description}
 \item[La classe Simulation] contient l'ensemble des paramètres d'une simulation ainsi que 
 l'échantillon issu du générateur de biographies
 utilisé sous la forme d'un tableau d'objets Indiv.
 \item[La classe Indiv] contient l'ensemble des informations relatives à un individu donné.
 \item[La classe Retraite] contient les variables sur les pensions (de droit direct ou dérivé) 
-pour un individu et une année donnée.
+pour un individu et une année donnés.
 \item[La classe DroitsRetr] contient l'ensemble des variables concernant la liquidation des
 droits directs.
-\item[La classe Legislation] contient l'ensemble des paramètres législatifs pour une 
-date de législation, une année et un individu donné. 
+\item[La classe Legislation] contient l'ensemble des paramètres législatifs pour une date de législation, une année et un individu donnés. 
 \item[La structure Macro] contient l'ensemble des paramètres macroéconomiques (PIB, inflation,...) mais aussi des 
 paramètres plus spécifiques aux retraites (taux de cotisation, valeur des points dans les complémentaires ou encore montant du minimum vieillesse).
 \end{description}
 
 De plus, les fichiers {\tt Demographie.cpp}  et {\tt Destinie.h} contiennent les fonctions qui peuvent être appelées directement depuis R,
 ainsi que les constantes du modèles.
-Le fichier {\tt OutilsBase.h} contient également des fonctions utilitaires.
+Le fichier {\tt OutilsBase.h} contient également des fonctions utilitaires.\\
+
+Le fichier simulation.R donne enfin un exemple de lancement de la simulation.
 
 
 
@@ -145,7 +146,7 @@ sdfgsdg}
          trimestres à 164)
    \item	Allongement de la durée intervenant dans le coefficient de proratisation, censée à terme évoluer comme la durée cible d'assurance
    \item	Réduction de la décote à partir de la génération 1944, de 0,5 point par an pour atteindre 5\% par annuité manquante pour les 
-         générations nées après 1952 (la décôte n'est appliquée que si la liquidation a lieu avant 65 ans)
+         générations nées après 1952 (la décote n'est appliquée que si la liquidation a lieu avant 65 ans)
    \item	Surcote de 3\% par année supplémentaire travaillée après le 1er janvier 2004 ; la surcote a été renforcée par le plan « emploi des 
 seniors » au printemps 2005
    \item	Modification du mode de calcul du minimum contributif
@@ -207,25 +208,25 @@ seniors » au printemps 2005
 \subsubsection{Réforme de 2010}
 
 \begin{itemize}
-	\item    le relèvement progressif de \textbf{l'âge légal de départ} à 
+	\item  Relèvement progressif de \textbf{l'âge légal de départ} à 
 la retraite pour atteindre \textbf{62 ans} en 2018. Cette évolution 
 concerne tous les salariés, du public comme du privé ainsi 
 que les régimes spéciaux, mais avec des calendriers de mise 
 en œuvre différents,
-	\item    l'âge à partir duquel il est permis à un assuré, 
+	\item   L'âge à partir duquel il est permis à un assuré, 
 n'ayant pas la durée de cotisation requise, de bénéficier 
 tout de même d'une retraite à taux plein, passe 
 progressivement de \textbf{65 à 67 ans},
-	\item    le dispositif des \textbf{"carrières longues"} est modifié, 
+	\item   Le dispositif des \textbf{"carrières longues"} est modifié, 
 les salariés ayant commencé avant 18 ans peuvent partir à la 
 retraite au plus tôt, sous réserve d'avoir la durée de 
 cotisation requise pour leur génération, plus 2 ans.
-	\item    pour les salariés qui, du fait d'une situation 
+	\item   Pour les salariés qui, du fait d'une situation 
 d'usure professionnelle, ont une incapacité physique 
 supérieure ou égale à 20\%, l'âge légal de départ à la 
 retraite reste fixé à 60 ans et aucune décote ne leur est 
 appliquée,
-	\item    les jeunes en chômage non indemnisé pourront 
+	\item   Les jeunes en chômage non indemnisé peuvent 
 valider jusqu'à 6 trimestres (au lieu de 4).
 	% \item    pour les femmes, l'indemnité journalière perçue 
 % pendant le congé maternité entrera dans le salaire de 
@@ -248,14 +249,14 @@ valider jusqu'à 6 trimestres (au lieu de 4).
 
 \subsubsection{Décret de juillet 2012: extension du dispositif carrières longues}
 
-Le décret du 2 juillet 2012 étend le dispositif de départs anticipés pour carrière longues, à compter de novembre 2012, aux personnes qui ont commencé à travailler avant 20 ans, et en supprimant la condition relative à la durée d'assurance totale (la condition relative à la durée d'assurance cotisée est maintenue mais aménagée).
+Le décret du 2 juillet 2012 étend le dispositif de départs anticipés pour carrière longues, à compter de novembre 2012, aux personnes qui ont commencé à travailler avant 20 ans, et en supprime la condition relative à la durée d'assurance totale (la condition relative à la durée d'assurance cotisée est maintenue mais aménagée).
 
 \subsubsection{Réforme de 2013}
 \begin{itemize}
    \item Augmentation de la durée de cotisation d'un trimestre tous les 3 ans à partir de la génération née en 1958 pour atteindre 43 ans pour la génération 1973.
    \item Les périodes d'apprentissage, la formation, le chômage et la maternité sont mieux pris en compte.
    \item Un trimestre est considéré comme validé dès que le salarié a cotisé 200 heures au smic. Ce seuil passe à 150 heures au bénéfice des personnes à temps très partiel, avec un plafond fixé à 1,5 smic.
-   \item Pour les salariés du public comme du privé, les cotisations patronales et salariales sont augmentées de 0,15 point chacune dès le 1er janvier 2014, puis de 0,05 point en 2015, 2016 et 2017. Le gouvernement promet de compenser la hausse du coût du travail pour les entreprises en 2014.
+   \item Pour les salariés du public comme du privé, les cotisations patronales et salariales sont augmentées de 0,15 point chacune dès le 1er janvier 2014, puis de 0,05 point en 2015, 2016 et 2017.
    \item Mise en place d'un compte pénibilité.
    \item Le bonus pour les parents de trois enfants est fiscalisé.
    \item La revalorisation des pensions est décalée de six mois chaque année.
@@ -264,10 +265,10 @@ Le décret du 2 juillet 2012 étend le dispositif de départs anticipés pour ca
 
 \subsubsection{Accord national interprofessionnel relatif aux retraites complémentaires Agirc-Arrco du 30 octobre 2015}
 \begin{itemize}
-   \item En 2016, 2017 et 2018, indexation de la valeur du service des points Agirc et Arrco sur l'inflation moins un point
-   \item En 2016, 2017 et 2018, indexation de la valeur d'achat des point Agirc et Arrco sur l'évolution du SMPT augmentée de deux points
-   \item Extension de la cotisation AGFF sur la tranche B à la tranche C à compter du 1er janvier 2016
-   \item Pour les individus liquidant leur retraite de base au taux plein, application d'un coefficient de minoration de 10\% sur la pension complémentaire, et ce, pour une durée de trois ans dans la limité de l'âge d'annulation de la décote. Ce coefficient ne s'applique pas aux individus qui liquident un an au moins après avoir rempli les conditions du taux plein. Pour les individus exonérés de la CSG ou soumis à un taux réduit, le coefficient ne s'applique pas ou est réduit
+   \item En 2016, 2017 et 2018, indexation de la valeur du service des points Agirc et Arrco sur l'inflation moins un point.
+   \item En 2016, 2017 et 2018, indexation de la valeur d'achat des point Agirc et Arrco sur l'évolution du SMPT augmentée de deux points.
+   \item Extension de la cotisation AGFF sur la tranche B à la tranche C à compter du 1er janvier 2016.
+   \item Pour les individus liquidant leur retraite de base au taux plein, application d'un coefficient de minoration de 10\% sur la pension complémentaire, et ce, pour une durée de trois ans dans la limité de l'âge d'annulation de la décote. Ce coefficient ne s'applique pas aux individus qui liquident un an au moins après avoir rempli les conditions du taux plein. Pour les individus exonérés de la CSG ou soumis à un taux réduit, le coefficient ne s'applique pas ou est réduit.
    \item Pour les individus remplissant les conditions du taux plein dans les régimes de base mais reportant leur liquidation de la retraite complémentaire d'au moins deux années, application, pour une durée d'un an, d'un coefficient majorant :
    \begin{itemize}
    \item de 10\% si la liquidation a lieu au moins deux ans après

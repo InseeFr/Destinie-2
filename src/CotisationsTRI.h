@@ -178,19 +178,19 @@ struct CotisationsTRI {
       cot_sal_Retr_arrco    = !(ind_arrco || ind_agirc)?0 : (
                (s.TauxARRCO_S1[t]		*	s.TauxAppARRCO[t]	*	part(sal,                0,   s.PlafondSS[t])
               + s.TauxARRCO_S2[t]		*	s.TauxAppARRCO[t]	*	part(sal,   s.PlafondSS[t], 3*s.PlafondSS[t])
-               )  /** (1+c.Bouclage_macro_cotsal[t])*/
+               )  // (1+c.Bouclage_macro_cotsal[t])
       );
       
       cot_sal_Retr_agirc    = !(ind_agirc)?0 : (
             (s.TauxAGIRC_SB[t]		*	s.TauxAppAGIRC[t]	*	part(sal,   s.PlafondSS[t], 4*s.PlafondSS[t])
            + s.TauxAGIRC_SC[t]		*	s.TauxAppAGIRC[t]	*	part(sal, 4*s.PlafondSS[t], 8*s.PlafondSS[t])
-            ) /* * (1+Bouclage_macro_cotsal[t])   */
+            ) // (1+Bouclage_macro_cotsal[t])   
       );
         
       cot_sal_Retr_rg = !(ind_rg)?0 : (
             (s.TauxSalRGSalTot[t]		*	sal
            + s.TauxSalRGSP[t] 		*  	part(sal,  0, s.PlafondSS[t])
-            ) /* * (1+Bouclage_macro_cotsal[t]) */
+            ) // (1+Bouclage_macro_cotsal[t]) 
       );
       
       cot_sal_Retr_AGFF = !(ind_arrco)?0 : (

@@ -1,7 +1,6 @@
 /**
  * \file Reversion.h
- * 
- * Calcul de la liquidation d'une reversion 
+ * \brief Calcul de la liquidation d'une reversion 
  */
 
 
@@ -17,7 +16,7 @@
 
   /**
    * \class Reversion
-   * Calcul de la liquidation d'une reversion 
+   * \brief Calcul de la liquidation d'une reversion 
    */
 class Reversion
 {

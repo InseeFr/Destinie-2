@@ -18,27 +18,27 @@ class DroitsRetr {
  * \brief Droits à retraite dans les différents régimes.
  * 
  * Cette classe détermine les droits directs à la liquidation pour un individu,
- * une législation et un âge de liquidation donné. 
+ * une législation et un âge de liquidation donnés. 
  * 
  * L'objet est créé et utilisé par les fonctions \ref TestLiq et \ref TestSecondLiq
  * dans le fichier \ref OutilsComp.h.
- * Ces dernières fonctions sont appelée depuis la classe \ref Retraite dans laquelle les droits à liquidation
+ * Ces dernières fonctions sont appelées depuis la classe \ref Retraite dans laquelle les droits à liquidation
  * sont conservés. Les pensions perçues sont ensuite actualisées si l'individu décide de liquider.
  * 
  * Un objet de cette classe est créé pour chaque individu à chaque âge testé. 
- * Un (ou deux si liquidation en deux étapes) objet est ensuite conservé pour l'âge
+ * Un objet (ou deux si liquidation se fait en deux étapes) est ensuite conservé pour l'âge
  * auquel l'individu liquide.
  * 
  * Calcul des pensions de droits directs des régimes de base (régimes en annuités) 
  * ===============================================================================
  * 
- * Les pensions de droit direct des régimes de base sont modélisées en trois régimes : le RG, le RSI et la FP (SRE et CNRACL). La pension à la liquidation est le produit de trois termes : le taux de liquidation , le coefficient de proratisation et le salaire de référence (salaire annuel moyen, SAM, pour le RSI et le RG, dernier salaire pour la FP).
+ * Les pensions de droit direct des régimes de base sont modélisées en trois régimes : le RG, la SSI et la FP (SRE et CNRACL). La pension à la liquidation est le produit de trois termes : le taux de liquidation , le coefficient de proratisation et le salaire de référence (salaire annuel moyen, SAM, pour le RSI et le RG, dernier salaire pour la FP).
  * 
  * Pension = SAM x tauxliq x taux_prorat
  * 
  * - SAM = Salaire annuel moyen = moyenne des salaires perçus pendant les
  * meilleures années d'activité (10 à 25 meilleures années selon l'année
- * de naissance), dans la limite du plafond SS, pour les salaires reportés
+ * de naissance), dans la limite du PSS, pour les salaires reportés
  * à partir de 2005.
  * - tauxliq = Taux de liquidation = fixé en fonction de la durée d'assurance, tous
  * régimes confondus. Le taux maximum, dit « taux plein », est de 50% (75% pour la fonction publique).
@@ -50,14 +50,16 @@ class DroitsRetr {
  * 
  * Cette formule de base est en outre modifiée par le minimum contributif (ou garanti pour la FP) et majorée d’une bonification pour les mères de 3 enfants.
  * 
- * Il existe des minima de pension (« minimum contributif » au régime général RG et aux régimes alignés RSI MSA, «~minimum garanti~» dans la fonction publique). Le montant du minimum est calculé au prorata de la durée validée (et peut donc être très faible) : il ne s’agit donc pas rigoureusement d’une logique de revenu minimum. La comparaison pension/minimum de pension est faite à la liquidation avec la fonction AppliqueMin.
+ * Il existe des minima de pension (« minimum contributif » au régime général RG et aux régimes alignés RSI MSA, « minimum garanti » 
+ * dans la fonction publique). Le montant du minimum est calculé au prorata de la durée validée (et peut donc être très faible) : 
+ * il ne s’agit donc pas rigoureusement d’une logique de revenu minimum. La comparaison pension/minimum de pension est faite 
+ * à la liquidation avec la fonction AppliqueMin.
  *  
  * 
  * Calcul des pensions de droits directs des régimes complémentaires (régimes en points)
  * =====================================================================================
  * 
- *  A la liquidation, le pension est calculée comme :
- *
+ *  A la liquidation, la pension est calculée comme le produit suivant:
  *	Taux de liquidation * nombre de points * valeur de service du point
  *
  *	Le taux de liquidation dépend de 
@@ -65,9 +67,10 @@ class DroitsRetr {
  *   - de la durée validée dans les régimes de base 
  *	Un taux d’abattement, équivalent de la décote à l’AGIRC ARRCO, est ensuite appliqué.
  *
- *   Le nombre de points dépend de la carrière.\\
+ *   Le nombre de points dépend de la carrière. 
  *   Au cours de la carrière, l'acquisition de points se fait en fonction des cotisations suivant la formule:
- *   Nombre de points = (Revenu salarial * taux de cotisation) / valeur d’achat du point.\\
+ *   Nombre de points = (Revenu salarial * taux de cotisation) / valeur d’achat du point.
+ *   
  *   Le taux d’appel, qui fixe la part de cotisations ne donnant pas droit à des points, est égal à 125% actuellement. 
  * 
  * Les droits à liquidation sont calculés en quatre étapes :
@@ -116,7 +119,7 @@ class DroitsRetr {
          agefin_primoliq = 0;     ///< Âge fin de mois de primo-liquidation 
          
   int    ageliq = 0,              ///< Âge à la liquidation de la totalité des droits (âge entier au 31/12 de l'année) 
-         ageprimoliq = 0;
+         ageprimoliq = 0;         ///< Âge à la primo-liquidation des droits
   
   double  duree_cho = 0,          ///< Durée cumulée au chômage (au RG)   
           duree_PR = 0,           ///< Durée cumulée en pré-retraite 
@@ -211,7 +214,7 @@ class DroitsRetr {
          indic_mg = false,            ///< Indicatrice minimum garanti 
          indic_mc_in = false;         ///< Indicatrice minimum contributif au RSI 
   bool   dar = false;                 ///< Indicatrice départ anticipé pour carrière longue 
-  int type_liq = liq_non;
+  int type_liq = liq_non;     ///<Type de liquidation (par défaut, l'individu n'a pas liquidé)
   
   int t = 0;                      ///< année testée 
   int age = 0;                    ///< age au 31/12 testé 
@@ -271,7 +274,7 @@ class DroitsRetr {
   /** \brief Calcule les durées de décote et surcote et les taux de liquidation
    * 
    * Calcule les durées de décote et surcote et les taux de liquidation
-   * ( les durées de décote et surcote sont exprimées en année, 
+   * (les durées de décote et surcote sont exprimées en année, 
    *   mais pouvent prendre des valeurs arrondies à 0.25 près,
    *   c'est-à-dire au trimestre près) 
    * 
@@ -309,7 +312,7 @@ class DroitsRetr {
    */
   double AgeMax();
   
-  /** \brief Calcule les pensions aux différents régime hors FP lors de la seconde liquidation (appel de \ref liq_privee et \ref liq_public) 
+  /** \brief Calcule les pensions aux différents régimes hors FP lors de la seconde liquidation (appel de \ref liq_privee et \ref liq_public) 
    * 
    * Calcule les pensions aux différents régime hors FP lors de la seconde liquidation (appel de \ref liq_privee et \ref liq_public) 
     Permet la liquidation finale de tous les droits pour les personnes qui liquident en 2 temps
@@ -322,7 +325,7 @@ class DroitsRetr {
   */
   void SecondLiq();
   
-  /** \brief Calcule les pensions aux différents régime (appel de liq_privee et liq_public)
+  /** \brief Calcule les pensions aux différents régimes (appel de liq_privee et liq_public)
 
   Simule la liquidation à l'âge courant. Cette fonction n'a pas de valeur de
   retour. Elle modifie les variables pension_rg, pension_fp ... et pension et ageliq.   
@@ -364,13 +367,13 @@ class DroitsRetr {
    * De plus sont mis à jour les totaux samuni_rgin et samuni.
    *
    * Cette fonction prend en compte pour les législations 1993 et postérieures
-   * (l.Legsam) , les changements sur le nombre d'années pris en compte dans la
+   * (l.Legsam), les changements sur le nombre d'années pris en compte dans la
    * calcul du SAM.
    * 
    * Pour les législations postérieures à 2004, les polyaffiliés voient leur
    * calcul de durée de prise en compte du \sig{sam} modifiée.
    * 
-   * Pour la fonction publique, on tient compte de l'option FPCarTot, si cette option est utilisée, on calcule le spc.
+   * Pour la fonction publique, on tient compte de l'option FPCarTot. Si cette option est utilisée, on calcule le spc.
    * comme pour le privé (en retenant le nombre d'année en vigueur pour le \sig{rg}).
    * 
    * 
@@ -378,7 +381,8 @@ class DroitsRetr {
    * 
    * Prise en compte de l'avpf en fonction des options NoAVPF et NoSpcAVPF.
    * 
-   * Pour le calcul du sam, prise en compte des options SAMRgInUnique, SAMUnique et SAMSepare pour législations fictives, en particulier pour l'hypothèse de fusion des régimes (impact pour les polyaffiliés).
+   * Pour le calcul du sam, prise en compte des options SAMRgInUnique, SAMUnique et SAMSepare pour législations fictives, 
+   * en particulier pour l'hypothèse de fusion des régimes (impact pour les polyaffiliés).
    *
    */
   void SalBase(int AnneeRefAnticip=9999);
@@ -429,7 +433,7 @@ class DroitsRetr {
     Comme cette fonction n'est appelée que juste après le calcul des avantages principaux 
     de droit direct OU dérivé, on utilise les variables
     $agefin_primoliq, $agefin_totliq et $agerevliq pour savoir à quelles pensions la bonification 
-    doit être appliquée (et, \textit{a contrario},
+    doit être appliquée (et, a contrario,
      auxquelles elle l'a déjà été au cours d'étapes précédentes).
      
     Remarque : on utilise notamment le fait que, pour les droits directs, 
@@ -443,10 +447,10 @@ class DroitsRetr {
   void AppliqueBonif();
   
   
-  /** Calcul des pensions au RG, au RSI et au régimes complémentaires Agirc et Arrco (appelé par Liq ou SecondLiq) */
+  /** \brief Calcul des pensions au RG, au RSI et au régimes complémentaires Agirc et Arrco (appelé par Liq ou SecondLiq) */
   void LiqPrive(int AnneeRefAnticip=9999);
   
-  /** Calcul des pensions à la FP (appelé par Liq)*/
+  /** \brief Calcul des pensions à la FP (appelé par Liq)*/
   void LiqPublic();
   
 ///\}

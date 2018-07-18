@@ -26,9 +26,9 @@
 class  Leg {
   public:
     double DureeMinFPA;         	  ///<	Durée minimale de carrière pour bénéficier d'une pension de fonctionnaire pour la catégorie active (ajout  23/09/2011)
-    int    an_leg;                     ///<	année de législation
-    int    an_leg_DRA;                 ///<	année de la législation appliquée en ce qui concerne les départs en retraite anticipé
-    int    an_leg_SAM;                 ///<	année de législation appliquée en ce qui concerne le calcul du SAM
+    int    an_leg;                     ///<	Année de législation
+    int    an_leg_DRA;                 ///<	Année de la législation appliquée en ce qui concerne les départs en retraite anticipé
+    int    an_leg_SAM;                 ///<	Année de législation appliquée en ce qui concerne le calcul du SAM
     double DureeCibRG;              ///<	 Durée cible au régime général
     double DureeProratRG;           ///<	 Durée de proratisation du régime général
     double DureeCalcSAM;            ///<	 Nombre d'années pour calcul du SAM dans le RG
@@ -40,7 +40,7 @@ class  Leg {
     double TauxRGMax;               ///<	 Taux maximal de la pension RG
     double MajTauxRGMax;            ///<	 Majoration du taux maximal de pension pris en compte pour le plafonnement
     double DureeCibFP;              ///<	 Duree cible de la fonction publique
-    double DureeProratFP;           ///<	durée de référence pour une carrière complète à la FP (au dénominateur du coefficient de proratisation)
+    double DureeProratFP;           ///<	 Durée de référence pour une carrière complète à la FP (au dénominateur du coefficient de proratisation)
     double DecoteFP;                ///<	 Decote fonction publique
     double SurcoteFP;               ///<	 Surcote fonction publique
     double AgeAnnDecFP;             ///<	 Âge d'annulation de la décote fonction publique.
@@ -53,7 +53,7 @@ class  Leg {
     double AgeMaxRG;                ///<	 Âge de liquidation maximal RG
     double AgeAnnDecRG;             ///<	 Âge d'annulation de la décote au RG
     double DureeMinFP;              ///<	 Durée minimale de carrière pour bénéficier d'une pension de fonctionnaire (ajout  25/10/2010)
-    double AnOuvDroitFP;            ///<	 année d'ouverture des droits dans la fonction publique (peut être différent de l'année des 60 ans pour les catégories actives et les mères de 3 enfants) (ajout Patrick 09/12/2011)
+    double AnOuvDroitFP;            ///<	 Année d'ouverture des droits dans la fonction publique (peut être différent de l'année des 60 ans pour les catégories actives et les mères de 3 enfants) (ajout 09/12/2011)
     double AgeSurcote;              ///<	 Âge minimal pour le calcul de la surcote (60 ans avant la réforme de 2010, 62 ans progressivement après)
     double DeplafProrat;            ///<	 Durée au-delà de la durée de référence prise en compte dans le calcul du coefficient de proratisation (dans tous les régimes) (dans le cadre d'un déplafonnement progressif de ce coefficient)
     double DureeValCibDRA[5];       ///<	 Durée validée requise pour une départ anticipée pour carrière longue (plusieurs "jeux" de condition de départ sont possibles, il s'agit donc d'un tableau)
@@ -67,7 +67,7 @@ class  Leg {
     
     /**
      * \fn Leg(const Indiv& X, int age, int an_leg)
-     * \brief Créer un objet législation pour un individu particulier, à un age donné.
+     * \brief Crée un objet législation pour un individu particulier, à un age donné.
      * 
      * Crée un objet législation pour un individu particulier, à un age donné, et une législation donnée.
      * 

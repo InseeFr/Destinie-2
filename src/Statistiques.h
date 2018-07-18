@@ -9,7 +9,10 @@
 #include <algorithm>
 using namespace std;
 
-
+/**
+ * \struct Indicateur
+ * \brief Structure à l'origine des structures Moyenne, Ratio, Somme et Taux.
+ */
  
 struct Indicateur {
   public:

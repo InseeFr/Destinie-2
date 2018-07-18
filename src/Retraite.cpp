@@ -38,25 +38,7 @@
   
   
   
-  /**
-    Fonction SimDir :
-    
-    Teste la liquidation (et de primo-liquidation le cas échéant) pour un individu X pour une année donnée, ainsi
-    que les droits directs.
-    
-   
-    
-    La fonction stocke les variables de liquidation dans le tableau deque_liq pour chaque liquidation.
-    
-    
-    
-    Les "pas" de test de la liquidation des droits peuvent prendre les valeurs (1= annuel, 0.25 = trimestriel, 1/12=mensuel).
-    
-    Deux pas sont spécifiés : le premier est utilisé entre l'âge d'ouverture des droits et l'âge d'annulation de la décote
-    au RG, le second est utilisé en dehors de cette fenêtre d'âge. L'idée est qu'on veut souvent tester la liquidation
-    avec un pas temporel plus fin dans le premier cas que dans le second (par exemple, pas1 = 0.25 et pas2 = 1).
-*/
-
+  // Fonction SimDir :
 void Retraite::SimDir(int age) {
     Leg l = Leg(X, age, min(X.anaiss+age,options->anLeg));
 

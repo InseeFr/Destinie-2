@@ -27,7 +27,7 @@ int AN_FIN = 160;       ///< Année de fin de la simulation
 int AN_NB = 161;
 
 vector<Indiv> pop; ///< tableau de l'ensemble des individus (cf. classe Indiv)
-vector<EqSante> eq_sante ; /// < coeff des equations d'imputation des etats de sante
+vector<EqSante> eq_sante ; ///< coefficient des équations d'imputation des états de sante
 double Simulation::heure_debut = 0;
 
 Simulation::Simulation(Environment env) : context(env)

@@ -13,7 +13,7 @@ class Indiv;
  * \brief \ref CSGRet renvoie le montant de CSG prélevé sur la pension totale (droit direct et réversion) perçue par X à l'âge age.
  * 
  * \param X individu
- * \param age âge de l'individu
+ * \param age Âge de l'individu
  */
 double CSGRet(Indiv& X, int age);
 
@@ -22,7 +22,7 @@ double CSGRet(Indiv& X, int age);
  * \brief \ref CSGSal renvoie le montant de CSG prélevé sur les revenus d'activité perçus par X à l'âge age.
  * 
  * \param X individu
- * \param age âge de l'individu
+ * \param age Âge de l'individu
  */
 double CSGSal(Indiv& X, int age);
 
@@ -36,7 +36,7 @@ double CSGSal(Indiv& X, int age);
  * - pour les non-salariés : la cotisation au titre de la maladie
  * 
  * \param X individu
- * \param age âge de l'individu
+ * \param age Âge de l'individu
  */
 double CotAut(Indiv& X, int age);
 
@@ -45,7 +45,7 @@ double CotAut(Indiv& X, int age);
  * \brief Renvoie le montant des cotisations retraite (part salariale) prélevées sur les revenus d'activité perçus par X à l'âge age.
  *  
  * \param X individu
- * \param age âge de l'individu
+ * \param age Âge de l'individu
  */
 double CotRet(Indiv& X, int age);
 
@@ -54,7 +54,7 @@ double CotRet(Indiv& X, int age);
  * \brief Renvoie le montant des cotisations retraite (part patronale) prélevées sur les revenus d'activité perçus par X à l'âge age.
  *  
  * \param X individu
- * \param age âge de l'individu
+ * \param age Âge de l'individu
  */
 double CotRetrPatr(Indiv& X, int age) ;
 
@@ -63,7 +63,7 @@ double CotRetrPatr(Indiv& X, int age) ;
  * \brief Renvoie le salaire moyen net entre l'âge age-nb_an+1 et l'âge age. Les salaires pris en compte sont revalorisés sur le SMPT.
  * 
  * \param X individu
- * \param age âge de l'individu
+ * \param age Âge de l'individu
  * \param nb_an nombre d'années prises en compte dans le calcul du salaire moyen
  */
 double SalMoy(Indiv& X, int age, int nb_an);
@@ -74,7 +74,7 @@ double SalMoy(Indiv& X, int age, int nb_an);
  *  maladies dans les complémentaires du privé
  * 
  * \param X individu
- * \param age âge de l'individu
+ * \param age Âge de l'individu
  */
 double PNet(Indiv& X, int age);
 

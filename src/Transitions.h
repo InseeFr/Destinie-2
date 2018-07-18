@@ -186,16 +186,17 @@ struct EqTrans {
       /**
        * \brief Coefficient, non utilisé dans le modèle, devant le fait d'être en pré-retraite. <br>
        * Note : Ce coefficient était nécessaire lors de la phase d'estimation, pour ne pas biaiser
-       * les projections. En effet :
-       * \textit{L’estimation des équations de transition a été effectuée à une période durant laquelle 
+       * les projections. D'après \cite bachelet2014biographies :
+       * L’estimation des équations de transition a été effectuée à une période durant laquelle 
        * les actifs pouvaient partir en préretraite ; le volume d’inactifs y était donc particulièrement 
        * élevé. Afin de neutraliser cet effet des préretraites et donc de ne pas surestimer en projection 
-       * les volumes d’inactifs,deux variables ont été créées sur l’échantillon d’estimation :
-       *  une variable d’éligibilité à la préretraite4 pour l’individu considéré, à partir de l’âge, 
+       * les volumes d’inactifs, deux variables ont été créées sur l’échantillon d’estimation :
+       *  une variable d’éligibilité à la préretraite pour l’individu considéré, à partir de l’âge, 
        *  l’année etla durée cotisée ; une variable relative au volume de préretraites l’année d’observation.
        *  Le produit de ces deux variables permet de créer une nouvelle variable utilisée comme variable 
        *  explicative des équations de transition pour tenir compte des préretraites et notamment mieux
-       *  modéliser l’effet de l’extinction de certains dispositifs.} <br>
+       *  modéliser l’effet de l’extinction de certains dispositifs. <br>
+       *  Les préretraites considérées sont les préretraites publiques : ARPE, PRP, CFA, CAATA (amiante), ASFNE et CATS.
        * Source : estimé à l'occasion de \cite bachelet2014biographies
        */
       _(PreRetr_ARPE),
@@ -555,8 +556,7 @@ struct Transitions {
    * \brief eqtd contient les coefficients des variables de l'équation de transition, et ce, pour une période, un sexe,
    *  un statut initial et un noeud donnés.
    *  
-   * Source : estimés à l'occasion de "Les biographies du modèle Destinie II : rebasage et projection"
-   * de Bachelet, Leduc, Marino, 2014
+   * Source : estimés à l'occasion de \cite bachelet2014biographies
    */
   vector3<EqTrans> eqtd = Rdin<EqTrans>("EqTrans", 
     "type_trans", levels(DEBUTF,DEBUTH,FINF,FINH,MILIEUF,MILIEUH),
@@ -567,6 +567,8 @@ struct Transitions {
    * \brief cibles contient les cibles de taux de chômage et d'inactivité
    */
   CiblesTrans cibles = Rdin<CiblesTrans>("CiblesTrans");
+  
+  
   int cpt = 0;
   
   /**

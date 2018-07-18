@@ -103,7 +103,7 @@ void ecriture_indicateurs_an(int t) {
     int age = X.age(t);
     
       
-    // Statistiques sur les cotisations par r?gime
+    // Statistiques sur les cotisations par régime
     if(!X.retr->liq || X.retr->liq->ageliq >= age || X.retr->liq->ageliq==0) {
         double salaire   = X.salaires[age];
 		if(X.statuts[age] == S_AVPF && !options->NoAVPF && !options->NoSpcAVPF) {
@@ -137,7 +137,7 @@ void ecriture_indicateurs_an(int t) {
 		   indic.Sal_Plaf_31dec       .push( true, sal_plaf     , M->poids/1000000);
            indic.Sal_Tot_31dec        .push( true, sal_tot      , M->poids/1000000);
 		   
-		   /// indicateurs calcul?s en moyenne annuelle
+		   // indicateurs calculés en moyenne annuelle
            indic.Eff_Cotisants_ma  .push( true, partavt , M->poids/1000);
            indic.Sal_Plaf       .push( true, sal_plaf*partavt     , M->poids/1000000);
            indic.Sal_Tot        .push( true, sal_tot*partavt      , M->poids/1000000);
@@ -150,7 +150,7 @@ void ecriture_indicateurs_an(int t) {
     }
 
 	
-	// Statistiques sur les droits d?riv?s
+	// Statistiques sur les droits dérivés
     for(auto& regime : Regimes) {
       auto& indic = indic_annee[sexe][regime];
 	  
@@ -193,7 +193,7 @@ void ecriture_indicateurs_an(int t) {
     }
 	
 	
-    // Statistiques sur les retraites par r?gime
+    // Statistiques sur les retraites par régime
     for(auto& regime : Regimes) {
       auto& indic = indic_annee[sexe][regime];
       
@@ -467,7 +467,7 @@ void ecriture_indicateurs_an(int t) {
 
 
 
-  // ajoute les r?sultats de l'ann?e dans le data.frame
+  // ajoute les résultats de l'année dans le data.frame
   for(int s =0; s < 3; s++) 
   for(int r =0; r < 10; r++)
   {

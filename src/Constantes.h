@@ -34,7 +34,7 @@ enum code_matri {
 enum code_dipl {
   SSDIPL=1,     ///< sans diplôme
   BREVET=2,     ///< brevet, CEP
-  CAP=3,        ///< CAP,BEP
+  CAP=3,        ///< CAP, BEP
   BAC=4,        ///< baccalauréat
   UNIV=5        ///< diplômé du supérieur
 };
@@ -43,7 +43,7 @@ enum code_dipl {
 enum code_typeFP {
   FPE,        ///< Type de fonction publique : modalité fonction publique d'Etat 
   FPTH,       ///< Type de fonction publique : modalité fonction publique territoriale ou hospitaliaire
-  NONFP
+  NONFP       ///< Type de fonction publique : modalité n'appartient pas à la fonction publique
 };
 
 /// Codes de comportement de liquidation des droits directs
@@ -57,21 +57,24 @@ enum comportement {
 };
 
 //TODO: A améliorer : voir OutilsComp, prendre en compte double liquidation
+//Utilisé ? Documentation à partir de type_liq_labels
+///Type de liquidation (obsolète ?)
 enum type_liq {
-  liq_non = 0,
-  liq_tp = 1,
-  liq_invald = 2,
-  liq_inapte = 3,
-  liq_decote = 4,
-  liq_surcote = 5,
-  liq_agemax = 6,
-  liq_cible = 7,
-  liq_tp_aod = 8,
-  liq_tp_duree = 9,
-  liq_tp_aad = 10,
-  liq_inact = 11
+  liq_non = 0,      ///< Type de liquidation: modalité Non
+  liq_tp = 1,       ///< Type de liquidation: modalité taux plein
+  liq_invald = 2,   ///< Type de liquidation: modalité invalide
+  liq_inapte = 3,   ///< Type de liquidation: modalité inapte
+  liq_decote = 4,   ///< Type de liquidation: modalité decote
+  liq_surcote = 5,  ///< Type de liquidation: modalité surcote
+  liq_agemax = 6,   ///< Type de liquidation: modalité agemax
+  liq_cible = 7,    ///< Type de liquidation: modalité cible umixt
+  liq_tp_aod = 8,   ///< Type de liquidation: modalité AOD
+  liq_tp_duree = 9, ///< Type de liquidation: modalité Durée
+  liq_tp_aad = 10,  ///< Type de liquidation: modalité AAD
+  liq_inact = 11    ///< Type de liquidation: modalité inactif
 };
 
+///étiquettes associées à type_liq
 const vector<string> type_liq_labels = {"Non","taux plein","invalide","inapte","decote","surcote","agemax","cible umixt","AOD","Duree","AAD"};
 
 /// Enumération des codes de régime de retraite
@@ -164,17 +167,31 @@ const  vector<int> Statuts_FPE= {S_FPAE, S_FPSE, S_FPAAE};
 const  vector<int> Statuts_FPT= {S_FPATH, S_FPSTH, S_FPAATH};
 /** Statuts privé */
 const  vector<int> Statuts_Priv = {S_NC,S_NONTIT,S_SCOEMP,S_SNAT,S_CAD,S_IND,S_CHO,S_CHOBIT,S_CHONONBIT,S_CHOEMPL,S_INVAL,S_INVALRG,S_INVALIND,S_PR,S_AVPF};
-/** Statut salarié du secteur privé*/
-enum statutPrive {NC,CAD};
 
-/** Definition des classes relatives aux équations de salaire */
+/// Statuts des salariés du secteur privé
+enum statutPrive {NC, ///< Non Cadre
+                  CAD ///< Cadre
+  };
+
+/// Définition des classes relatives aux équations de salaire 
 enum {FPE_F,FPE_H,FPHT_F,FPHT_H,IND_F,IND_H,PRI_F_deb,PRI_F_fin,PRI_H_deb,PRI_H_fin};
+/** Définition des classes relatives aux équations de salaire */
 const vector<string> STATUTS_EQS {"FPE_F","FPE_H","FPHT_F","FPHT_H","IND_F","IND_H","PRI_F","PRI_H"};
 
-/** Definition des classes relatives à l'imputation d'un etat de sante */
-enum nom_eqsante {INCID_0_F,INCID_0_H,INCID_1_F,INCID_1_H,MORT_F,MORT_H,PREVAL_F,PREVAL_H};
+/// Types d'équation pour la simulation d'un état de santé
+enum nom_eqsante {INCID_0_F,  ///< incidence chez les femmes sans incapacité
+                  INCID_0_H,  ///< incidence chez les hommes sans incapacité 
+                  INCID_1_F,  ///< incidence chez les femmes avec incapacité 
+                  INCID_1_H,  ///< incidence chez les hommes avec incapacité 
+                  MORT_F,     ///< mortalité chez les femmes, tenant compte de l'état de santé
+                  MORT_H,     ///< mortalité chez les hommes, tenant compte de l'état de santé
+                  PREVAL_F,   ///< prévalence chez les femmes 
+                  PREVAL_H    ///< prévalence chez les hommes
+};
+/** Types d'équation pour la simulation d'un état de santé */
 const vector<string> EQS_SANTE {"INCID_0_F","INCID_0_H","INCID_1_F","INCID_1_H","MORT_F","MORT_H","PREVAL_F","PREVAL_H"};
 
+/// Définition des classes relatives à l'imputation d'un état de santé
 enum classeagesante {C50_54=0,C55_59=1,C60_64=2,C65_69=3,C70_74=4,C75_79=5,C80_84=6,C85_89=7,C90=8};
 
 

@@ -155,12 +155,10 @@ enum regime {
 };
 
 
-/**
- * fonction durees_majo
 
-Repart des durées calculées par DurBase, et calcule les durées majorées prenant
-en compte la Mda selon les options.
-*/
+//fonction durees_majo
+//Repart des durées calculées par DurBase, et calcule les durées majorées prenant en compte la Mda selon les options.
+
 void DroitsRetr::durees_majo() {
     duree_rg_maj  = duree_rg;
     duree_fp_maj  = duree_fp;
@@ -286,13 +284,13 @@ void DroitsRetr::DecoteSurcote()
     // RQ : dans le cas d'une seconde liquidation, on ne recalcule pas la décote et la surcote dans le régime déjà liquidé, cad la FP
     if (!X.retr->primoliq)
     {
-        /// calcul de la durée de décote à la FP
+        // calcul de la durée de décote à la FP
         if (l.an_leg<2003)   durdecote_fp = 0;
         else durdecote_fp = max(0.0,
              min(ArrTrimSup(arr_mois(l.AgeAnnDecFP-agetest)),
                  ArrTrimSup(l.DureeCibFP-duree_tot_maj)));
   
-        /// calcul de la durée de surcote à la FP
+        // calcul de la durée de surcote à la FP
         dursurcote_fp = 0;
         if ( in(X.statuts[agedebsurcote], Statuts_occ) && (t>103) && (l.an_leg>=2003))
           dursurcote_fp = max(0.0,
@@ -892,7 +890,7 @@ struct Retraite_comp {
     Comme cette fonction n'est appelée que juste après le calcul des avantages principaux 
     de droit direct OU dérivé, on utilise les variables
     $agefin_primoliq, $agefin_totliq et $agerevliq pour savoir à quelles pensions la bonification 
-    doit être appliquée (et, \textit{a contrario},
+    doit être appliquée (et, a contrario,
      auxquelles elle l'a déjà été au cours d'étapes précédentes).
      
     Remarque : on utilise notamment le fait que, pour les droits directs, 
@@ -964,13 +962,10 @@ struct Retraite_comp {
   
   
   
-  /**
-   * Fonction Mincont
-
-    Calcul du montant attribuable au titre du minimum contributif. Suppose que les
-    durées de cotisation sont connues, donc des appels préalables de DurBase et
-    DurMajo (source, Doc N° 4, séance COR du 27 juin 2006)
-   */
+ //Fonction Mincont
+    //Calcul du montant attribuable au titre du minimum contributif. Suppose que les
+    //durées de cotisation sont connues, donc des appels préalables de DurBase et
+    //DurMajo (source, Doc N° 4, séance COR du 27 juin 2006)
   void DroitsRetr::MinCont(int AnneeRefAnticip)
   {
       if(t < 83 || tauxliq_rg<1)   
@@ -1440,11 +1435,11 @@ void DroitsRetr::Liq()
    min_cont_in = 0;
       
  
-   /// Application du minimum contributif (ou garanti)
+   // Application du minimum contributif (ou garanti)
    if (!options->NoMC || !options->NoMG)    
       AppliqueMin();
 	  
-   /// Application des bonifications pour 3 enfants
+   // Application des bonifications pour 3 enfants
    if (!options->NoBonif && (X.nb_enf(age)>=3))    
       AppliqueBonif();
 

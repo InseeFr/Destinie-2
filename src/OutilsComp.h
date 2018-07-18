@@ -5,10 +5,10 @@
  * Cette bibliothèque propose des outils de simulation des comportements de départ
  * en retraite. Elle utilise l'information d'un objet de DroitsRetr pour déterminer,
  * selon le comportement choisi, si l'individu choisit de liquider ses droits directs
- * à l'âge tester
- * ou au contraire de reporter encore son départ à la retraite.
+ * à l'âge testé ou de reporter encore son départ à la retraite.
  * L'individu pouvant liquider en deux fois (primo-liquidation à la FP, avant une 
- * seconde liquidation au régimes privés), cette bibliothèques contient deux fonctions.\\
+ * seconde liquidation dans les régimes privés), cette bibliothèque contient deux fonctions.
+ * 
  * La première fonction, \ref TestLiq , teste la première liquidation. 
  * Si les droits ne sont pas intégralement liquidés à la première liquidation, la seconde fonction, \ref TestSecondeLiq ,
  * teste la seconde liquidation.

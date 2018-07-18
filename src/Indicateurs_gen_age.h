@@ -15,14 +15,24 @@
  */
 struct Indic_gen_age {
   Somme
-    PopTOT, PopEmploi, PopActive, PopChomage, 
-    PopRetraitee, SalTot, immigrTot;
+    PopTOT,       ///< Nombre de personnes
+    PopEmploi,    ///< Nombre de personnes en emploi
+    PopActive,    ///< Nombre de personnes actives
+    PopChomage,   ///< Nombre de personnes au chômage
+    PopRetraitee, ///< Nombre de retraités
+    SalTot,       ///< Montant total des salaires
+    immigrTot     ///<
+  ;
 
   Moyenne
-    SMPTEch;
+    SMPTEch     ///< Salaire moyen par tête dans l'échantillon
+    ;
     
   Taux 
-    TxChomage, TxActif, TxCadre;
+    TxChomage,  ///< Taux de chômage
+    TxActif,    ///< Taux d'activité
+    TxCadre     ///< Pourcentage de cadres parmi les personnes en emploi
+    ;
 };
 
 /**

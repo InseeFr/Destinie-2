@@ -3,7 +3,8 @@
 #include "Retraite.h"
 using NV = Rcpp::NumericVector;
 
-struct CiblesTrans2 {NumericVector  _(H50),   _(F50);};
+//juillet 2017: structure CiblesTrans2 utilisée quelque part ?
+//struct CiblesTrans2 {NumericVector  _(H50),   _(F50);};
 
 //Fonctions de répartition des statuts pour l'année d'arrivée des migrants
 const vector<double> mig_occ1_hom={INA,	0.0489,	TIT, 0.1734,	PRI, 0.7337,	IND, 0.7886, CHO,	0.9502, RET, 1};

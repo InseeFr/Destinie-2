@@ -18,34 +18,36 @@
  * les moyennes d'âge à la liquidation, de durée validée, taux de remplacement...
  */
 struct Indic_gen {
-  Moyenne AGEPRIMOLIQ;
-  Moyenne AGETOTLIQ;
-  Moyenne DUREEVAL;
-  Taux    DEPARTAVANT;
-  Taux    DEPARTNORM;
-  Taux    DEPARTENTRE;
-  Taux    DEPARTANNDEC;
-  Taux    DEPARTAPRES;
-  Taux    DEPARTNODECFP;
-  Taux    DEPARTTPDUR;
-  Taux    DEPARTTPAGE;
-  Taux    DEPARTTPINAPT;
-  Taux    DEPARTDECOTE;
-  Taux    DEPARTSURCOTE;
-  Moyenne PMOYLIQ;
-  Moyenne COEFFPRORAT;
-  Somme   NBAFF;
-  Somme   NBRETTOT;
-  Somme   NBRETPRIMO;
-  Somme   NBVFU;
-  Taux    PARTAFF;
-  Taux    PARTRETTOT;
-  Taux    PARTRETPRIMO;
-  Taux    PARTVFU;
-  Moyenne TAUXREMPLBRUT;
-  Moyenne SALFINCARR;
-  Moyenne AGEFINEMPL;
-  Moyenne PENSION68;
+  Moyenne AGEPRIMOLIQ;    ///< Âge moyen à la primo-liquidation sur la génération
+  Moyenne AGETOTLIQ;      ///< Âge moyen à la liquidation sur la génération
+  Moyenne DUREEVAL;       ///< Durée validée moyenne
+  
+  Taux    DEPARTAVANT;    ///< (à vérifier) obsolète ? 
+  Taux    DEPARTNORM;     ///< (à vérifier) obsolète ? 
+  Taux    DEPARTENTRE;    ///< (à vérifier) obsolète ? 
+  Taux    DEPARTANNDEC;   ///< (à vérifier) obsolète ? 
+  Taux    DEPARTAPRES;    ///< (à vérifier) obsolète ? 
+  Taux    DEPARTNODECFP;  ///< (à vérifier) obsolète ? 
+  Taux    DEPARTTPDUR;    ///< (à vérifier) obsolète ? 
+  Taux    DEPARTTPAGE;    ///< (à vérifier) obsolète ? 
+  Taux    DEPARTTPINAPT;  ///< (à vérifier) obsolète ? 
+  Taux    DEPARTDECOTE;   ///< (à vérifier) obsolète ? 
+  Taux    DEPARTSURCOTE;  ///< (à vérifier) obsolète ? 
+  
+  Moyenne PMOYLIQ;        ///< Pension moyenne à la liquidation
+  Moyenne COEFFPRORAT;    ///< Coefficient de proratisation moyen
+  Somme   NBAFF;          ///< (à vérifier) obsolète ? 
+  Somme   NBRETTOT;       ///< (à vérifier) Nombre de personnes qui seront partis en retraite
+  Somme   NBRETPRIMO;     ///< (à vérifier) Nombre de personnes qui auront eu une primo-liquidation
+  Somme   NBVFU;          ///< (à vérifier) Nombre de personnes qui auront bénéficié d'un versement forfaitaire unique
+  Taux    PARTAFF;        ///< (à vérifier) obsolète ?
+  Taux    PARTRETTOT;     ///< (à vérifier) obsolète ?
+  Taux    PARTRETPRIMO;   ///< (à vérifier) obsolète ?
+  Taux    PARTVFU;        ///< (à vérifier) obsolète ?
+  Moyenne TAUXREMPLBRUT;  ///< Taux de remplacement brut
+  Moyenne SALFINCARR;     ///< Salaire moyen de fin de carrière
+  Moyenne AGEFINEMPL;     ///< Âge moyen de fin d'emploi
+  Moyenne PENSION68;      ///< Pension moyenne à 68 ans
 };
 
 /**

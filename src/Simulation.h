@@ -43,7 +43,7 @@ struct CiblesDemo {
    * \struct CiblesDemo
    * \brief CiblesDemo contient les cibles démographiques de naissance et de solde migratoire 
    *
-   * La structure \ref CiblesDemo contient pour chaque année de projection le nombre de naissance et le solde migratoire et sa 
+   * La structure \ref CiblesDemo contient pour chaque année de projection le nombre de naissance, ainsi que le solde migratoire et sa 
    * répartition par sexe et âge. Attention le solde migratoire global cible ne correspond pas à la solde des soldes 
    * migratoires déclinés par âge et sexe car les soldes migratoires négatifs au-delà de 60 ans ne sont pas simulés ici.
    * 
@@ -327,7 +327,7 @@ struct Mortalite_diff {
 };
 
 /**
- * \struct Mortalite_diff_dip_F
+ * \struct Mortadiff_dip_F
  * \brief Quotients de mortalité par âge et niveau de diplôme des femmes observés sur la période 2009-2013
  * 
  * Le calcul de ces quotients de mortalité a été réalisée par \cite blanpain2016esperance .
@@ -361,10 +361,14 @@ struct Mortadiff_dip_F {
 };
 
 /**
- * \struct Mortalite_diff_dip_H
+ * \struct Mortadiff_dip_H
  * \brief Quotients de mortalité par âge et niveau de diplôme des hommes observés sur la période 2009-2013
  * 
  *  Le calcul de ces quotients de mortalité a été réalisée par \cite blanpain2016esperance .
+ * Pour les années 2010 à 2012 inclues, elles ont été fournies aux fins de ces exercices 
+ * de modélisation par la division Enquêtes et études démographiques de l'Insee, avec l'avertissement 
+ * que certaines peuvent être fragiles pour certains âges fins. Pour cette raison, elles ne sont pas publiées. 
+ * Ces valeurs sont donc utilisées pour affiner un peu le modèle Destinie 2, mais ne doivent pas être utilisées pour elles-mêmes.
  */
 struct Mortadiff_dip_H {
   NumericVector 
@@ -466,7 +470,7 @@ struct Emp {
    */
   _(Id), 
   /**
-   * \brief Age
+   * \brief Âge
    */
   _(age),
   /**
@@ -493,7 +497,7 @@ struct Fam {
    */
     _(Id), 
     /**
-     * \brief année
+     * \brief Année
      */    
     _(annee), 
     /**
@@ -723,7 +727,7 @@ struct Options {
      */
     _(tp)      , 
      /**
-      * * \brief Option obsolète, à supprimer
+      * \brief Option obsolète, à supprimer
       */ 
      _(uinst_old)         ,  _(inapte_exo)  ;    
     ///\}
@@ -754,7 +758,13 @@ bool
 
 
 
-
+/**
+ * \struct Macro
+ * \brief Macro contient l'ensemble des paramètres macroéconomiques et des paramètres spécifiques aux retraites.
+ * 
+ * Macro contient l'ensemble des paramètres macroéconomiques (PIB, inflation, ...) mais aussi des paramètres plus spécifiques
+ * aux retraites (taux de cotisation, valeur des points dans les complémentaires, ou encore montant du minimum vieillesse).
+ */
 
 
 struct Macro {
@@ -1622,8 +1632,7 @@ struct Macro {
    * \brief Correcteur démographique <br>
    * Source: Calculé dans la fonction interne de Destinie.cpp : destinieSimOptim. N'est utilisé que
    * dans le cas où l'option options->coeff_demo est mise en oeuvre.
-   * Voir le DT "Règles d’indexation des pensions et sensibilité des dépenses de retraites 
-   * à la croissance économique et aux chocs démographiques", de Koubi et Dubois (2017)  <br>
+   * Voir \cite dubois_koubi_2017
    */  
   _(correct_demo,0)  ;
   
@@ -1686,7 +1695,7 @@ struct EqSante {
   _(peudip),   
   /**
   * \brief Coefficient devant l'âge moins 50.
-  * Note: dans les simulations, un âge encore modifié peu être employé pour tenir compte des scénario
+  * Note: dans les simulations, un âge encore modifié peut être employé pour tenir compte des scénario
   * d'évolution des incapacités, voir \cite evrsi .
   */
   _(agebis) ,   
@@ -1709,12 +1718,9 @@ struct EqSante {
     
     
 /**
- * La structure Simulation contient l'ensemble des 
- * paramètres, options et séries macroéconomique ou de paramètres
- * législatifs  de la simulation.
- * 
- * Elle contient aussi le vecteur d'individus pop qui contient
- * l'ensemble des individus.
+ * \struct Simulation
+ * \brief La structure Simulation contient l'ensemble des paramètres, options et séries macroéconomique ou de paramètres
+ * législatifs  de la simulation, ainsi que le vecteur d'individus pop qui contient l'ensemble des individus.
  * 
  */
 
@@ -1750,7 +1756,7 @@ struct Simulation {
 
 
 void ecriture_liquidations();     ///< Crée une table R liquidations
-void ecriture_retraites(int t);   ///< exporte dans la table R retraite l'ensemble des pensions versées dans l'année
+void ecriture_retraites(int t);   ///< Exporte dans la table R retraite l'ensemble des pensions versées dans l'année
 void ecriture_droitsRetr(Indiv& X, DroitsRetr& r);
 
 
@@ -1776,7 +1782,7 @@ extern ptr<CiblesDemo>      ciblesDemo;
 extern vector<Indiv> pop;           ///< tableau de l'ensemble des individus (cf. classe \ref Indiv)
 extern  int AN_FIN;                 ///< Année de fin de la simulation
 extern  int AN_NB;                  ///< Nombre d'années (AN_FIN+1)
-extern vector<EqSante> eq_sante ;   ///< équations régissant les transitions entre états de santé dans l'option santé
+extern vector<EqSante> eq_sante ;   ///< Equations régissant les transitions entre états de santé dans l'option santé
 
 
 
