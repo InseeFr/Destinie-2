@@ -1,6 +1,8 @@
 
 ######################## QUELQUES CONSEILS PRATIQUES ########################
 
+0-Consulter la documentation pdf fournie, très détaillée.
+
 1-Dans les fichiers excels, il y a de nombreux liens entre fichiers dont le
 répertoire source est possiblement figé dans excel, et à changer par 
 l'utilisateur extérieur à l'Insee.
@@ -25,3 +27,5 @@ Cet échantillon test est obtenu à partir de personnes dont la vie a été enti
 été décalée. Il est non confidentiel et n'a aucune représentativité.
 Un fichier R est fourni conjointement qui montre comment il a été construit à partir de l'échantillon 
 initial de Destinie.
+
+6- Attention, il existe certes un statut d'activité de retraité, mais il n'est pas utilisé en pratique.
