@@ -5,6 +5,10 @@
 #previous commands excluded all .Rda/.RData
 !test_RIENconfidentiel_NONrepresentatif.Rda
 #previous command makes an exception
+
+#to include personal parameters that are not followed
+param_perso.R
+
 .Rproj.user
 .Rhistory
 Thumbs.db

@@ -17,10 +17,9 @@
   getwd()
 
 ##############################################
-# Paramètres de la simulation 
-  rep_rebasage <- "V:\\DG75-G210\\DestinieRetraites_packageR\\Genebios\\TableSAS\\"
+# Champ de la simulation 
   champ<-"FE" # ou  FM
-  fin_simul<-2110 # ou 2070 plus classiquement
+  fin_simul<-2110 #2110 au maximum ou 2070 plus classiquement
 
 ##############################################
 # Simulation ---------------------------------
@@ -36,26 +35,23 @@
     library(reshape2)
     library(ggplot2)
 
-
-  
   
   #chargement du package
     find_rtools()
     #Rcpp::compileAttributes()
     devtools::load_all(".")
-
-    
+   
     
 ####################################
 #échantillon de départ
 ######################################
-load(paste0(rep_rebasage,"simul_patrimoine.Rdata"))   
-    #pour le fichier test quand pas encore accès à l'échantillon de départ:
-    load("test\\test_RIENconfidentiel_NONrepresentatif.Rda")
+    source(file="param_perso.R")
 
 simul$options_salaires <- list()
 
-
+####################################
+#choix d'options
+######################################
 simul$options <- list("tp",anLeg=2016,pas1=3/12,pas2=1,
                       AN_MAX=as.integer(fin_simul),champ,
                       NoAccordAgircArrco=F, NoRegUniqAgircArrco=T, 
@@ -171,9 +167,9 @@ destinieSim(simul)
 
 ##############################################
 # Résultats ----------------------------------
+#âge moyen de liquidation pour tous et par sexes
+simul$Indicateurs_an %>% filter(regime=="tot" & annee > 2000) %>% ggplot(aes(x=annee,y=Age_Ret_Flux,color=sexe)) + geom_line()
 #masse despensions sur le Pib
 simul$Indicateurs_an %>% filter(regime=="tot"& sexe=="ens" & annee > 2010& annee<=2070)%>%
   left_join(simul$macro)%>% ggplot(aes(x=annee,y=M_Pensions_ma/10/PIB,color=sexe)) + geom_line()+
   theme_bw()
-#âge moyen de liquidation pour tous et par sexes
-simul$Indicateurs_an %>% filter(regime=="tot" & annee > 2000) %>% ggplot(aes(x=annee,y=Age_Ret_Flux,color=sexe)) + geom_line()
