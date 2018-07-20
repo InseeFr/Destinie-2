@@ -11,6 +11,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+####################################
+#échantillon de départ
+######################################
+source(file="C:/Destinie/param_perso.R")
+
 ##############################################
   #on indique que le working directory est le dossier clone
   setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -19,7 +24,7 @@
 ##############################################
 # Champ de la simulation 
   champ<-"FE" # ou  FM
-  fin_simul<-2110 #2110 au maximum ou 2070 plus classiquement
+  fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
 
 ##############################################
 # Simulation ---------------------------------
@@ -37,22 +42,20 @@
 
   
   #chargement du package
+    assignInNamespace("version_info", 
+                    c(devtools:::version_info, list("3.5" = list(version_min = "3.3.0", version_max = "99.99.99", path = "bin")
+                                                    )), "devtools")
     find_rtools()
     #Rcpp::compileAttributes()
     devtools::load_all(".")
    
-    
-####################################
-#échantillon de départ
-######################################
-    source(file="param_perso.R")
-
-simul$options_salaires <- list()
 
 ####################################
 #choix d'options
 ######################################
-simul$options <- list("tp",anLeg=2016,pas1=3/12,pas2=1,
+    simul$options_salaires <- list()    
+    
+    simul$options <- list("tp",anLeg=2016,pas1=3/12,pas2=1,
                       AN_MAX=as.integer(fin_simul),champ,
                       NoAccordAgircArrco=F, NoRegUniqAgircArrco=T, 
                       SecondLiq=F,mort_diff_dip=T,effet_hrzn=T) 
@@ -62,12 +65,12 @@ simul$options <- list("tp",anLeg=2016,pas1=3/12,pas2=1,
 #choix du scenario demographique 
 ################
 #dans le cas d'une simulation FM les paramètres démo sont renseignés sur la projection jusqu'en 2060
-# puis garder constants apres cette date
+# puis gardés constants apres cette date
 Cent=c("*","","","")
 Bas=c("","*","","")
 Haut=c("","","*","")
 Travail=c("","","","*")
-x=data.frame(fecondite=Cent,esp_vie=Cent,migration=Cent)
+x=data.frame(fecondite=Cent,esp_vie=Bas,migration=Cent)
 
 row.names(x)<-c("Cent","Bas","Haut","Travail")
 sc_demo=t(x)
@@ -75,7 +78,7 @@ rm(x)
 
 wb=xlsx::loadWorkbook(".\\parametres\\Param_demo\\sc_demo.xls")
 feuilles=xlsx::getSheets(wb)
-feuille=feuilles[[1]]
+feuille=feuilles[[2]]
 xlsx::addDataFrame(sc_demo,sheet = feuille,row.names = T,col.names=T, startRow = 1,startColumn = 1)
 
 
