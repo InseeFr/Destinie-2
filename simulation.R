@@ -70,7 +70,7 @@ Cent=c("*","","","")
 Bas=c("","*","","")
 Haut=c("","","*","")
 Travail=c("","","","*")
-x=data.frame(fecondite=Cent,esp_vie=Bas,migration=Cent)
+x=data.frame(fecondite=Cent,esp_vie=Cent,migration=Cent)
 
 row.names(x)<-c("Cent","Bas","Haut","Travail")
 sc_demo=t(x)
