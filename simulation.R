@@ -14,7 +14,7 @@
 ####################################
 #échantillon de départ
 ######################################
-source(file="C:/Destinie/param_perso.R")
+source(file="U:/Destinie/param_perso.R")
 
 ##############################################
   #on indique que le working directory est le dossier clone
