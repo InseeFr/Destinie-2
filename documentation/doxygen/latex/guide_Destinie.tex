@@ -1,6 +1,6 @@
 \section{Guide de prise en main du modèle Destinie}
 
-Ce guide vise à faciliter la première prise en main du modèle, sans garantie sur la facilité de la manœuvre. La seule garantie proposée par ses rédacteurs est que dans des circonstances "utilisateurs"\footnote{Lorsque des inscriptions précises sont données, elles ont été testées sous Windows 10.}, cette procédure a fonctionné comme décrite.\\
+Ce guide vise à faciliter la première prise en main du modèle, sans garantie sur la facilité de la manœuvre. La seule garantie proposée par ses rédacteurs est que dans des circonstances "utilisateurs"\footnote{Lorsque des inscriptions précises sont données, elles ont été testées sous Windows 10  sous un ordinateur où rien n'était pré-installé.}, cette procédure a fonctionné comme décrite.\\
 
 Procédure d'installation proposée :\\
 \begin{enumerate}
@@ -23,7 +23,7 @@ Procédure d'installation proposée :\\
 \end{itemize}
 
 \item Récupérer le dossier contenant le modèle : 
-Créer dans C  un dossier Destinie ; puis y clôner le dépôt en le nommant destinie. \footnote{Le fait que le dossier soit dans C\\Destinie\\destinie est nécessaire pour que le modèle soit entièrement immédiatement fonctionnel.} \\
+Créer dans C  un dossier Destinie ; puis y clôner le dépôt en le nommant destinie. \footnote{Le fait que le dossier soit dans \url{C:/Destinie/destinie} est nécessaire pour que le modèle soit entièrement immédiatement fonctionnel.} \\
 Par exemple:
 \begin{itemize}
 \item Faire un clic droit n’importe où
@@ -32,12 +32,13 @@ Par exemple:
 \item dans Répertoire inscrire: \url{C://Destinie//destinie}
 \end{itemize}
 
-\item Ouvrir Rstudio et ouvrir le projet destinie.Rproj ("File" puis "Open Project")
 
 \item Installer les packages nécessaires.
 Par exemple en exécutant dans Rstudio:\\
 \url{install.packages(c("devtools","Rcpp", "rstudioapi"))}\\ \url{install.packages(c("openxlsx","dplyr","tidyr","reshape2","ggplot2"))}\\  
 \url{install.packages("xlsx")}\\
+\url{install.packages("roxygen2")}\\
+(Pour exécuter sous Rstudio, inscrire la ligne en bas de la console, et cliquer sur Entrée).\\
 
 \item Puis charger les librairies correspondantes.
 Par exemple en exécutant dans Rstudio:\\
@@ -55,7 +56,7 @@ Par exemple en exécutant dans Rstudio:\\
  \url{assignInNamespace("version_info", c(devtools:::version_info, list("3.5" = list(version_min = "3.3.0", version_max = "99.99.99", path = "bin"))), "devtools")}\footnote{Cette ligne est nécessaire au fonctionnement sous R.3.5.0 au 19 juillet 2017 ; ce passage se simplifiera dans quelques semaines, d’après : \url{https://github.com/r-lib/devtools/issues/1772\# issuecomment-388639815}}  \\
  
  \url{find_rtools( )}  \\
- Un "YES" devrait alors s'afficher.
+ Un "TRUE" devrait alors s'afficher.
  
  \item Création d'un fichier \url{param_perso.R} \\
 Inclure dans ce fichier la ligne : \\
@@ -63,8 +64,9 @@ Inclure dans ce fichier la ligne : \\
 Il faut ici placer le chemin d'accès au fichier de données en entrée de modèle. Dans le dossier test, un jeu de données simulées, non représentatives, a été fourni afin de permettre la prise en main du modèle. La commande précédente permet de l'atteindre.\\
 
 \item \underline{Première simulation :}\\
-Ouvrir simulation.R, transformer "\url{source(file="U:/Destinie/param_perso.R")}" en "\url{source(file="C:/Destinie/param_perso.R")}".\\
-Puis faire tourner le fichier ligne à ligne.\\
+Ouvrir Rstudio et ouvrir le projet destinie.Rproj ("File" puis "Open Project", présent dans C:/Destinie/destinie).\\
+Ouvrir simulation.R, et y transformer tout en haut "\url{source(file="U:/Destinie/param_perso.R")}" en "\url{source(file="C:/Destinie/param_perso.R")}".\\
+Puis faire tourner le fichier ligne à ligne. (Pour faire tourner ligne à ligne, sélectionner l'instruction et appuyer sur "Run".) \\
 A l'ouverture du fichier excel, répondre le cas échéant "oui" pour mettre à jour les liens.
 \underline{Attention :} Le fichier test fourni pour prendre en main le logiciel n'est pas représentatif. Le fichier représentatif à utiliser est mis à disposition sur la plateforme Quetelet (\url{http://quetelet.progedo.fr/}).\\
 
