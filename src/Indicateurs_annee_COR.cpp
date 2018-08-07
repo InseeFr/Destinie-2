@@ -176,7 +176,6 @@ void ecriture_indicateurs_an(int t) {
       indic.Eff_Derive_seul   .push(ind_rev && X.retr->pension_tot == 0, 1, M->poids/1000.0);
       indic.M_Derive_seul     .push(ind_rev && X.retr->pension_tot == 0, rev, M->poids/1000000.0);
       indic.Eff_Flux_Derive   .push(ind_rev && X.retr->liqrev->ageliq_rev == age, 1, M->poids/1000.0); 
-      //M_Majo_Derive     (ind_rev && X.retr->liqrev->ageliq == age, 1, M->poids/1000.0);
 	  //indic.Eff_Retr_Derive   .push(retr && ind_rev    , 1, M->poids/1000.0);
 	  
 	
@@ -336,7 +335,7 @@ void ecriture_indicateurs_an(int t) {
 		
 		indic.Eff_DD_Flux_coeffSoli .push(!vfu && coeffSoli      , 1, M->poids/1000.0);
 		indic.M_DD_Flux_coeffSoli  .push(!vfu && coeffSoli  , pensionliq_coeffSoli, M->poids/1000000.0) ;
-		//indic.M_Flux  .push(!vfu      , dr.pensionliq(reg), M->poids/1000000.0) ;
+		indic.M_Flux  .push(!vfu      , dr.pensionliq(reg), M->poids/1000000.0) ;
 		
 		indic.M_DD_Flux  .push(!vfu     , pensionliq, M->poids/1000000.0) ;
 		
@@ -454,13 +453,13 @@ void ecriture_indicateurs_an(int t) {
         "annee","regime","sexe",
         "Eff_Coti", "Sal_Plaf", "Sal_Tot", "M_Cotisations", "Eff_DD", "M_DD", "Eff_Flux", "Eff_Flux_Primo", "NB_VFU", "M_VFU", 
         "Eff_Min_Flux", "M_Min_Flux", "Eff_Min", "M_Min", "Eff_Derive", "M_Derive", "Eff_Derive_seul", 
-        "M_Pensions__Derive_seul", "Eff_Flux_Derive", "M_Majo_Derive", "Eff_DD_avec_MV", "M_Pensions_DD_avec_MV", "Eff_DeriveSeul_avec_MV", 
-        "M_Pensions_DeriveSeul_avec_MV", "M_Pensions",
+        "M_Pensions__Derive_seul", "Eff_Flux_Derive", 
+        "M_Pensions",
         "Age_Ret_Flux_primo", "Coeff_Prorat_Flux", "Sal_fin_carr",
-        "AgeMoyRetr_finannee", "Pmoy_Flux", "Age_Ret_Flux", "Dur_Ass_Flux", "Pmoy_Flux_Derive", "Sal_relatif",
-        "Eff_Flux_coeffSoli", "M_Flux_coeffSoli", "M_Flux", "Eff_MV", "Eff_Flux_MV", "M_Flux_MV", "M_MV",
-		"Eff_DD_Deces", "Eff_Derive_Deces", "M_Agff", "M_DD_Flux", "M_Flux_Derive", "M_DD_Deces", "M_Derive_Deces", "PMoy_DD",
-		"Eff_Flux_DD_MV", "Eff_Flux_DRseul_MV", "Eff_Cotisants_ma","Eff_DD_ma","Eff_Min_ma","Eff_Flux_ma","Eff_DD_Flux_coeffSoli_ma",
+        "AgeMoyRetr_finannee", "Pmoy_Flux", "Age_Ret_Flux", "Dur_Ass_Flux", "Pmoy_Flux_Derive",
+        "Eff_DD_Flux_coeffSoli", "M_Flux_coeffSoli", "M_Flux", "Eff_MV", "Eff_Flux_MV", "M_Flux_MV", "M_MV",
+		"Eff_DD_Deces", "Eff_Derive_Deces", "M_DD_Flux", "M_Flux_Derive", "M_DD_Deces", "M_Derive_Deces", "PMoy_DD",
+	  "Eff_Cotisants_ma","Eff_DD_ma","Eff_Min_ma","Eff_Flux_ma","Eff_DD_Flux_coeffSoli_ma",
 		"Eff_Min_Flux_ma","M_DD_Flux_ma","M_DD_ma","M_DD_Flux_coeffSoli_ma","M_Min_Flux_ma","M_Min_ma", "M_Pensions_ma",
 		"M_MICO_flux_ma", "M_MICO_stock_ma", "Sal_Plaf_31dec", "Sal_Tot_31dec", "TauxRemplace"}, "regime", regimes_labels, "sexe", sexe_labels);
 
@@ -476,12 +475,12 @@ void ecriture_indicateurs_an(int t) {
           t+1900, r, s,
           i.Eff_Cotisants, i.Sal_Plaf, i.Sal_Tot, i.M_Cotisations, i.Eff_DD, i.M_DD, i.Eff_Flux, i.Eff_Flux_Primo, i.NB_vfu, i.M_vfu, 
           i.Eff_Min_Flux, i.M_Min_Flux, i.Eff_Min, i.M_Min, i.Eff_Derive, i.M_Derive, i.Eff_Derive_seul, 
-          i.M_Derive_seul, i.Eff_Flux_Derive, i.M_Majo_Derive, i.Eff_DD_MV, i.M_DD_MV, i.Eff_DRseul_MV, 
-          i.M_DRseul_MV, i.M_Pensions,
+          i.M_Derive_seul, i.Eff_Flux_Derive, 
+          i.M_Pensions,
           i.Age_Ret_Flux_Primo, i.Coeff_Prorat_Flux, i.Sal_fin_carr,
-          i.AgeMoyRetr_finannee, i.PMoy_Flux, i.Age_Ret_Flux, i.Dur_Ass_Flux, i.PMoy_Flux_Derive, i.Sal_relatif,
+          i.AgeMoyRetr_finannee, i.PMoy_Flux, i.Age_Ret_Flux, i.Dur_Ass_Flux, i.PMoy_Flux_Derive,
           i.Eff_DD_Flux_coeffSoli, i.M_DD_Flux_coeffSoli, i.M_Flux, i.Eff_MV, i.Eff_Flux_MV, i.M_Flux_MV, i.M_MV, i.Eff_DD_Deces,
-		  i.Eff_Derive_Deces, i.M_Agff, i.M_DD_Flux, i.M_Flux_Derive, i.M_DD_Deces, i.M_Derive_Deces, i.PMoy_DD, i.Eff_Flux_DD_MV, i.Eff_Flux_DRseul_MV,
+		  i.Eff_Derive_Deces, i.M_DD_Flux, i.M_Flux_Derive, i.M_DD_Deces, i.M_Derive_Deces, i.PMoy_DD,
 		  i.Eff_Cotisants_ma, i.Eff_DD_ma, i.Eff_Min_ma, i.Eff_Flux_ma, i.Eff_DD_Flux_coeffSoli_ma, i.Eff_Min_Flux_ma, i.M_DD_Flux_ma, i.M_DD_ma, i.M_DD_Flux_coeffSoli_ma,
 		  i.M_Min_Flux_ma,i.M_Min_ma, i.M_Pensions_ma, i.M_MICO_flux_ma, i.M_MICO_stock_ma, i.Sal_Plaf_31dec, i.Sal_Tot_31dec, i.TauxRemplace
         );

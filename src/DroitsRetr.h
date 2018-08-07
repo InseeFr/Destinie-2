@@ -469,6 +469,7 @@ class DroitsRetr {
   
   // \brief Méthodes facilitant le calcul d'indicateur en renvoyant
   // la valeur d'une variable pour un régime particulier
+  /** \brief Renvoie la durée majorée dans le régime */
   double duree_maj(int regime) {
     if(regime==REG_TOT) return duree_tot_maj;
     if(regime==REG_RG) return duree_rg_maj;
@@ -476,6 +477,8 @@ class DroitsRetr {
     if(regime==REG_FP) return duree_fp_maj;
     return duree_rg_maj;
   }
+  
+  /** \brief Renvoie la durée, hors majorations, dans le régime */
   double duree(int regime) {    
     if(regime==REG_TOT) return duree_tot;
     if(regime==REG_RG) return duree_rg;
@@ -487,20 +490,24 @@ class DroitsRetr {
     return 0;
   }
   
+  /** \brief Renvoie la part de l'année précédant la liquidation totale en fonction de l'âge */
   double partavtliq(int age) {
       return agefin_totliq ? min_max(arr_mois(agefin_totliq - age, X.moisnaiss+1),  0, 1) : 1;
   }
   
+  /** \brief Renvoie la part de l'année précédant la primo-liquidation en fonction de l'âge */
   double partavtprimo(int age) {
       return agefin_primoliq ? min_max(arr_mois(agefin_primoliq - age, X.moisnaiss+1),  0, 1) : 1;
   }
   
+  /** \brief Renvoie la pension proratisée en fonction de la date de revalorisation */
   double pension_prorat(double pension, double daterevalo, double RevaloReg, double partavtliq=0) { // TODO: mettre ailleurs
       return pension * (1/RevaloReg*
                (max(daterevalo, partavtliq)-partavtliq)
                +(1-max(daterevalo, partavtliq)));
   }
 
+  /** \brief Renvoie la pension proratisée par âge et par régime */
   double pension_prorat(int age, int regime) {
     int t = X.date(age);
     double pens(0);
@@ -526,6 +533,7 @@ const  vector<int> statuts_ind         = {S_IND} ;
 const  vector<int> statuts_ind_assimil = {S_IND, S_INVALIND};
 
 
+/** \brief Renvoie la durée en emploi dans le régime */
   double duree_emp_reg(int regime) {
     if(regime==REG_TOT) return duree_emp;
     if(regime==REG_RG) return duree_emp - duree_fpa - duree_fps - duree_in;
@@ -537,6 +545,7 @@ const  vector<int> statuts_ind_assimil = {S_IND, S_INVALIND};
     return 0;
   }
   
+  /** \brief Renvoie le montant du VFU dans le régime */
   double VFU(int regime) {
     if(regime==REG_TOT) return VFU_rg+VFU_ar+VFU_ag;
     if(regime==REG_RG) return VFU_rg;
@@ -546,6 +555,7 @@ const  vector<int> statuts_ind_assimil = {S_IND, S_INVALIND};
     return 0; // Pas de VFU modélisé dans les autres régimes
   }
   
+  /** \brief Renvoie, pour un régime donné, une indicatrice valant 1 en cas de bénéfice du minimum de pension, et 0 sinon */
   double min_reg(int regime) {
     if(regime==REG_TOT) return indic_mc || indic_mg || indic_mc_in;
     if(regime==REG_RG) return indic_mc;
@@ -554,6 +564,9 @@ const  vector<int> statuts_ind_assimil = {S_IND, S_INVALIND};
     return 0; 
   }
   
+  /** \brief Renvoie, pour un régime donné, le montant de la majoration accordée au titre des enfants. Lorsque
+   * regime=REG_TOT, comprend également le montant des minima de pensions.
+   */
   double majo_3enf(int regime) {
     if(regime==REG_TOT) return (
         majo_min_rg + majo_min_in + majo_min_fp + 
@@ -567,6 +580,7 @@ const  vector<int> statuts_ind_assimil = {S_IND, S_INVALIND};
     return 0;
   }
   
+  /** \brief Renvoie, pour un régime donné, le montant de la majoration accordée au titre du minimum de pension */
   double majo_min(int regime) {
     if(regime==REG_TOT) return majo_min_rg + majo_min_in + majo_min_fp;
     if(regime==REG_RG) return majo_min_rg;
@@ -575,6 +589,7 @@ const  vector<int> statuts_ind_assimil = {S_IND, S_INVALIND};
     return 0;
   }
   
+  /** \brief Renvoie, pour un régime donné, le coefficient de décote/surcote */
   double taux_liq(int regime) {
     if(regime==REG_TOT) return 0;
     if(regime==REG_RG) return tauxliq_rg;
@@ -586,6 +601,7 @@ const  vector<int> statuts_ind_assimil = {S_IND, S_INVALIND};
     return 0;
   }
   
+  /** \brief Renvoie, pour un régime donné, le coefficient de proratisation */
   double taux_prorat(int regime) {
     if(regime==REG_TOT) return taux_prorat_rg+taux_prorat_in+taux_prorat_fp;
     if(regime==REG_RG) return taux_prorat_rg;
@@ -594,6 +610,7 @@ const  vector<int> statuts_ind_assimil = {S_IND, S_INVALIND};
     return 0;
   }
 
+  /** \brief Renvoie, pour un régime donné, la pension annualisée à la liquidation */
   double pensionliq(int regime) {
     if(regime==REG_TOT) return pension;
     if(regime==REG_RG) return  pension_rg;
@@ -606,6 +623,7 @@ const  vector<int> statuts_ind_assimil = {S_IND, S_INVALIND};
     return 0;
   }
   
+  /** \brief Renvoie, pour un régime donné, l'âge au 31/12 de l'année de liquidation */
   double age_liq(int regime) {
     if(regime == REG_TOT) return ageprimoliq;
     if(regime == REG_FP) return ageprimoliq;
@@ -614,10 +632,12 @@ const  vector<int> statuts_ind_assimil = {S_IND, S_INVALIND};
     return ageliq;
   }
   
+  /** \brief Renvoie le salaire brut moyen des cinq années précédant la liquidation */
   double derSalNet() {
     return X.SalMoyBrut(ageliq,5);
   }
   
+  /** \brief Renvoie l'âge au dernier emploi */
   int ageFinEmp() {
     for(int age = ageliq; age >= 0; age--) {
       if(in(X.statuts[age], Statuts_occ))
@@ -626,6 +646,7 @@ const  vector<int> statuts_ind_assimil = {S_IND, S_INVALIND};
     return 0;
   }
   
+  /** \brief Renvoie l'âge au dernier statut d'activité */
   int ageFinAct() {
     for(int age = ageliq; age >= 0; age--) {
       if(in(X.statuts[age], Statuts_act))

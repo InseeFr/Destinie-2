@@ -21,95 +21,81 @@
 struct Indic_annee {
 
   Somme
-    Eff_Cotisants,        ///< Effectif total des cotisants (en emploi : ne compte pas les personnes au chômage ou à l'AVPF)
-    Sal_Plaf,             ///< Montant total des salaires plafonnés (par le PSS)
-    Sal_Tot,              ///< Montant total des salaires
-    M_Cotisations,        ///< Montant total des cotisations
-    Eff_DD,               ///< Effectit total des retraités de droits directs
-    M_DD,                 ///< Montant total des droits directs
+    Eff_Cotisants,        ///< Effectif d'affiliés au 31/12
+    Sal_Plaf,             ///< Montant total des salaires plafonnés (au PSS) et proratisés par la durée en emploi
+    Sal_Tot,              ///< Montant total des salaires proratisés par la durée en emploi
+    M_Cotisations,        ///< Montant total des cotisations proratisées par la durée en emploi
+    Eff_DD,               ///< Effectif de retraités de droits directs au 31/12
+    M_DD,                 ///< Somme des pensions annualisées de droit direct
     Eff_Flux,             ///< Nombre de nouveaux retraités de droit direct
     Eff_Flux_Primo,       ///< Nombre de nouveaux primo-liquidants
-    NB_vfu,               ///< (à vérifier) Nombre de bénéficiaires d'un versement forfaitaire unique
-    M_vfu,                ///< (à vérifier) Masse des versements forfaitaires uniques versés
+    NB_vfu,               ///< Nombre de bénéficiaires d'un versement forfaitaire unique
+    M_vfu,                ///< Masse des versements forfaitaires uniques versés
     
-    Eff_Min_Flux,         ///< Nombre de personnes entrant dans le dispositif minimum vieillesse
-    M_Min_Flux,           ///< Montant total du minimum vieillesse, en se restreignant au nouveaux bénéficiaires
-    Eff_Min,              ///< Nombre de personnes bénéficiant du minimum vieillesse
-    M_Min,                ///< Montant total du minimum vieillesse
+    Eff_Min_Flux,         ///< Flux d'individus bénéficiant d'un minimum de pension
+    M_Min_Flux,           ///< Masse des pensions annualisées de droit direct des nouveaux bénéficiaires d'un minimum de pension
+    Eff_Min,              ///< Nombre de bénéficiaires d'un minimum de pension
+    M_Min,                ///< Masse des pensions annualisées de droit direct des bénéficiaires d'un minimum de pension
     
-    Eff_Derive,           ///< Effectif total des bénéficiaires de droits dérivés
+    Eff_Derive,           ///< Nombre de réversataires
     M_Derive,             ///< Montant total des droits dérivés
-    Eff_Derive_seul,      ///< (à vérifier) Effectif total des bénéficiaires de droits dérivés, où c'est le seul droit
-    M_Derive_seul,        ///< (à vérifier) Montant total des droits dérivés, où c'est le seul droit
-    Eff_Flux_Derive,      ///< Nombre de nouveaux bénéficiaires de droits dérivés
-    M_Majo_Derive,        ///< 
+    Eff_Derive_seul,      ///< Nombre d'individus bénéficiant uniquement d'une pension de réversion
+    M_Derive_seul,        ///< Masse des pensions de réversion des individus ne bénéficiant pas de droit direct
+    Eff_Flux_Derive,      ///< Flux de réversataires
     
-    Eff_DD_MV,            ///< (à vérifier) Effectif total de retraités de droit direct au minimum vieillesse
-    M_DD_MV,              ///< (à préciser) Montant des pensions de droit direct placés au minimum vieillesse
-    Eff_DRseul_MV,        ///< (à vérifier) Effectif total de retraités avec seulement du droit direct et au minimum vieillesse
-    M_DRseul_MV,          ///< (à préciser) Montant des pensions avec seulement du droit direct et au minimum vieillesse
+    M_Pensions,           ///< Montant total des pensions annualisées
     
-    M_Pensions,           ///< Montant total des pensions
-    Eff_Cotisants_finAnnee,       ///<  (à vérifier) Effectif total des cotisants, au 31 décembre
-    Eff_DD_finAnnee,      ///< (à vérifier) Effectit total des retraités de droits directs, au 31 décembre
-    
-    Eff_DD_MV_ma,         ///< (à vérifier) obsolète ?
-    Eff_Flux_DD_MV,       ///< (à vérifier) obsolète ? la partie où il est défini semble être commentée ???
-    Eff_Flux_DRseul_MV,   ///< 
-    
-  	Eff_DD_Flux_coeffSoli,        ///< 
-  	M_DD_Flux_coeffSoli,  ///< 
+  	Eff_DD_Flux_coeffSoli,        ///< Flux de liquidants soumis à un coefficient de solidarité (cf. accord Arrco-Agirc d'octobre 2015)
+  	M_DD_Flux_coeffSoli,  ///< Masse des pensions soumises à un coefficient de solidarité (cf. accord Arrco-Agirc d'octobre 2015)
   	M_Flux,               ///< Montant total des pensions des nouveaux retraités
   	
-  	Eff_MV,               ///< 
-  	Eff_Flux_MV,          ///< 
-  	M_MV,                 ///< 
-  	M_Flux_MV,            ///< 
+  	Eff_MV,               ///< Nombre de bénéficiaires du minimum vieillesse
+  	Eff_Flux_MV,          ///< Nombre de nouveaux bénéficiaires du minimum vieillesse
+  	M_MV,                 ///< Masse des pensions annualisées des bénéficiaires du minimum vieillesse
+  	M_Flux_MV,            ///< Masse des pensions annualisées des nouveaux bénéficiaires du minimum vieillesse
   	
-  	Eff_DD_Deces,         ///< 
-  	Eff_Derive_Deces,     ///< 
-  	M_Agff,               ///< 
-  	M_DD_Flux,            ///< (à vérifier) Montant total des nouveaux droits dérivés
-  	M_Flux_Derive,        ///< (à vérifier) différence avec M_DD_Flux ???
-  	M_DD_Deces,           ///< 
-  	M_Derive_Deces,       ///< 
+  	Eff_DD_Deces,         ///< Nombre de décès parmi les retraités de droit direct
+  	Eff_Derive_Deces,     ///< Nombre de décès parmi les réversataires
+  	M_DD_Flux,            ///< Montant total des nouveaux droits directs
+  	M_Flux_Derive,        ///< Montant des flux de droits dérivés
+  	M_DD_Deces,           ///< Montant des droits directs (au 31/12) des décédés
+  	M_Derive_Deces,       ///< Montant des droits dérivés des décédés
   	
-  	Eff_Cotisants_ma,     ///< 
-  	Eff_DD_ma,            ///< 
+  	Eff_Cotisants_ma,     ///< Effectif d'affiliés au prorata de la durée passée en emploi
+  	Eff_DD_ma,            ///< Effectif de retraités de droits directs au prorata de la durée passée en retraite
   	
-  	Eff_Min_ma,           ///< 
+  	Eff_Min_ma,           ///< Nombre de bénéficiaires d'un minimum de pension, au prorata de la durée passée en retraite
   	
-  	Eff_DD_Flux_coeffSoli_ma,        ///< 
-  	Eff_Min_Flux_ma,M_DD_Flux_ma,    ///< 
-  	M_DD_ma,              ///< 
-  	M_DD_Flux_coeffSoli_ma,         ///< 
-  	M_Min_Flux_ma,        ///< 
-  	M_Min_ma,             ///< 
-  	Eff_Flux_ma,          ///< 
-  	M_Pensions_ma,        ///< 
-  	Eff_Retr_Derive,      ///< 
-  	M_MICO_flux_ma,       ///< 
-  	M_MICO_stock_ma,      ///< 
+  	Eff_DD_Flux_coeffSoli_ma,        ///< Flux de liquidants soumis à un coefficient de solidarité (cf. accord Arrco-Agirc d'octobre 2015), au prorata de la durée passée en emploi
+  	Eff_Min_Flux_ma,  ///< Flux d'individus bénéficiant d'un minimum de pension, au prorata de la durée passée en retraite
+  	M_DD_Flux_ma,    ///< Flux des pensions proratisées de droit direct
+  	M_DD_ma,              ///< Somme des pensions proratisées de droit direct
+  	M_DD_Flux_coeffSoli_ma,         ///< Masse des pensions proratisées soumises à un coefficient de solidarité (cf. accord Arrco-Agirc d'octobre 2015)
+  	M_Min_Flux_ma,        ///< Masse des pensions proratisées de droit direct des nouveaux bénéficiaires d'un minimum de pension
+  	M_Min_ma,             ///< Masse des pensions proratisées de droit direct des bénéficiaires d'un minimum de pension
+  	Eff_Flux_ma,          ///< Nombre de nouveaux retraités de droit direct, au prorata de la durée passée en retraite
+  	M_Pensions_ma,        ///< Montant total des pensions proratisées
+  	M_MICO_flux_ma,       ///< Montant des nouvelles dépenses, proratisées, effectuées au titre des minima de pensions
+  	M_MICO_stock_ma,      ///< Montant des dépenses, proratisées, effectuées au titre des minima de pensions
   	
-  	Sal_Plaf_31dec,       ///< (à vérifier) Montant total des salaires plafonnés (par le PSS), au 31 décembre
-  	Sal_Tot_31dec         ///< (à vérifier) Montant total des salaires, au 31 décembre
+  	Sal_Plaf_31dec,       ///< Montant total des salaires plafonnés (au PSS), au 31 décembre
+  	Sal_Tot_31dec         ///< Montant total des salaires, au 31 décembre
   ;
 
   Moyenne
-    Age_Ret_Flux_Primo,       ///< Âge moyen de départ en retraite pour les nouveaux primo-liquidants
-    Coeff_Prorat_Flux,        ///< Coefficient de proratisation moyen, pour les nouveaux liquidants
-    Sal_fin_carr,             ///< (à préciser) Salaire moyen de fin de carrière
-    AgeMoyRetr_finannee,      ///< Âge moyen du départ en retraire, au 31 décembre
-    PMoy_Flux,                ///< Pension de droit direct moyenne parmi les nouveaux retraités de droit direct
-    Age_Ret_Flux,             ///< Âge moyen de départ en retraite pour les nouveaux liquidants
-    Dur_Ass_Flux,             ///< Durée moyenne d'assurances pour les nouveaux liquidants
-    PMoy_Flux_Derive,         ///< Pension de droits dérivés moyenne parmi les nouveaux retraités de droit direct
-    Sal_relatif,              ///< 
-	  PMoy_DD                    ///< Pension de droit direct moyenne
+    Age_Ret_Flux_Primo,       ///< Âge moyen de liquidation des primo-liquidants
+    Coeff_Prorat_Flux,        ///< Coefficient de proratisation moyen des liquidants
+    Sal_fin_carr,             ///< Salaire moyen de fin de carrière
+    AgeMoyRetr_finannee,      ///< Âge moyen (au 31/12) des retraités de droit direct
+    PMoy_Flux,                ///< Pension moyenne de droit direct des liquidants
+    Age_Ret_Flux,             ///< Âge moyen de liquidation totale
+    Dur_Ass_Flux,             ///< Durée moyenne d'assurance, y compris majorations, des liquidants
+    PMoy_Flux_Derive,         ///< Montant moyen du droit de réversion des nouveaux réversataires
+	  PMoy_DD                    ///< Pension moyenne de droit direct, en euros 2012
     ;
     
   Ratio 
-    TauxRemplace      ///< (à préciser) Taux de remplacement (moyen? du régime?)
+    TauxRemplace      ///< Taux de remplacement de la somme des salaires du régime par la somme des pensions tous régimes
     ;
 };
 
