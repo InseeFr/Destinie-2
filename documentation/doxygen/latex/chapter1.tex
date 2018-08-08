@@ -93,6 +93,26 @@ sdfgsdg}
 \end{figure}
 \end{landscape}
 
+\subsection{Options et paramètres de simulation}
+Un vaste choix d'options et de paramètres permet une simulation à la carte. Ce choix concerne les hypothèses démographiques, économiques et règlementaires.
+
+\subsubsection{Hypothèses démographiques}
+Les scénarios démographiques se distinguent par leurs variantes sur trois composantes que sont la natalité, la mortalité et le solde migratoire. Pour chaque composante, trois variantes existent : centrale (modalité \textit{Cent}), basse (modalité \textit{Bas}), haute (modalité \textit{Haut}). Il existe autant de scénarios que de croisements possibles entre ces variantes, soit 27. Les scénarios s'appuient sur les projections démographiques de l'Insee de 2016, couvrant la période 2013-2070.
+
+\subsubsection{Hypothèses économiques}
+Le cadre macroéconomique est défini selon deux axes : le scénario de chômage et de productivité. Trois scénarios de taux de chômage de long terme sont proposés : 4,5\%, 7\%, 10\%. Quant à la productivité, elle évolue selon quatre variantes de croissance tendancielle : 1,0\%, 1,3\%, 1,5\%, 1,8\%.
+
+\subsubsection{Hypothèses règlementaires et autres}
+Avant d'effectuer une simulation, certains autres paramètres doivent être renseignés dans l'objet \textit{options}. Il s'agit :
+\begin{itemize}
+\item de la dernière année de législation (variable \textit{anLeg})
+\item du mode de comportement de liquidation\footnote{Bien que plusieurs modèles soient proposés, la plupart n'ont pas été expertisés depuis un certain temps. Le choix le plus prudent est celui du départ au taux plein (modalité "tp").}
+\item du pas de test de liquidation entre l'âge d'ouverture des droits et l'âge d'annulation de la décote (variable \textit{pas1})
+\item du pas de test de liquidation avant l'âge d'ouverture des droits et après l'âge d'annulation de la décote (variable \textit{pas2})
+\item de l'horizon de projection (variable \textit{AN\_MAX})
+\item du champ de la projection : France entière (modalité "FE") ou métropolitaine (modalité "FM")
+\end{itemize}
+D'autres options existent et sont détaillées dans \textbf{mettre lien vers partie sur les options de simulation}. Parmi celles-ci, toutes les options booléennes valent par défaut 0.
 
 \subsection{Choix de Législation possibles}
 La liquidation des droits se fait selon la législation en vigueur à une date choisie par l'utilisateur, stockée dans la variable \textit{anLeg} de l'objet \textit{options}. La législation est alors figée à celle prévalant à cette date.
@@ -246,7 +266,8 @@ valider jusqu'à 6 trimestres (au lieu de 4).
 % dette sociale (Cades). 
 \end{itemize}
 
-\subsubsection{Modification de la législation en 2011: accélération du calendrier fixé en 2010}
+\subsubsection{Accélération du calendrier fixé en 2010 suite au projet de loi de financement de la sécurité sociale pour 2012}
+La loi du 21 décembre 2011 relative au financement de la sécurité sociale en 2012 prévoit une accélération de la réforme de 2010 : l'âge légal de départ et l'âge d'annulation de la décote passent à 62 et 67 ans respectivement, dès 2017 au lieu de 2018.
 
 \subsubsection{Décret de juillet 2012: extension du dispositif carrières longues}
 
