@@ -4,8 +4,7 @@
 #include  "Reversion.h"
 #include "Indiv.h"
 /** \file Retraite.h
- * \brief Contient la classe \ref Retraite avec le montant des différentes pensions percues à tout âge
- * et les pointeurs vers les liquidations.
+ * \brief Contient la définition de la classe \ref Retraite et l'implémentation de quelques fonctions du module retraite.
  */
 
 /**

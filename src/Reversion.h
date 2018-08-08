@@ -1,6 +1,6 @@
 /**
  * \file Reversion.h
- * \brief Calcul de la liquidation d'une reversion 
+ * \brief Simule la liquidation de la pension de réversion 
  */
 
 

@@ -1,6 +1,7 @@
 /**
  * \file Legislation.h
- * \brief Contient la classe \ref Leg qui définit l'ensemble des paramètres législatifs pour un individu à un âge donné
+ * \brief Contient la classe \ref Leg qui définit l'ensemble des paramètres législatifs pour un individu à un âge et
+ * une date de législation donnés
  */
 
 

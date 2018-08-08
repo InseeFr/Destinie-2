@@ -571,7 +571,7 @@ struct Fam {
 
 /**
  * \struct Options
- * \brief Options contient l'ensemble des options qui peuvent être passées en paramètres de la simulations.
+ * \brief Options contient l'ensemble des options de simulation.
  * 
  * Les options regroupent à la fois les options réglementaires sur le calcul des droits retraites, les hypothèses 
  * de comportement de liquidations des individus ou encore le pas de simulation.

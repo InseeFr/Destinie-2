@@ -1,6 +1,6 @@
 /**
  * \file Mortalite.h
- * \brief Ce fichier contient la fonction \ref mortalite qui impute les décès en projection.
+ * \brief Ce fichier contient la fonction \ref mortalite qui simule les décès en projection.
 */
 
 #pragma once
