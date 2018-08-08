@@ -20,10 +20,10 @@ class DroitsRetr {
  * Cette classe détermine les droits directs à la liquidation pour un individu,
  * une législation et un âge de liquidation donnés. 
  * 
- * L'objet est créé et utilisé par les fonctions \ref TestLiq et \ref TestSecondLiq
- * dans le fichier \ref OutilsComp.h.
- * Ces dernières fonctions sont appelées depuis la classe \ref Retraite dans laquelle les droits à liquidation
- * sont conservés. Les pensions perçues sont ensuite actualisées si l'individu décide de liquider.
+ * L'objet est créé dans la fonction \ref SimDir de la classe \ref Retraite et utilisé, entre autres, par les
+ * fonctions \ref TestLiq et \ref TestSecondLiq du fichier \ref OutilsComp.h. Cette classe stocke les éléments
+ * constitutifs des droits directs (montant à la liquidation, majorations, durée validée, coefficient de
+ * décote/surcote, ...).
  * 
  * Un objet de cette classe est créé pour chaque individu à chaque âge testé. 
  * Un objet (ou deux si liquidation se fait en deux étapes) est ensuite conservé pour l'âge
@@ -214,7 +214,7 @@ class DroitsRetr {
          indic_mg = false,            ///< Indicatrice minimum garanti 
          indic_mc_in = false;         ///< Indicatrice minimum contributif au RSI 
   bool   dar = false;                 ///< Indicatrice départ anticipé pour carrière longue 
-  int type_liq = liq_non;     ///<Type de liquidation (par défaut, l'individu n'a pas liquidé)
+  int type_liq = liq_non;     ///< Motif de liquidation (par défaut, l'individu n'a pas liquidé)
   
   int t = 0;                      ///< année testée 
   int age = 0;                    ///< age au 31/12 testé 
@@ -381,8 +381,8 @@ class DroitsRetr {
    * 
    * Prise en compte de l'avpf en fonction des options NoAVPF et NoSpcAVPF.
    * 
-   * Pour le calcul du sam, prise en compte des options SAMRgInUnique, SAMUnique et SAMSepare pour législations fictives, 
-   * en particulier pour l'hypothèse de fusion des régimes (impact pour les polyaffiliés).
+   * Possibilité de calculer un sam unifié RG-IN (option SAMRgInUnique), RG-IN-FP (option SAMUnique), ou un sam
+   * distinct par régime (option SAMSepare).
    *
    */
   void SalBase(int AnneeRefAnticip=9999);
