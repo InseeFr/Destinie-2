@@ -15,7 +15,7 @@ class Indiv;
 class DroitsRetr {
   /**
  * \class DroitsRetr
- * \brief Droits à retraite dans les différents régimes.
+ * \brief Droits directs par régime.
  * 
  * Cette classe détermine les droits directs à la liquidation pour un individu,
  * une législation et un âge de liquidation donnés. 

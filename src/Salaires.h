@@ -33,7 +33,7 @@ struct Options_salaires {
 
 /**
  * \struct CStructSexeAge
- * \brief La structure CStructSexeAge contient la série temporelle des coefficients correcteurs utilisés lors de la simulation des salaires, pour les 
+ * \brief La structure CStructSexeAge contient la série des coefficients correcteurs utilisés lors de la simulation des salaires, pour les 
  * femmes et les hommes.
  * 
  *  Voir \cite aubert2012disparites , page 34, pour plus de détails.

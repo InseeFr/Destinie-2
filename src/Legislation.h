@@ -13,7 +13,7 @@
 
 /**
  * \class Leg
- * \brief Contient les valeurs des paramètres législatifs pour un individu*age donnés
+ * \brief Contient les valeurs des paramètres législatifs pour un individu, un âge et une date de législation donnés
  * 
  * \ref Leg contient les valeurs des paramètres législatifs pour un individu X et une année
  * donnés. Ces paramètres sont ceux qui ne sont pas directement importés depuis le

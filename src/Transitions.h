@@ -22,7 +22,7 @@
 
 /**
  * \struct EqTrans
- *  \brief EqTrans contient les équations de transition sur le marché du travail.
+ *  \brief EqTrans contient les équations de transitions sur le marché du travail.
  */
 struct EqTrans {
   double
@@ -259,7 +259,7 @@ struct EqTrans {
 
 /**
  * \struct CiblesTrans 
- * \brief CiblesTrans contient les cibles de calage pour avoir la bonne structure de population sur le marché du travail.
+ * \brief CiblesTrans contient les cibles de calage sur le marché du travail.
  */
 
 struct CiblesTrans {

@@ -9,9 +9,9 @@ class Retraite;
 
 /**
 * \class Indiv
-* \brief Classe contenant l'ensemble de l'information sur l'individu.
+* \brief Classe contenant l'ensemble des informations sur un individu.
 * 
-* Cette classe contient l'ensemble de l'information sur l'individu
+* Cette classe contient l'ensemble des informations sur l'individu
 * lue dans les tables ech, emp, et fam.
 * Elle contient de plus un pointeur sur un objet Retraite relatif
 * à sa situation courante. 
