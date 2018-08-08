@@ -1,11 +1,11 @@
 \section{Introduction}
 Le modèle Destinie 2 (modèle Démographique Économique et Social de Trajectoires INdividuelles sImulÉs, version 2) est un modèle de microsimulation dynamique, développé et géré par l'Insee, dont l'objectif principal est la projection à long terme des retraites.\\
 
-La simulation se fait au niveau individuel, sur la base d'un échantillon représentatif de la population française au 1er janvier 2010. Cet échantillon est construit à partir de l'enquête Patrimoine 2009-2010 et est composé de 62 000 individus. Le modèle projette les situations familiales, carrières professionnelles et départs à la retraite des personnes de cette population, dont le renouvellement est assuré par la simulation des naissances, décès et flux migratoires. Les individus sont répartis en trois grands groupes : les salariés du secteur privé, les titulaires de la fonction publique et les indépendants. Il s'agit donc d'un modèle simplifié : par exemple, les membres des régimes spéciaux sont considérés comme affiliés au secteur privé ou aux titulaires de la fonction publique. Au niveau d’un individu, Destinie 2 permet de suivre l’ensemble de sa trajectoire professionnelle (statuts d’activité et revenus), et simule les liquidations à la retraite sous diverses hypothèses de comportement et de législation. Les liens familiaux (unions, naissances, séparations) étant également simulés, ce modèle permet également de réaliser des estimations au niveau du ménage.\\
+La simulation se fait au niveau individuel, sur la base d'un échantillon représentatif de la population française au 1er janvier 2010. Cet échantillon, composé d'environ 62 000 individus, est construit à partir de l'enquête Patrimoine 2009-2010. Le modèle projette les situations familiales, carrières professionnelles et départs à la retraite des personnes de cette population, dont le renouvellement est assuré par la simulation des naissances, décès et flux migratoires. Les individus sont répartis en trois grands groupes : les salariés du secteur privé, les titulaires de la fonction publique et les indépendants. Il s'agit donc d'un modèle simplifié : par exemple, les membres des régimes spéciaux sont considérés comme affiliés au secteur privé. Au niveau d’un individu, Destinie 2 permet de suivre l’ensemble de sa trajectoire professionnelle (statuts d’activité et revenus), et simule les liquidations à la retraite sous diverses hypothèses de comportement de départ et de législation. Les liens familiaux (unions, naissances, séparations) étant également simulés, ce modèle permet de réaliser des estimations au niveau du ménage.\\
 
 Le modèle comprend deux modules distincts : le module générateur de biographies et le module de simulation des droits retraite.\\
-La constitution des biographies démographiques s'appuie sur les dernières projections démographiques de l'Insee, couvrant la période 2013-2070 et le champ France entière. Les trajectoires professionnelles des individus sont connues jusqu’en 2009, année de base. \`A compter de 2010, leurs carrières (statuts d’activité et revenus) sont projetées en respectant des contraintes de calage sur des hypothèses macroéconomiques. Ces hypothèses portent sur la croissance de la productivité du travail et le taux de chômage, fournis par le Conseil d'Orientation des Retraites (COR), et le taux d'activité, repris des projections de population active de l'Insee.\\
-Le module retraite simule le départ à la retraite selon la date de législation et l'hypothèse de comportement de liquidation choisies, et calcule le montant des droits associés. Les droits couvrent la pension de droit direct et de réversion des régimes de base (le régime général, le Service des Retraites de l'État (SRE) et la Caisse nationale de retraites des agents des collectivités locales (CNRACL), la Sécurité Sociale pour les Indépendants (SSI)) et complémentaires (Association pour le régime de retraite complémentaire des salariés(Arrco), Association générale des institutions de retraite complémentaire des cadres(Agirc)). La dimension ménage permet aussi d'inclure le minimum vieillesse.\\
+La construction des trajectoires démographiques s'appuie sur les projections démographiques de l'Insee réalisées en 2016, couvrant le champ France entière sur la période 2013-2070. Les parcours professionnels des individus sont connus jusqu’en 2009, année de base. \`A compter de 2010, leurs carrières (statuts d’activité et revenus) sont projetées en respectant des contraintes de calage sur des hypothèses macroéconomiques. Ces hypothèses portent sur la croissance de la productivité du travail et le taux de chômage, fournies par le Conseil d'Orientation des Retraites (COR), et le taux d'activité, repris des projections de population active de l'Insee.\\
+Le module retraite simule le départ à la retraite selon la date de législation et l'hypothèse de comportement de liquidation choisies, et calcule le montant des droits associés. Les droits couvrent la pension de droit direct et de réversion des régimes de base (le régime général, le Service des Retraites de l'État (SRE) et la Caisse nationale de retraites des agents des collectivités locales (CNRACL), la Sécurité Sociale pour les Indépendants (SSI)) et complémentaires (Association pour le régime de retraite complémentaire des salariés(Arrco), Association générale des institutions de retraite complémentaire des cadres(Agirc)). La dimension ménage permet d'inclure le minimum vieillesse.\\
 Ce document détaille le contenu des fichiers de code source du modèle. 
 
 
@@ -14,9 +14,7 @@ Ce document détaille le contenu des fichiers de code source du modèle.
 
 Le programme est un package R écrit en C++. Il peut
 être directement utilisé à partir d'une console en R, 
-pour effectuer des simulations en fonction d'un échantillon
-directement importable en R, et en passant les paramètres de la simulation
-toujours depuis R. En revanche, le package en lui-même est écrit en C++. 
+pour effectuer des simulations à partir d'un échantillon et de paramètres importés sous R. En revanche, le code source du package est écrit en C++. 
 
 Structure des répertoires du package :
 
@@ -33,7 +31,7 @@ Le sous-répertoire {\tt Projections\_COR\_2018} comprend les 5 scénarios écon
   \caption{Scénarios économiques du COR}
     \begin{tabular}{rr}
     \toprule
- Croissance du SMPT & Taux de chômage \\
+ Gain de productivité du travail (en \%) & Taux de chômage de long terme (en \%) \\
     \midrule
  1,8     & 4,5 \\
  1,8   & 7 \\
@@ -46,7 +44,7 @@ Le sous-répertoire {\tt Projections\_COR\_2018} comprend les 5 scénarios écon
   \label{tab:hypscCOR}%
 \end{table}%
 		\item[test] contient un échantillon test \textbf{non représentatif} de la population mais que l'on peut utiliser pour prendre en main le modèle de microsimulation
-		\item[documentation] contient la documentation du package, des conseils pratiques, la liste des documents de travail de l'Insee publiés à partir du modèle Destinie 2 et la liste des contributeurs du modèle.
+		\item[documentation] contient la documentation du package, des conseils pratiques, la liste des documents de travail de l'Insee publiés à partir du modèle Destinie 2 et la liste des contributeurs au modèle.
 	\end{description}
 
 
@@ -57,9 +55,9 @@ Le sous-répertoire {\tt Projections\_COR\_2018} comprend les 5 scénarios écon
 \subsection{Le package Destinie}
 
 
-Le programme est structuré autour de cinq classes d'objets et de structures (voir la figure \ref{fig:structGenePack}).\\
+Le programme est principalement structuré autour de cinq classes d'objets et de structures (voir la figure \ref{fig:structGenePack}).\\
 \begin{description}
-\item[La classe Simulation] contient l'ensemble des paramètres d'une simulation ainsi que 
+\item[La classe Simulation] contient l'ensemble des paramètres de la simulation ainsi que 
 l'échantillon issu du générateur de biographies
 utilisé sous la forme d'un tableau d'objets Indiv.
 \item[La classe Indiv] contient l'ensemble des informations relatives à un individu donné.
@@ -72,11 +70,11 @@ droits directs.
 paramètres plus spécifiques aux retraites (taux de cotisation, valeur des points dans les complémentaires ou encore montant du minimum vieillesse).
 \end{description}
 
-De plus, les fichiers {\tt Demographie.cpp}  et {\tt Destinie.h} contiennent les fonctions qui peuvent être appelées directement depuis R,
+De plus, les fichiers {\tt Demographie.cpp}  et {\tt Destinie.h} contiennent les fonctions directement appelables depuis R,
 ainsi que les constantes du modèles.
-Le fichier {\tt OutilsBase.h} contient également des fonctions utilitaires.\\
+Le fichier {\tt OutilsBase.h} contient des fonctions utilitaires.\\
 
-Le fichier simulation.R donne enfin un exemple de lancement de la simulation.
+Le fichier simulation.R donne un exemple de lancement de la simulation.
 
 
 
@@ -94,16 +92,16 @@ sdfgsdg}
 \end{landscape}
 
 \subsection{Options et paramètres de simulation}
-Un vaste choix d'options et de paramètres permet une simulation à la carte. Ce choix concerne les hypothèses démographiques, économiques et règlementaires.
+Un vaste choix d'options et de paramètres permet une simulation à la carte. Ce choix porte sur les hypothèses démographiques, économiques et règlementaires.
 
 \subsubsection{Hypothèses démographiques}
 Les scénarios démographiques se distinguent par leurs variantes sur trois composantes que sont la natalité, la mortalité et le solde migratoire. Pour chaque composante, trois variantes existent : centrale (modalité \textit{Cent}), basse (modalité \textit{Bas}), haute (modalité \textit{Haut}). Il existe autant de scénarios que de croisements possibles entre ces variantes, soit 27. Les scénarios s'appuient sur les projections démographiques de l'Insee de 2016, couvrant la période 2013-2070.
 
 \subsubsection{Hypothèses économiques}
-Le cadre macroéconomique est défini selon deux axes : le scénario de chômage et de productivité. Trois scénarios de taux de chômage de long terme sont proposés : 4,5\%, 7\%, 10\%. Quant à la productivité, elle évolue selon quatre variantes de croissance tendancielle : 1,0\%, 1,3\%, 1,5\%, 1,8\%.
+Le cadre macroéconomique est défini selon deux axes : le scénario de chômage et de productivité du travail. Trois scénarios de taux de chômage de long terme sont proposés : 4,5\%, 7\%, 10\%. Quant à la productivité, elle évolue selon quatre variantes de croissance tendancielle : 1,0\%, 1,3\%, 1,5\%, 1,8\%.
 
 \subsubsection{Hypothèses règlementaires et autres}
-Avant d'effectuer une simulation, certains autres paramètres doivent être renseignés dans l'objet \textit{options}. Il s'agit :
+Avant d'effectuer une simulation, certains paramètres auxiliaires doivent être renseignés dans l'objet \textit{options}. Il s'agit :
 \begin{itemize}
 \item de la dernière année de législation (variable \textit{anLeg})
 \item du mode de comportement de liquidation\footnote{Bien que plusieurs modèles soient proposés, la plupart n'ont pas été expertisés depuis un certain temps. Le choix le plus prudent est celui du départ au taux plein (modalité "tp").}
@@ -112,9 +110,9 @@ Avant d'effectuer une simulation, certains autres paramètres doivent être rens
 \item de l'horizon de projection (variable \textit{AN\_MAX})
 \item du champ de la projection : France entière (modalité "FE") ou métropolitaine (modalité "FM")
 \end{itemize}
-D'autres options existent et sont détaillées dans \textbf{mettre lien vers partie sur les options de simulation}. Parmi celles-ci, toutes les options booléennes valent par défaut 0.
+D'autres options existent et sont détaillées dans \textbf{mettre lien vers partie sur les options de simulation}. Parmi celles-ci, toutes les options booléennes valent 0 par défaut.
 
-\subsection{Choix de Législation possibles}
+\subsection{Choix de la législation}
 La liquidation des droits se fait selon la législation en vigueur à une date choisie par l'utilisateur, stockée dans la variable \textit{anLeg} de l'objet \textit{options}. La législation est alors figée à celle prévalant à cette date.
 
 \subsubsection{Réforme de 1993}
@@ -282,7 +280,7 @@ Le décret du 2 juillet 2012 étend le dispositif de départs anticipés pour ca
    \item Mise en place d'un compte pénibilité.
    \item Le bonus pour les parents de trois enfants est fiscalisé.
    \item La revalorisation des pensions est décalée de six mois chaque année.
-   \item Mise en place de la Lura (Liquidation unique des régimes alignés) à compter du 1er juillet 2017. Pour les individus ayant été affiliés à au moins deux des trois régimes alignés (régime général, régime social des indépendants et MSA-salariés), et dont la liquidation intervient à partir du 1er juillet 2017, la pension est calculée de façon unifiée. Le salaire de référence est calculée sur la base des 25 meilleures années (tous régimes confondus), et la durée validée par année est bornée à quatre trimestres (par exemple, pour un individu ayant validé quatre trimestres au régime général et deux trimestres au RSI au cours d'une année, seuls quatre trimestres sont pris en compte dans la durée d'assurance). Le versement de la pension, dû au titre des droits ouverts dans les trois régimes alignés, est assuré par le dernier régime d’affiliation. Sur ce point, Destinie 2 s'écarte de la législation : la pension est proratisée en fonction des durées validées dans chaque régime et les proratas sont comptés à la charge des régimes concernés. Cet écart permet d'évaluer les dépenses effectivement engagées par les régimes.
+   \item Mise en place de la Lura (Liquidation unique des régimes alignés) à compter du 1er juillet 2017. Pour les individus ayant été affiliés à au moins deux des trois régimes alignés (régime général, régime social des indépendants et MSA-salariés), et dont la liquidation intervient à partir du 1er juillet 2017, la pension est calculée de façon unifiée. Le salaire de référence est calculée sur la base des 25 meilleures années (tous régimes confondus), et la durée validée par année est bornée à quatre trimestres (par exemple, pour un individu ayant validé quatre trimestres au régime général et deux trimestres au RSI au cours d'une année, seuls quatre trimestres sont pris en compte dans la durée d'assurance). Le versement de la pension, due au titre des droits ouverts dans les trois régimes alignés, est assuré par le dernier régime d’affiliation. Sur ce point, Destinie 2 s'écarte de la législation : la pension est proratisée en fonction des durées validées dans chaque régime et les proratas sont comptés à la charge des régimes concernés. Cet écart permet d'évaluer les dépenses effectivement engagées par les régimes.
 \end{itemize}
 
 \subsubsection{Accord national interprofessionnel relatif aux retraites complémentaires Agirc-Arrco du 30 octobre 2015}
