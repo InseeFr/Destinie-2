@@ -41,17 +41,17 @@ class DroitsRetr;
 struct CiblesDemo {
   /**
    * \struct CiblesDemo
-   * \brief CiblesDemo contient les cibles démographiques de naissance et de solde migratoire 
+   * \brief CiblesDemo contient les cibles démographiques de naissances et de solde migratoire 
    *
-   * La structure \ref CiblesDemo contient pour chaque année de projection le nombre de naissance, ainsi que le solde migratoire et sa 
-   * répartition par sexe et âge. Attention le solde migratoire global cible ne correspond pas à la solde des soldes 
-   * migratoires déclinés par âge et sexe car les soldes migratoires négatifs au-delà de 60 ans ne sont pas simulés ici.
+   * La structure \ref CiblesDemo contient, pour chaque année de projection, le nombre de naissances, ainsi que le solde migratoire ventilé 
+   * par sexe et par âge. Attention : le solde migratoire global cible ne correspond pas à la somme des soldes 
+   * migratoires déclinés par âge et sexe, car les soldes migratoires négatifs au-delà de 60 ans ne sont pas simulés.
    * 
    * Après 2013, ces cibles par âge fin sont issues de \cite blanpainprojections .
    * En revanche, pour les années 2010 à 2012 inclues, elles ont été fournies aux fins de ces exercices 
    * de modélisation par la division Enquêtes et études démographiques de l'Insee, avec l'avertissement 
-   * que certaines peuvent être fragiles. Pour cette raison, elles ne sont pas publiées. Ces valeurs sont donc utilisées 
-   * pour affiner un peu le modèle Destinie 2, mais ne doivent pas être utilisées pour elles-mêmes.
+   * que certaines peuvent être fragiles. Pour cette raison, elles ne sont pas publiées. Ces valeurs sont utilisées 
+   * uniquement pour compléter des séries, et ne doivent l'être qu'à ce titre.
    */
   NumericVector 
   /** 

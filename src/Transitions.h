@@ -379,62 +379,62 @@ struct CiblesTrans {
       _(CHO_F5054),
       /**
        * \brief Cible de taux d'inactivité en projection chez les hommes de 15 à 19 ans  <br>
-       * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+       * Source : cible proposée par le COR <br>
        * Feuille : Param_transitions/ choX%
        */
       
 	  _(INA_H1519),
 	  /**
 	  * \brief Cible de taux d'inactivité en projection chez les hommes de 20 à 24 ans  <br>
-	  * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+	  * Source : cible proposée par le COR <br>
 	   * Feuille : Param_transitions/ choX%
 	  */
 	  _(INA_H2024),
 	  /**
 	   * \brief Cible de taux d'inactivité en projection chez les hommes de 25 à 29 ans  <br>
-	   * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+	   * Source : cible proposée par le COR <br>
 	   * Feuille : Param_transitions/ choX%
 	   */
 	  _(INA_H2529),
 	  /**
 	   * \brief Cible de taux d'inactivité en projection chez les hommes de 30 à 34 ans <br>
-	   * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+	   * Source : cible proposée par le COR <br>
 	   * Feuille : Param_transitions/ choX%
 	   */
 	  _(INA_H3034), 
 	  /**
 	   * \brief Cible de taux d'inactivité en projection chez les hommes de 35 à 39 ans  <br>
-	   * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+	   * Source : cible proposée par le COR <br>
 	   * Feuille : Param_transitions/ choX%
 	   */
 	  _(INA_H3539),
 	  /**
 	   * \brief Cible de taux d'inactivité en projection chez les hommes de 40 à 44 ans <br>
-	   * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+	   * Source : cible proposée par le COR <br>
 	   * Feuille : Param_transitions/ choX%
 	   */
 	  _(INA_H4044),
 	  /**
 	   * \brief Cible de taux d'inactivité en projection chez les hommes de 45 à 49 ans <br>
-	   * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+	   * Source : cible proposée par le COR <br>
 	   * Feuille : Param_transitions/ choX%
 	   */
 	  _(INA_H4549) ,
 	  /**
 	   * \brief Cible de taux d'inactivité en projection chez les hommes de 50 à 54 ans  <br>
-	   * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+	   * Source : cible proposée par le COR <br>
 	   * Feuille : Param_transitions/ choX%
 	   */
 	  _(INA_H5054),
 	  /**
 	   * \brief Cible de taux d'inactivité en projection chez les femmes de 15 à 19 ans  <br>
-	   * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+	   * Source : cible proposée par le COR <br>
 	   * Feuille : Param_transitions/ choX%
 	   */
     _(INA_F1519), 
     /**
      * \brief Cible de taux d'inactivité en projection chez les femmes de 20 à 24 ans  <br>
-     * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+     * Source : cible proposée par le COR <br>
      * Feuille : Param_transitions/ choX%
      */
     _(INA_F2024),
@@ -446,43 +446,43 @@ struct CiblesTrans {
     _(INA_F2529),
     /**
      * \brief Cible de taux d'inactivité en projection chez les femmes de 30 à 34 ans <br>
-     * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+     * Source : cible proposée par le COR <br>
      * Feuille : Param_transitions/ choX%
      */
     _(INA_F3034), 
     /**
      * \brief Cible de taux d'inactivité en projection chez les femmes de 35 à 39 ans  <br>
-     * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+     * Source : cible proposée par le COR <br>
      * Feuille : Param_transitions/ choX%
      */
     _(INA_F3539), 
     /**
      * \brief Cible de taux d'inactivité en projection chez les femmes de 40 à 44 ans  <br>
-     * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+     * Source : cible proposée par le COR <br>
      * Feuille : Param_transitions/ choX%
      */
     _(INA_F4044), 
     /**
      * \brief Cible de taux d'inactivité en projection chez les femmes de 45 à 49 ans  <br>
-     * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+     * Source : cible proposée par le COR <br>
      * Feuille : Param_transitions/ choX%
      */
     _(INA_F4549) ,
     /**
      * \brief Cible de taux d'inactivité en projection chez les femmes de 50 à 54 ans  <br>
-     * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+     * Source : cible proposée par le COR <br>
      * Feuille : Param_transitions/ choX%
      */
     _(INA_F5054),
     /**
-     * \brief Cible de taux d'inactivité en projection chez les femmes de 50 à 54 ans  <br>
-     * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+     * \brief Part de la Fonction Publique dans l'emploi total  <br>
+     * Source : cible proposée par le COR <br>
      * Feuille : Param_transitions/ choX%
      */
     _(PART_FP),
     /**
      * \brief Part de la Fonction Publique d'État dans la Fonction Publique  <br>
-     * Source : cible proposée par le COR, avec plusieures variantes de taux de chômage <br>
+     * Source : cible proposée par le COR <br>
      * Feuille : Param_transitions/ choX%
      */
     _(PART_FPE);
@@ -610,7 +610,7 @@ struct Transitions {
    * \fn make_transitions(int t, int age_min, int age_max)
    * \brief Simule, avec calage, les transitions de l'année t par logits emboîtés. Afin de mettre en oeuvre le calage,
    *  les trois premiers noeuds de l'arbre sont identiques quel que soit le statut en t-1 : transition vers l'inactivité,
-   *  vers le chômage ou vers la FP.
+   *  vers le chômage puis vers la FP.
    */
   void make_transitions(int t, int age_min, int age_max);
   

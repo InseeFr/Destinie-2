@@ -12,7 +12,7 @@
  * générées par le genebios) :
  * - `ech` : contient une ligne par individu
  * - `emp` : contient une ligne par individu * âge
- * - `fam` : contient une ligne par individu pour chaque changement de sa situtation familliale
+ * - `fam` : contient une ligne par individu * année à partir de 2009
  * 
  * Il contient de plus une table `macro` contenant l'ensemble des séries macroéconomiques et des paramètres
  * législatifs.

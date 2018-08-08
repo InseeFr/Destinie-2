@@ -79,7 +79,7 @@ const vector<string> type_liq_labels = {"Non","taux plein","invalide","inapte","
 
 /// Enumération des codes de régime de retraite
 enum regime_indicateurs {
-  REG_TOT,        ///< somme de tous les régimes
+  REG_TOT,        ///< ensemble des régimes
   REG_RG,         ///< régime général
   REG_IN,         ///< régime des indépendants
   REG_FP,         ///< régime de la fonction publique
@@ -132,32 +132,32 @@ enum code_prestafam{
 
 // Regroupements de modalité de statut
 
-/** Statuts de la fonction publique, catégories actives */
+/** Statuts de la fonction publique, catégorie active */
 const  vector<int> Statuts_FPA = { S_FPAE, S_FPAAE, S_FPATH, S_FPAATH};
-/** Statuts de la fonction publique, en emploi sédentaire */
+/** Statuts de la fonction publique, catégorie sédentaire */
 const  vector<int> Statuts_FPS= {S_FPSE, S_FPSTH};
 /** Statuts de chômage */
 const  vector<int> Statuts_cho= {S_CHOBIT, S_CHONONBIT};
-/** Statuts en emploi */
+/** Statuts d'emploi */
 const  vector<int> Statuts_occ= {S_NC, S_CAD, S_NONTIT, S_SCOEMP, S_FPAE, 
                                   S_FPSE, S_FPAAE, S_FPATH, S_FPSTH, 
                                   S_FPAATH, S_IND, S_CHOEMPL};
-/** Statuts en activité */
+/** Statuts d'activité */
 const  vector<int> Statuts_act= {S_NC, S_CAD, S_NONTIT, S_SCOEMP, S_FPAE, 
                                   S_FPSE, S_FPAAE, S_FPATH, S_FPSTH, 
                                   S_FPAATH, S_IND, S_CHOEMPL,
                                   S_CHOBIT, S_CHONONBIT};
-/** Statuts fonctionnaires */
+/** Statuts FP */
 const  vector<int> Statuts_FP = {S_FPAE,S_FPSE,S_FPAAE,S_FPATH,S_FPSTH,S_FPAATH,S_INVALFP};
 /** Statuts d'affiliation au régime général */
 const  vector<int> Statuts_RG = {S_NC,S_NONTIT,S_SCOEMP,S_SNAT,S_CAD,S_CHO,S_CHOBIT,S_CHONONBIT,S_CHOEMPL,S_INVAL,S_INVALRG,S_PR,S_AVPF};
 /** Statuts d'affiliation à un régime des indépendants */
 const  vector<int> Statuts_IN= {S_IND,S_INVALIND};
-/** Statuts en emploi salarié  au régime général*/
+/** Statuts d'emploi salarié au régime général*/
 const  vector<int> Statuts_SAL= {S_NC, S_CAD, S_NONTIT};
-/** Statuts fonctionnaire en emploi catégorie active ou sédentaire */
+/** Statuts fonctionnaire en catégorie active ou sédentaire */
 const  vector<int> Statuts_FPAS= {S_FPAE, S_FPSE, S_FPATH, S_FPSTH};
-/** Statuts en emploi non fonctionnaire */
+/** Statuts d'emploi non fonctionnaire */
 const  vector<int> Statuts_RGIN= {S_NC, S_CAD, S_NONTIT, S_IND};
 /** Statuts de préretraité */
 const  vector<int> Statuts_PRPRRG= {S_PR};

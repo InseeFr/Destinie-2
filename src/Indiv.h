@@ -12,7 +12,7 @@ class Retraite;
 * \brief Classe contenant l'ensemble des informations sur un individu.
 * 
 * Cette classe contient l'ensemble des informations sur l'individu
-* lue dans les tables ech, emp, et fam.
+* lues dans les tables ech, emp, et fam.
 * Elle contient de plus un pointeur sur un objet Retraite relatif
 * à sa situation courante. 
 */
@@ -24,18 +24,18 @@ public:
   int sexe      = 0;              ///< Sexe 
   int anaiss    = 0;              ///< Année de naissance 
   int findet    = 0;              ///< Âge de fin d'étude 
-  int typeFP    = NONFP;          ///< Type de fonctionnaire (fonction publique d'état ou fonction publique territoriale ou hospitalière) 
+  int typeFP    = NONFP;          ///< Type de fonction publique (fonction publique d'\'Etat ou fonction publique territoriale et hospitalière) 
   int neFrance  = 0;              ///< Indicatrice né en france 
   int emigrant	= 0;			        ///< Indicatrice  emigrant
   int ageMax    = 0;              ///< Âge maximal de statut renseigné (min âge décès, âge en fin de projection) 
   int moisnaiss = 0;              ///< Mois de naissance (0=janvier, 11=décembre)
-  int dateMinFlux=999999;         ///< Date d'entrée dans le minimum vieillesse. Variable créée uniquement pour l'exercice de projection du Cor. A supprimer
+  int dateMinFlux=999999;         ///< Date d'entrée dans le minimum vieillesse.
   
   int peudip = 0;				          ///<Indicatrice d'être peu diplomé par rapport à sa génération et son sexe
   int tresdip= 0;				          ///<Indicatrice d'être très diplomé par rapport à sa génération et son sexe
   int dipl   = 0;                 ///<Niveau de diplôme de l'individu en classes
   
-  double  taux_prim = 0;          ///< Taux de prime pour les fonctionnaires 
+  double  taux_prim = 0;          ///< Taux de prime FP
   double  k         = 0;          ///< Préférence pour le loisir 
   double  age_exo   = 0;          ///< Âge de liquidation exogène
   
@@ -78,7 +78,7 @@ public:
   */
   bool decede(int t);
 
-  /** \brief Indique si la personne est à charge de l'un de ses parents
+  /** \brief Indique si la personne est à la charge d'un de ses parents
    *  \return `true` si la personne est à charge `false` sinon
   */
   bool ACharge(int t);
@@ -91,7 +91,7 @@ public:
   /** \brief Renvoie le nombre d'enfants à charge une année donnée*/
   int NbEnfC(int t,int ageEnfMax = AGE_MAX) ;
   
-  /** \brief Renvoie le nombre d'individu du ménage */ 
+  /** \brief Renvoie le nombre d'individus du ménage */ 
   int TailMen(int t);
 
   /** \brief Salaire net de l'année t */
@@ -126,7 +126,7 @@ public:
   /** \brief Indique si la personne est personne de référence de son ménage l'année t */
   bool est_persRef(int t);
   
-  /** \brief Indique si la personne est décédée l'année */
+  /** \brief Indique si la personne est décédée l'année t */
   bool est_decede(int t);
   
   /** \brief Probabilité de survie à l'âge age1 sachant la survie à l'âge age0 */
@@ -135,7 +135,7 @@ public:
   /** \brief Espérance de vie à l'âge age0 */
   double esp_vie(int age0);
 
-  /** \brief Nombre d'enfants l'âge \ref age*/
+  /** \brief Nombre d'enfants à l'âge \ref age*/
   inline int nb_enf(int age) const {
     int annee = date(age) + 1900;
     int nbEnf = 0;

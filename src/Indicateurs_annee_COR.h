@@ -102,7 +102,7 @@ struct Indic_annee {
 
 /**
  * \fn cotisation_retraite()
- * \brief La fonction cotisation_retraite prend en argument un indiv X, un age a et un régime, et renvoie le montant des cotisations
+ * \brief La fonction cotisation_retraite prend en argument un indiv X, un âge a et un régime, et renvoie le montant des cotisations
  *  retraite (parts patronale et salariale) destinées au régime, prélevées sur les revenus d'activité perçus par X à l'âge a
  */
 double cotisation_retraite(Indiv& X, int age, int regime);
@@ -123,14 +123,14 @@ void ecriture_indicateurs_an(int t);
 
 /**
  * \fn ecriture_cotisations()
- * \brief La fonction ecriture_cotisations exporte les cotisations prélevées (part patronale et salariale) sur chaque individu à chaque age,
+ * \brief La fonction ecriture_cotisations exporte les cotisations prélevées (part patronale et salariale) sur chaque individu à chaque âge,
  * dans le public, le privé et les non-salariés.
  */
 void ecriture_cotisations();
 
 /**
  * \fn ecriture_salairenet()
- * \brief La fonction ecriture_salairenet exporte le salaire net perçu par chaque individu à chaque age
+ * \brief La fonction ecriture_salairenet exporte le salaire net perçu par chaque individu à chaque âge
  */
 void ecriture_salairenet();
 

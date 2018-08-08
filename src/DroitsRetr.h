@@ -26,13 +26,12 @@ class DroitsRetr {
  * décote/surcote, ...).
  * 
  * Un objet de cette classe est créé pour chaque individu à chaque âge testé. 
- * Un objet (ou deux si liquidation se fait en deux étapes) est ensuite conservé pour l'âge
- * auquel l'individu liquide.
+ * Un objet (ou deux si la liquidation a lieu en deux étapes) est ensuite conservé en cas de liquidation.
  * 
  * Calcul des pensions de droits directs des régimes de base (régimes en annuités) 
  * ===============================================================================
  * 
- * Les pensions de droit direct des régimes de base sont modélisées en trois régimes : le RG, la SSI et la FP (SRE et CNRACL). La pension à la liquidation est le produit de trois termes : le taux de liquidation , le coefficient de proratisation et le salaire de référence (salaire annuel moyen, SAM, pour le RSI et le RG, dernier salaire pour la FP).
+ * Les pensions de droit direct des régimes de base sont calculées pour trois régimes : le RG, la SSI et la FP (SRE et CNRACL). La pension à la liquidation est le produit de trois termes : le taux de liquidation , le coefficient de proratisation et le salaire de référence (salaire annuel moyen, SAM, pour le RSI et le RG, dernier salaire pour la FP).
  * 
  * Pension = SAM x tauxliq x taux_prorat
  * 
@@ -50,10 +49,9 @@ class DroitsRetr {
  * 
  * Cette formule de base est en outre modifiée par le minimum contributif (ou garanti pour la FP) et majorée d’une bonification pour les mères de 3 enfants.
  * 
- * Il existe des minima de pension (« minimum contributif » au régime général RG et aux régimes alignés RSI MSA, « minimum garanti » 
- * dans la fonction publique). Le montant du minimum est calculé au prorata de la durée validée (et peut donc être très faible) : 
- * il ne s’agit donc pas rigoureusement d’une logique de revenu minimum. La comparaison pension/minimum de pension est faite 
- * à la liquidation avec la fonction AppliqueMin.
+ * Il existe des minima de pension (minimum contributif au RG et au RSI, minimum garanti à la FP). Le montant du minimum est calculé au prorata de la durée validée (et peut donc être très faible) : 
+ * le dispositif ne relève donc pas \textit{stricto sensu} d’une logique de revenu minimum. La comparaison pension/minimum de pension est faite 
+ * à la liquidation par la fonction AppliqueMin.
  *  
  * 
  * Calcul des pensions de droits directs des régimes complémentaires (régimes en points)
@@ -65,28 +63,28 @@ class DroitsRetr {
  *	Le taux de liquidation dépend de 
  *   - l'âge à la liquidation 
  *   - de la durée validée dans les régimes de base 
- *	Un taux d’abattement, équivalent de la décote à l’AGIRC ARRCO, est ensuite appliqué.
+ *	Un taux d’abattement, équivalent à la décote à l’AGIRC ARRCO, est ensuite appliqué.
  *
  *   Le nombre de points dépend de la carrière. 
- *   Au cours de la carrière, l'acquisition de points se fait en fonction des cotisations suivant la formule:
+ *   Au cours de celle-ci, l'acquisition de points se fait via les cotisations selon la formule:
  *   Nombre de points = (Revenu salarial * taux de cotisation) / valeur d’achat du point.
  *   
- *   Le taux d’appel, qui fixe la part de cotisations ne donnant pas droit à des points, est égal à 125% actuellement. 
+ *   Un taux d’appel fixe la part de cotisations non génératrices de droits. 
  * 
- * Les droits à liquidation sont calculés en quatre étapes :
+ * Les droits à la liquidation sont calculés en quatre étapes :
  * =========================================================
  * 
  * 
  * - calcul des durées de base (\ref durees_base)
- * - calcul des durées majorées (\ref durees_majo ). Ceci permet la détermination de l'âge d'ouverture des droits.
- * - calcul de la décote ou la surcote (\ref DecoteSurcote). Permet le calcul des taux de liquidation.
- * - calcul des pensions à liquidation (\ref Liq et \ref SecondLiq). Ces dernières étapes appellent les méthodes:
- *    - \ref SalBase      : Calcul des SAM
- *    - \ref Points        : Calcul des points acquis à l'AGIRC et à l'ARRCO
- *    - \ref LiqPublic	  : Calcul des pensions à la FP
- *    - \ref LiqPrive		  : Calcul des pensions au RG, au RSI, ainsi qu'aux complémentaires AGIRC et ARRCO
- *    - \ref AppliqueMin    : Application du minimum contributif (ou garanti)
- *    - \ref AppliqueBonif  : Application des bonifications pour 3 enfants
+ * - calcul des durées majorées (\ref durees_majo ). Cette étape détermine l'âge d'ouverture des droits.
+ * - calcul de la décote ou de la surcote (\ref DecoteSurcote). Permet le calcul des taux de liquidation.
+ * - calcul des pensions à liquidation (\ref Liq et \ref SecondLiq). Ces dernières étapes appellent les méthodes suivantes :
+ *    - \ref SalBase      : Calcul du SAM
+ *    - \ref Points        : Calcul des points à l'AGIRC et à l'ARRCO
+ *    - \ref LiqPublic	  : Calcul de la pension FP
+ *    - \ref LiqPrive		  : Calcul de la pension au RG, au RSI, ainsi qu'à l'Arrco et à l'Agirc
+ *    - \ref AppliqueMin    : Application des minina de pensions
+ *    - \ref AppliqueBonif  : Application de la bonification pour enfants
  * 
  * Exemple d'utilisation :
  * =======================
@@ -112,14 +110,14 @@ class DroitsRetr {
   public:
     // Caractéristiques de liquidation
   const Indiv& X;             ///< Référence à l'individu corespondant aux droits calculés
-  Leg& l;                     ///< Référence à l'object Leg utilisé pour le calcul des droits
+  Leg& l;                     ///< Référence à l'objet Leg utilisé pour le calcul des droits
   double agetest;             ///< Âge fin de mois testé
   
   double agefin_totliq = 0,       ///< Âge fin de mois de liquidation totale  
          agefin_primoliq = 0;     ///< Âge fin de mois de primo-liquidation 
          
   int    ageliq = 0,              ///< Âge à la liquidation de la totalité des droits (âge entier au 31/12 de l'année) 
-         ageprimoliq = 0;         ///< Âge à la primo-liquidation des droits
+         ageprimoliq = 0;         ///< Âge à la primo-liquidation des droits (âge entier au 31/12 de l'année)
   
   double  duree_cho = 0,          ///< Durée cumulée au chômage (au RG)   
           duree_PR = 0,           ///< Durée cumulée en pré-retraite 
@@ -136,7 +134,7 @@ class DroitsRetr {
           duree_rg = 0,           ///< Durée cotisée au régime général
 		      duree_ag_ar =0,         ///< Durée d'affiliation au régime complémentaire des salariés du privé unifié
 		      duree_ar =0,            ///< Durée d'affiliation à l'Arrco  
-          duree_tot = 0;          ///< Durée cotisée totale 
+          duree_tot = 0;          ///< Durée totale cotisée 
   
   double dureecotmin_tot = 0,     ///< Durée totale cotisée, servant pour le calcul des minimum contributif et garanti 
          dureecotdra_tot = 0;     ///< Durée totale cotisée, servant pour le calcul de l'éligibilité à la retraite anticipée pour carrière longue 
@@ -220,18 +218,18 @@ class DroitsRetr {
   int age = 0;                    ///< age au 31/12 testé 
   double datetest = 0;            ///< date testée 
 
-  /** \brief Contruit un nouvel objet DroitsRetr pour un individu, une législation et un âge de test donnés */
+  /** \brief Contruit un nouvel objet DroitsRetr pour un individu, une législation et un âge test donnés */
   DroitsRetr(const Indiv& X, Leg& leg, double f_agetest);
   
   /**  \fn Méthode duree_trim
-   *   \brief Calcule la durée en trimestres passée dans un ou plusieurs statuts donnés 
+   *   \brief Calcule la durée en trimestres passée dans un ou plusieurs statuts 
    * 
    *     @param status_cpt : vecteur des statuts comptabilisés 
    *     @return durée en années (multiple de 0.25)
    * 
    *   Complément de la fonction \ref durees_base, en fonction de l'âge de test.
    *   Calcule les durées passées par l'individu X dans un ou plusieurs états, jusqu'à
-   *   l'âge de test. Les durées pour l'année civile de l'âge en argument sont arrondies 
+   *   l'âge test. Les durées pour l'année civile de l'âge en argument sont arrondies 
    *   au nombre de trimestres civils jusqu'au
    *   1er du mois suivant cet âge.
    */
@@ -278,8 +276,7 @@ class DroitsRetr {
    *   mais pouvent prendre des valeurs arrondies à 0.25 près,
    *   c'est-à-dire au trimestre près) 
    * 
-   *  Cette fonction nécessite d'avoir auparavant lancé les fonctions de calcul des durées 
-   *  (durees_majo et durees_base)
+   *  Cette fonction nécessite d'avoir lancé auparavant les fonctions durees_majo et durees_base
    * 
    *  Cette méthode renseigne les variables suivantes :
    *  - \ref dursurcote , \ref durdecote_fp , \ref dursurcote_fp , \ref durdecote_rg
@@ -296,8 +293,8 @@ class DroitsRetr {
    *  \brief Indique si l'individu a atteint l'âge minimum d'ouverture des droits. 
    *  @return retourne true si l'individu a atteint l'âge minimum d'ouverture des droits, false sinon.
    *  
-   *  Cette méthode indique si l'individu a atteint l'age minimum d'ouverture des droits, en particulier elle
-   *  recalcule l'age minimum d'ouverture des droits (RG et FP) si possibilité de départ anticipé pour carrière longue
+   *  Cette méthode indique si l'individu a atteint l'age minimum d'ouverture des droits. En particulier, elle
+   *  recalcule l'âge minimum d'ouverture des droits (RG et FP) en cas de départ anticipé pour carrière longue
    *  (sauf si option.NoRetrAntCarrLongues).
    * 
    *  Remarque: fait appel aux méthodes \ref durees_base, \ref durees_majo et \ref DecoteSurcote
@@ -312,9 +309,9 @@ class DroitsRetr {
    */
   double AgeMax();
   
-  /** \brief Calcule les pensions aux différents régimes hors FP lors de la seconde liquidation (appel de \ref liq_privee et \ref liq_public) 
+  /** \brief Calcule les pensions hors FP lors de la seconde liquidation (appel de \ref liq_privee et \ref liq_public) 
    * 
-   * Calcule les pensions aux différents régime hors FP lors de la seconde liquidation (appel de \ref liq_privee et \ref liq_public) 
+   * Calcule les pensions hors FP lors de la seconde liquidation (appel de \ref liq_privee et \ref liq_public) 
     Permet la liquidation finale de tous les droits pour les personnes qui liquident en 2 temps
 	(cas des polyaffiliés public-privé, dont le niveau de pension FP (seule) suffit pour déterminer
 	leur âge de départ à la retraite, mais qui n'ont pas encore atteint l'âge d'ouverture des droits dans le privé
@@ -343,18 +340,18 @@ class DroitsRetr {
 
 ///\{ \name Méthodes de calculs intermédiaires
 
-  /** \brief calcul du SAM à partir des salaires portés aux compte.
+  /** \brief calcul du SAM à partir des salaires portés au compte.
    * 
    * Calcul du salaire annuel moyen à partir des salaires versés
-   * aux comptes. Le calcul prend en compte l'ensemble des salaires
+   * au compte. Le calcul prend en compte l'ensemble des salaires, 
    * contrairement à \ref calc_sam
   */
   double calc_sam(double* spc_begin, double* spc_end);
   
-  /** \brief calcul du SAM à partir des salaires portés aux compte pour les n meilleurs années 
+  /** \brief calcul du SAM à partir des salaires portés au compte pour les n meilleures années 
    * 
    * Calcul du salaire annuel moyen à partir des salaires versés
-   * aux comptes. Le calcul ne prend en compte que les n meilleurs années
+   * au compte. Le calcul ne prend en compte que les n meilleures années,
    * contrairement à \ref calc_sam
   */
   double calc_sam(double* spc_begin, double* spc_end, int duree_calc);
@@ -362,12 +359,12 @@ class DroitsRetr {
   /** \brief Calcul des SAM et du salaire de référence pour la FP 
    * 
    * Calcule les salaires servant de base au calcul des pensions de base, ie. les
-   * SAM pour le RG et les régimes d'indépendants et le salaire de référence FP.
+   * SAM pour le RG et le RSI et le salaire de référence pour la FP.
    * Les résultats sont stockés dans \ref sam_rg, \ref sam_in et \ref sr_fp.
-   * De plus sont mis à jour les totaux samuni_rgin et samuni.
+   * De plus, sont mis à jour les totaux samuni_rgin et samuni.
    *
    * Cette fonction prend en compte pour les législations 1993 et postérieures
-   * (l.Legsam), les changements sur le nombre d'années pris en compte dans la
+   * (l.Legsam), les changements sur le nombre d'années pris en compte dans le
    * calcul du SAM.
    * 
    * Pour les législations postérieures à 2004, les polyaffiliés voient leur
@@ -379,7 +376,7 @@ class DroitsRetr {
    * 
    * - SpcToutesAnnees: on ne retient plus les 25 meilleurs années mais toutes les années.
    * 
-   * Prise en compte de l'avpf en fonction des options NoAVPF et NoSpcAVPF.
+   * Prise en compte de l'AVPF via les options NoAVPF et NoSpcAVPF.
    * 
    * Possibilité de calculer un sam unifié RG-IN (option SAMRgInUnique), RG-IN-FP (option SAMUnique), ou un sam
    * distinct par régime (option SAMSepare).
@@ -396,7 +393,7 @@ class DroitsRetr {
   */
   void Points(int AnneeRefAnticip=9999);
   
-  /** \brief calcul du minmum contributif au RG et au RSI (appelé par AppliqueBonif) 
+  /** \brief calcul du minmum contributif au RG et au RSI (appelée par AppliqueBonif) 
    * 
    * Calcul du montant attribuable au titre du minimum contributif. Suppose que les
    * durées de cotisation sont connues, donc des appels préalables de DurBase et
@@ -405,7 +402,7 @@ class DroitsRetr {
    */
   void MinCont(int AnneeRefAnticip=9999); 
   
-  /** \brief calcul du minimum garanti (appelé par AppliqueBonif)
+  /** \brief calcul du minimum garanti (appelée par AppliqueBonif)
    * 
     Calcul du montant attribuable au titre du minimum garanti : période transitoire
     entre 2004 et 2013 avec application progressive de la réforme. Suppose que
@@ -420,7 +417,7 @@ class DroitsRetr {
 		à l'ensemble des pensions, le calcul des avantages principaux
 		de droits directs hors min ayant été réalisé au préalable.
   
-		L'écrêtement des minimum est programmée selon une règle tous régimes, prise dans la LFSS 2009 
+		L'écrêtement des minima est programmé selon une règle tous régimes, prise dans la LFSS 2009 
 		pour une application à partir de 2012.
   */
   void AppliqueMin();
@@ -447,10 +444,10 @@ class DroitsRetr {
   void AppliqueBonif();
   
   
-  /** \brief Calcul des pensions au RG, au RSI et au régimes complémentaires Agirc et Arrco (appelé par Liq ou SecondLiq) */
+  /** \brief Calcul de la pension au RG, au RSI, à l'Arrco et à l'Agirc (appelée par Liq ou SecondLiq) */
   void LiqPrive(int AnneeRefAnticip=9999);
   
-  /** \brief Calcul des pensions à la FP (appelé par Liq)*/
+  /** \brief Calcul de la pension FP (appelée par Liq)*/
   void LiqPublic();
   
 ///\}
@@ -464,7 +461,7 @@ class DroitsRetr {
   /** \brief Renvoie l'age au dernier emploi */
   double age_dernier_emploi();
   
-  /** \brief Renvoie la pension perçu à un âge donné, à un régime donné (tout régime par défaut) */ 
+  /** \brief Renvoie la pension perçue à un âge et à un régime donnés (tout régime par défaut) */ 
   double pension_age(int age, int regime);
   
   // \brief Méthodes facilitant le calcul d'indicateur en renvoyant
