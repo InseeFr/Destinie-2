@@ -40,7 +40,7 @@ class DroitsRetr {
  * de naissance), dans la limite du PSS, pour les salaires reportés
  * à partir de 2005.
  * - tauxliq = Taux de liquidation = fixé en fonction de la durée d'assurance, tous
- * régimes confondus. Le taux maximum, dit « taux plein », est de 50% (75% pour la fonction publique).
+ * régimes confondus. Le taux maximal, dit « taux plein », est de 50% (75% pour la fonction publique).
  * - taux_prorat = Coefficient de proratisation. C'est le rapport entre le nombre de trimestres d'assurance (cotisés ou non) et la durée de référence de 150 à 164 trimestres, en fonction de l'année
  * de naissance (durée d’assurance requise à partir de la génération 1948).
  * 
@@ -290,11 +290,11 @@ class DroitsRetr {
   void DecoteSurcote();
   
   /** 
-   *  \brief Indique si l'individu a atteint l'âge minimum d'ouverture des droits. 
-   *  @return retourne true si l'individu a atteint l'âge minimum d'ouverture des droits, false sinon.
+   *  \brief Indique si l'individu a atteint l'âge minimal d'ouverture des droits. 
+   *  @return retourne true si l'individu a atteint l'âge minimal d'ouverture des droits, false sinon.
    *  
-   *  Cette méthode indique si l'individu a atteint l'age minimum d'ouverture des droits. En particulier, elle
-   *  recalcule l'âge minimum d'ouverture des droits (RG et FP) en cas de départ anticipé pour carrière longue
+   *  Cette méthode indique si l'individu a atteint l'age minimal d'ouverture des droits. En particulier, elle
+   *  recalcule l'âge minimal d'ouverture des droits (RG et FP) en cas de départ anticipé pour carrière longue
    *  (sauf si option.NoRetrAntCarrLongues).
    * 
    *  Remarque: fait appel aux méthodes \ref durees_base, \ref durees_majo et \ref DecoteSurcote
