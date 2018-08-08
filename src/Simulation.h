@@ -726,10 +726,16 @@ struct Options {
      * \brief Liquidation des assurés au taux plein
      */
     _(tp)      , 
+    /**
+     * \brief Option utilisée dans la méthode DecoteSurcote() afin d'imputer la liquidation pour inaptitude,
+     * auquel cas celle-ci se fait sans décote. Les liquidations pour inaptitude concernent les individus dont le
+     * taux de préférence (X.k) pour l'inactivité est supérieur à un certain seuil. Lorsque inapte_exo=TRUE, X.k=1,6
+     */
+    _(inapte_exo)      ,
      /**
       * \brief Option obsolète, à supprimer
       */ 
-     _(uinst_old)         ,  _(inapte_exo)  ;    
+     _(uinst_old)     ;    
     ///\}
 bool 
     _(plafecretMinContSMPT)  ,  _(coeff_demo)          ,    
