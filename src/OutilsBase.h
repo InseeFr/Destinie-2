@@ -218,10 +218,10 @@ inline double min_max(double x, double y, double z){
 
 
 /**
- * \brief à commenter
+ *  \brief Détermine le nombre de trimestres validés l'année de agetest
  */
 inline int trimInf(double an, double mois) {
-  return (an*12+mois > 0) ? int(floor(an*4+mois/3.0 + 0.25))  : 0;
+  return (an*12+mois > 0) ? int(floor(an*4+mois/3.0 + 0.25))%4  : 0;
 }
 
 /**

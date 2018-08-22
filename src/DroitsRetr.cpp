@@ -36,7 +36,7 @@ double DroitsRetr::duree_trim(const vector<int>& statuts_cpt, int anneeLimite) {
   }
     
   if( in(X.statuts[am1 + 1], statuts_cpt) && (am1+1 <= ageLimite) )
-    duree += (trimInf(agetest, X.moisnaiss + 1)%4)/4.0;
+    duree += (trimInf(agetest, X.moisnaiss + 1))/4.0;
   //lorsqu'on n'a pas validé/ouvert les droits attachés à la catégorie active avant l'age limite de l'emploi, il y a reclassement en sédentaire
   // on ne doit pas compter les durées suivantes en catégorie active
   double durfpa=l.durfpa+0.0;
