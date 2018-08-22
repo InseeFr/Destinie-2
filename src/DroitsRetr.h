@@ -252,10 +252,6 @@ class DroitsRetr {
    * \ref    duree_emp    et  \ref    duree_in.
    * 
    * 
-   *  NB :  pour l'instant on interdit de percevoir de l'AVPF aux personnes
-   *  qui n'ont jamais validé de période en emploi au RG mais seulement du chômage.
-   *  Elles ont quand même des CodeAvpf parce que ce n'est pas pris en compte
-   *  dans ImputSupp  
    * 
   */
   void durees_base();
