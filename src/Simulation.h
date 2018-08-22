@@ -731,11 +731,7 @@ struct Options {
     * auquel cas celle-ci se fait sans décote. Les liquidations pour inaptitude concernent les individus dont le
     * taux de préférence (X.k) pour l'inactivité est supérieur à un certain seuil. Lorsque inapte_exo=TRUE, X.k=1,6
     */
-    _(inapte_exo)      ,
-    /**
-    * \brief Option obsolète, à supprimer
-    */ 
-    _(uinst_old)     ;    
+    _(inapte_exo)        ;    
   ///\}
   bool 
     _(plafecretMinContSMPT)  ,  _(coeff_demo)          ,    
