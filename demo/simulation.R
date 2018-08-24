@@ -1,5 +1,5 @@
 # Destinie 2
-# Copyright © 2005-2018, Institut national de la statistique et des études économiques
+# Copyright © 2005-2018, Institut national de la statistique et des etudes economiques
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +12,12 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ####################################
-#échantillon de départ
+#echantillon de depart
 ######################################
 library(destinie)
 data("test_RIENconfidentiel_NONrepresentatif")
 ###################################
-#remplacer ci par l'echantillon de disponible sur Quetelet 
+#remplacer ici par l'echantillon de disponible sur Quetelet 
 ###################################
 
 
@@ -43,23 +43,23 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
   ################
   #choix du scenario demographique 
   ################
-  # ici la fecondite, l'espérance de vie et le solde migratoire suive le scénario central des projections de l'Insee
-  # pour la France entière (attention à la cohérence avec le champ précédemment choisi)
-  # deux autres scénarios sont déjà créés le premier où tous les scénarios sont à bas et ce qui aboutit à une population âgée
-  # le second tous les scénarios sont à haut et ce qui aboutit à une population jeune    
-  # les autres scénarios s'obtiennent en utilisant le programme \data_raw\obtention_hypdemo.R    
+  # ici la fecondite, l'esperance de vie et le solde migratoire suivent le scenario central des projections de l'Insee
+  # pour la France entiere (attention a la coherence avec le champ precedemment choisi)
+  # deux autres scenarios sont deja crees le premier où tous les scenarios sont a bas et ce qui aboutit a une population agee
+  # le second tous les scenarios sont a haut et ce qui aboutit a une population jeune    
+  # les autres scenarios s'obtiennent en utilisant le programme \data_raw\obtention_hypdemo.R    
   data("fec_Cent_vie_Cent_mig_Cent")
 
 
 
   ############
-  #chargement des equations régissant le marché du travail, de santé 
+  #chargement des equations regissant le marche du travail, de sante 
   ################
 
   data("eq_struct")
   
   ###################
-  #chargement des paramètres economiques puis projection des paramètres dans le futur
+  #chargement des parametres economiques puis projection des parametres dans le futur
   ##################
 
   data("eco_cho_7_prod13")
@@ -86,7 +86,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
       PlafARS1|PlafARS2|PlafARS3|PlafARS4|PlafARS5|PlafCF3|PlafCF4|PlafCF5|MajoPlafCF|sGMP|BMAF|SeuilPauvrete ~ SMPT,
       MaxRevRG ~ PlafondSS,
       MinPR ~ cumprod(MinPRp*(1+Prixp)),
-      MinVieil1|MinVieil2|Mincont1|Mincont2 ~ lag(cumprod(1+Prixp)), # indexation standard. En évolution, indexation sur l'inflation de t-1.
+      MinVieil1|MinVieil2|Mincont1|Mincont2 ~ lag(cumprod(1+Prixp)), # indexation standard. En evolution, indexation sur l'inflation de t-1.
       SalRefAGIRC_ARRCO|SalRefARRCO|SalRefAGIRC ~  cumprod(ifelse(annee%in%c(2016,2017,2018),(1+SMPTp+0.02)*(1+Prixp),(1+SMPTp)*(1+Prixp))),
       ValPtAGIRC|ValPtARRCO|ValPtAGIRC_ARRCO ~ cumprod(1+ifelse(annee%in%c(2016,2017,2018),pmax(Prixp-0.01,0),Prixp)),
       MinRevRG|SeuilExoCSG|SeuilExoCSG2|SeuilTxReduitCSG|SeuilTxReduitCSG2 ~cumprod(1+Prixp),
@@ -116,8 +116,8 @@ destinieSim(simulation)
 
 
 ##############################################
-# Résultats ----------------------------------
-#âge moyen de liquidation pour tous et par sexes
+# Resultats ----------------------------------
+#age moyen de liquidation pour tous et par sexes
 simulation$Indicateurs_an %>% filter(regime=="tot" & annee > 2000) %>% ggplot(aes(x=annee,y=Age_Ret_Flux,color=sexe)) + geom_line()
 #masse des pensions sur le Pib
 simulation$Indicateurs_an %>% filter(regime=="tot"& sexe=="ens" & annee > 2010& annee<=2070)%>%
