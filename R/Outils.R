@@ -81,6 +81,7 @@ recode <- function(var,...,.type="factor") {
 
 #' Outil projection
 #' @description [fonction-clé de simulation.R] Permet de projeter des séries suivant une hypothèse donnée.
+#' @export 
 projection <- function(data,...) {
   tmp2 <- lazyeval::lazy_dots(...)
   for(tmp1 in tmp2) {
@@ -114,6 +115,7 @@ projection <- function(data,...) {
 #' d'importation correctement paramétrées 
 #' @param rep : nom du fichier excel a importer
 #' @param sheet : nom des onglets a recuperer
+#' @export 
 read_xls <- function(rep,sheet,...) {
   df <- as.data.frame(list(...))
   for(s in sheet) {
