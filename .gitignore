@@ -3,7 +3,15 @@
 *.RDataTmp
 *.Ruserdata
 #previous commands excluded all .Rda/.RData
-!test_RIENconfidentiel_NONrepresentatif.Rda
+!data/test.rda
+!data/eco_cho_10_prod10.rda
+!data/eco_cho_45_prod18.rda
+!data/eco_cho_7_prod13.rda
+!data/eco_cho_7_prod15.rda
+!data/eq_struct.rda
+!data/fec_Bas_vie_Bas_mig_Bas.rda
+!data/fec_Haut_vie_Haut_mig_Haut.rda
+!data/fec_Cent_vie_Cent_mig_Cent.rda
 #previous command makes an exception
 
 #to include personal parameters that are not followed

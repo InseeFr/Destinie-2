@@ -15,9 +15,11 @@
 #echantillon de depart
 ######################################
 library(destinie)
-data("test_RIENconfidentiel_NONrepresentatif")
+data("test")
+simul=test
+rm(test)
 ###################################
-#remplacer ici par l'echantillon de disponible sur Quetelet 
+#remplacer ici test  par l'echantillon disponible sur Quetelet 
 ###################################
 
 
@@ -45,12 +47,12 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
   ################
   # ici la fecondite, l'esperance de vie et le solde migratoire suivent le scenario central des projections de l'Insee
   # pour la France entiere (attention a la coherence avec le champ precedemment choisi)
-  # deux autres scenarios sont deja crees le premier où tous les scenarios sont a bas et ce qui aboutit a une population agee
+  # deux autres scenarios sont deja crees le premier ou tous les scenarios sont a bas et ce qui aboutit a une population agee
   # le second tous les scenarios sont a haut et ce qui aboutit a une population jeune    
   # les autres scenarios s'obtiennent en utilisant le programme \data_raw\obtention_hypdemo.R    
   data("fec_Cent_vie_Cent_mig_Cent")
-
-
+  demo=fec_Cent_vie_Cent_mig_Cent
+  rm(fec_Cent_vie_Cent_mig_Cent)
 
   ############
   #chargement des equations regissant le marche du travail, de sante 
@@ -63,6 +65,8 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
   ##################
 
   data("eco_cho_7_prod13")
+  eco=eco_cho_7_prod13
+  rm(eco_cho_7_prod13)
   eco$macro <-eco$macro%>%
     mutate( 
       SMPTp = ifelse(is.na(SMPTp),0,SMPTp),
@@ -83,7 +87,8 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
       Prix ~ cumprod(1+Prixp),
       PointFP|PlafRevRG ~ SMPT,
       SalValid ~ SMIC,
-      PlafARS1|PlafARS2|PlafARS3|PlafARS4|PlafARS5|PlafCF3|PlafCF4|PlafCF5|MajoPlafCF|sGMP|BMAF|SeuilPauvrete ~ SMPT,
+      PlafARS1|PlafARS2|PlafARS3|PlafARS4|PlafARS5|PlafCF3|PlafCF4|PlafCF5|
+        MajoPlafCF|sGMP|BMAF|SeuilPauvrete ~ SMPT,
       MaxRevRG ~ PlafondSS,
       MinPR ~ cumprod(MinPRp*(1+Prixp)),
       MinVieil1|MinVieil2|Mincont1|Mincont2 ~ lag(cumprod(1+Prixp)), # indexation standard. En evolution, indexation sur l'inflation de t-1.
@@ -101,9 +106,9 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
   eco=as.list(eco)
   demo=as.list(demo)
   simul=as.list(simul)
-  struct=as.list(struct)
-  simulation=as.environment(c(demo,eco,simul,struct))
-  rm(demo,eco,simul,struct)
+  eq_struct=as.list(eq_struct)
+  simulation=as.environment(c(demo,eco,simul,eq_struct))
+  rm(demo,eco,simul,eq_struct)
 ############
 #simulation
 ###########
@@ -118,8 +123,12 @@ destinieSim(simulation)
 ##############################################
 # Resultats ----------------------------------
 #age moyen de liquidation pour tous et par sexes
-simulation$Indicateurs_an %>% filter(regime=="tot" & annee > 2000) %>% ggplot(aes(x=annee,y=Age_Ret_Flux,color=sexe)) + geom_line()
+simulation$Indicateurs_an %>% 
+  filter(regime=="tot" & annee > 2000) %>%
+  ggplot(aes(x=annee,y=Age_Ret_Flux,color=sexe)) + geom_line()
 #masse des pensions sur le Pib
-simulation$Indicateurs_an %>% filter(regime=="tot"& sexe=="ens" & annee > 2010& annee<=2070)%>%
-  left_join(simulation$macro)%>% ggplot(aes(x=annee,y=M_Pensions_ma/10/PIB,color=sexe)) + geom_line()+
+simulation$Indicateurs_an %>%
+  filter(regime=="tot"& sexe=="ens" & annee > 2010& annee<=2070)%>%
+  left_join(simulation$macro)%>% 
+  ggplot(aes(x=annee,y=M_Pensions_ma/10/PIB,color=sexe)) + geom_line()+
   theme_bw()

@@ -23,7 +23,12 @@ library(destinie)
 #chargement des paramètres économiques
 ################
 scencho <- "7%" # ou 4,5 ou 10
+cho<-ifelse(scencho=="7%","7",
+           ifelse(scencho=="4,5%","45","10"))
 scenprod <- "1,5%" #ou 1,0 ou 1,5 ou 1,8
+prod<-ifelse(scenprod=="1,5%","15",
+             ifelse(scenprod=="1,3%","13",
+                    ifelse(scenprod=="1,0%","10","18")))
 ciblesTrans <- ".\\parametres\\Projection_COR_2018\\PARAM_transitions.xls"
 param_eco <- ".\\parametres\\Projection_COR_2018\\ParamSociaux_2018.xls"
 fin_simul=2120
@@ -34,5 +39,5 @@ eco$macro <-
  
 
 eco$CiblesTrans <-  xlsx::read.xlsx(ciblesTrans,sheetName = paste0("cho",scencho),startRow = 3,colIndex=1:36)
-
-save(eco,file="data/eco_cho_7_prod15.rda")
+assign(paste0("eco_cho_",cho,"_prod",prod),eco)
+save(list=paste0("eco_cho_",cho,"_prod",prod),file=paste0("data/eco_cho_",cho,"_prod",prod,".rda"))

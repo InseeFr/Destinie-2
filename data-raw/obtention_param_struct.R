@@ -22,15 +22,15 @@ library(dplyr)
 ############
 #chargement des paramètres demo 
 ################
-struct=new.env()
+eq_struct=new.env()
 struct$FinEtudeMoy <-  xlsx::read.xlsx(".\\parametres\\PARAM_etude.xls",sheetName = "TABLEFINDET0", startRow = 2)
 
-struct$EqSalaires <-  xlsx::read.xlsx(".\\parametres\\EqSalaires.xls",sheetName="eq_salaires")
-struct$CStructSexeAge <-  xlsx::read.xlsx(".\\parametres\\EqSalaires.xls",sheetName="CorrectStructSalSexeAge")
-struct$EqTrans <-  xlsx::read.xlsx(".\\parametres\\EqTrans.xls","EqTrans") %>%  
+eq_struct$EqSalaires <-  xlsx::read.xlsx(".\\parametres\\EqSalaires.xls",sheetName="eq_salaires")
+eq_struct$CStructSexeAge <-  xlsx::read.xlsx(".\\parametres\\EqSalaires.xls",sheetName="CorrectStructSalSexeAge")
+eq_struct$EqTrans <-  xlsx::read.xlsx(".\\parametres\\EqTrans.xls","EqTrans") %>%  
   mutate(indic=as.integer(indic)) %>%
   mutate(ordre=as.factor(paste0("TRANS",ordre+1))) %>%
   arrange(type_trans,origine,ordre)
-struct$EqSante <-  xlsx::read.xlsx(".\\parametres\\sante.xls",sheetName="adl")
+eq_struct$EqSante <-  xlsx::read.xlsx(".\\parametres\\sante.xls",sheetName="adl")
 
-save(struct,file="data/eq_struct.rda")
+save(eq_struct,file="data/eq_struct.rda")

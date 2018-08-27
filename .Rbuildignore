@@ -2,4 +2,9 @@
 ^\.Rproj\.user$
 ^Parametres$
 ^documentation$
-^simulation.R
+^simulation.R$
+^demo$
+^COPYING.txt$
+^README.txt$
+^data-raw$
+^documentation.R$

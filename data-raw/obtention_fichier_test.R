@@ -473,9 +473,9 @@ simul=new.env()
 simul$fam <- fam
 simul$emp <- emp
 simul$ech <- ech
-
+test=simul
 #on enregistre le fichier sous son nom de test
-save(simul,file="data\\test_RIENconfidentiel_NONrepresentatif.rda")
+save(test,file="data\\test.rda")
 
 
 

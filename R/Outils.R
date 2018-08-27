@@ -45,7 +45,7 @@ import_series <- function(scCor){
     name = paste(sheet);
     size = length(unlist(liste_series[sheet]));
     print(name)
-    dfs <- readColumns(wb$getSheet(name),1,size,2,colClasses = "numeric")
+    dfs <- xlsx::readColumns(wb$getSheet(name),1,size,2,colClasses = "numeric")
     names(dfs) <- unlist(liste_series[sheet])
     df <-merge(df, dfs,  all.x=TRUE)
   }
@@ -119,7 +119,7 @@ projection <- function(data,...) {
 read_xls <- function(rep,sheet,...) {
   df <- as.data.frame(list(...))
   for(s in sheet) {
-    df <- left_join(df,read.xlsx2(rep,s,startRow=3,colClasses = rep("numeric",255)))
+    df <- left_join(df,xlsx::read.xlsx2(rep,s,startRow=3,colClasses = rep("numeric",255)))
   }
   return(df)
 }

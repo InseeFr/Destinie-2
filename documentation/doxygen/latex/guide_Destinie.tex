@@ -3,46 +3,41 @@
 Ce guide vise à faciliter la première prise en main du modèle. La seule garantie proposée par ses rédacteurs est que dans des circonstances "utilisateurs"\footnote{Lorsque des inscriptions précises sont données, elles ont été testées sous Windows 10  sous un ordinateur où rien n'était pré-installé.}, cette procédure a fonctionné comme décrite.\\
 \subsubsection{Installation minimale}
 \begin{enumerate}
-
-\item Installations préalables 
+\item Installations préalables : \\
 \begin{itemize}
 \item Installer	R (\url{https://cran.r-project.org/}) 
-\item Installer	Rtools (\url{https://cran.r-project.org/bin/windows/Rtools/}), si votre système d'exploitation est Windows pour pouvoir installer le package destinie à partir des fichiers source. Choisir la version de Rtools compatible avec la version de R choisie précédemment. 
+\item Installer	Rtools (\url{https://cran.r-project.org/bin/windows/Rtools/}), si votre système d'exploitation est 				Windows pour pouvoir installer le package destinie à partir des fichiers source. Choisir la version de Rtools compatible 		avec la version de R choisie précédemment. 
 \end{itemize}
-
-
-
-\item Installations recommandées 
+\item Installations recommandées : \\
 \begin{itemize}
 \item Installer	Rstudio (\url{https://www.rstudio.com/products/rstudio/download/}), environnement de travail R auquel il est parfois fait référence dans la documentation.
 \item Installer git (\url{https://git-scm.com/})de façon à pouvoir suivre les futures mises à jour du modèle.
 \item Installer par exemple TortoiseGit (\url{https://tortoisegit.org/}) pour pouvoir utiliser Git en "clic-bouton".
 \item Disposer d'un tableur (tel Microsoft Excel ou LibreOffice Calc).
 \end{itemize}
-
 \item Installer les packages nécessaires à Destinie :\\
-\textit{install.packages(c("githubinstall","devtools")}
+\textit{install.packages(c("githubinstall","devtools","pkgbuild"))}
 \item Installation du package Destinie :\\
-L'installation se faisant à partir des fichiers sources, il est nécessaire pour les utilisateurs de Windows de lancer au préalable : \textit{devtools:find\_rtools()} \\
+L'installation se faisant à partir des fichiers sources, il est nécessaire pour les utilisateurs de Windows de lancer au préalable : \textit{devtools::find\_rtools()} ou \textit{pkgbuild::find\_rtools()} pour obtenir un True \\
 Puis \textit{githubinstall("Destinie-2")} (par défaut les packages dont dépend destinie seront installés)
-
 \end{enumerate}
 
 \subsubsection{Réaliser une première simulation}
 Dans le logiciel R,
 \begin{enumerate}
 \item On charge le package : \textit{library(destinie)}
-\item On lance une simulation exemple : \textit{demo(simulation,package="destinie,encoding="utf8")} Le fichier source simulation.R du répertoire demo permet de lancer une simulation à partir d'un échantillon test non représentatif \footnote{\underline{Attention :} Le fichier test fourni pour prendre en main le logiciel n'est pas représentatif. Le fichier représentatif à utiliser est mis à disposition sur la plateforme Quetelet (\url{http://quetelet.progedo.fr/}).} en choisissant des hypothèses classiques.\\
+\item On lance une simulation exemple : \textit{demo(simulation,package="destinie",encoding="utf8")} Le fichier source simulation.R du répertoire demo permet de lancer une simulation à partir d'un échantillon test non représentatif \footnote{\underline{Attention :} Le fichier test fourni pour prendre en main le logiciel n'est pas représentatif de la population au 1er janvier 2010. Le fichier représentatif à utiliser est mis à disposition sur la plateforme Quetelet (\url{http://quetelet.progedo.fr/}).} en choisissant des hypothèses classiques.\\
 Le déroulé du programme est le suivant :
-
 \begin{lstlisting}
 ####################################
 #echantillon de depart
 ######################################
 library(destinie)
-data("test_RIENconfidentiel_NONrepresentatif")
+data("test")
+simul=test
+rm(test)
 ###################################
-#remplacer ci par l'echantillon de disponible sur Quetelet 
+#remplacer ici test  par l'echantillon disponible sur Quetelet 
 ###################################
 
 
@@ -68,14 +63,14 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
   ################
   #choix du scenario demographique 
   ################
-  # ici la fecondite, l'esperance de vie et le solde migratoire suivent le scenario central 
-  # des projections de l Insee
+  # ici la fecondite, l'esperance de vie et le solde migratoire suivent le scenario central des projections de l'Insee
   # pour la France entiere (attention a la coherence avec le champ precedemment choisi)
-  # Deux autres scenarios sont deja crees.
-  # le premier ou tous les scenarios sont a bas et ce qui aboutit a une population agee
-  # le second tous les scenarios sont a haut et ce qui aboutit a une population jeune.    
-  # Les autres scenarios s'obtiennent en utilisant le programme \data_raw\obtention_hypdemo.R    
+  # deux autres scenarios sont deja crees le premier ou tous les scenarios sont a bas et ce qui aboutit a une population agee
+  # le second tous les scenarios sont a haut et ce qui aboutit a une population jeune    
+  # les autres scenarios s'obtiennent en utilisant le programme \data_raw\obtention_hypdemo.R    
   data("fec_Cent_vie_Cent_mig_Cent")
+  demo=fec_Cent_vie_Cent_mig_Cent
+  rm(fec_Cent_vie_Cent_mig_Cent)
 
   ############
   #chargement des equations regissant le marche du travail, de sante 
@@ -88,6 +83,8 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
   ##################
 
   data("eco_cho_7_prod13")
+  eco=eco_cho_7_prod13
+  rm(eco_cho_7_prod13)
   eco$macro <-eco$macro%>%
     mutate( 
       SMPTp = ifelse(is.na(SMPTp),0,SMPTp),
@@ -108,8 +105,8 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
       Prix ~ cumprod(1+Prixp),
       PointFP|PlafRevRG ~ SMPT,
       SalValid ~ SMIC,
-      PlafARS1|PlafARS2|PlafARS3|PlafARS4|PlafARS5|PlafCF3|PlafCF4|PlafCF5|MajoPlafCF|sGMP
-      |BMAF|SeuilPauvrete ~ SMPT,
+      PlafARS1|PlafARS2|PlafARS3|PlafARS4|PlafARS5|PlafCF3|PlafCF4|PlafCF5|
+        MajoPlafCF|sGMP|BMAF|SeuilPauvrete ~ SMPT,
       MaxRevRG ~ PlafondSS,
       MinPR ~ cumprod(MinPRp*(1+Prixp)),
       MinVieil1|MinVieil2|Mincont1|Mincont2 ~ lag(cumprod(1+Prixp)), # indexation standard. En evolution, indexation sur l'inflation de t-1.
@@ -121,17 +118,15 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
 
   eco$macro=eco$macro%>%filter(annee<=fin_simul)
   eco$CiblesTrans <-  left_join(eco$macro %>% select(annee), eco$CiblesTrans)
-  
 ####################
 # rassemblement dans un unique environnement
 #####################
   eco=as.list(eco)
   demo=as.list(demo)
   simul=as.list(simul)
-  struct=as.list(struct)
-  simulation=as.environment(c(demo,eco,simul,struct))
-  rm(demo,eco,simul,struct)
-  
+  eq_struct=as.list(eq_struct)
+  simulation=as.environment(c(demo,eco,simul,eq_struct))
+  rm(demo,eco,simul,eq_struct)
 ############
 #simulation
 ###########
@@ -146,11 +141,16 @@ destinieSim(simulation)
 ##############################################
 # Resultats ----------------------------------
 #age moyen de liquidation pour tous et par sexes
-simulation$Indicateurs_an %>% filter(regime=="tot" & annee > 2000) %>% ggplot(aes(x=annee,y=Age_Ret_Flux,color=sexe)) + geom_line()
+simulation$Indicateurs_an %>% 
+  filter(regime=="tot" & annee > 2000) %>%
+  ggplot(aes(x=annee,y=Age_Ret_Flux,color=sexe)) + geom_line()
 #masse des pensions sur le Pib
-simulation$Indicateurs_an %>% filter(regime=="tot"& sexe=="ens" & annee > 2010& annee<=2070)%>%
-  left_join(simulation$macro)%>% ggplot(aes(x=annee,y=M_Pensions_ma/10/PIB,color=sexe)) + geom_line()+
+simulation$Indicateurs_an %>%
+  filter(regime=="tot"& sexe=="ens" & annee > 2010& annee<=2070)%>%
+  left_join(simulation$macro)%>% 
+  ggplot(aes(x=annee,y=M_Pensions_ma/10/PIB,color=sexe)) + geom_line()+
   theme_bw()
+
 \end{lstlisting}
 \end{enumerate}
 
@@ -173,8 +173,7 @@ Créer un dossier Destinie ; puis y clôner le dépôt en le nommant destinie. \
 % 
 % \url{find_rtools( )}  \\
 % Un "TRUE" devrait alors s'afficher.
- 
- \item  Installer le package devtools, et dans Rstudio utiliser les commandes de Build pour charger destinie ou compiler le package source .tar.gz ou le windows binairies. 
+  \item  Installer le package devtools, et dans Rstudio utiliser les commandes de Build pour charger destinie ou compiler le package source .tar.gz ou le windows binairies. 
 \end{enumerate}
 
 

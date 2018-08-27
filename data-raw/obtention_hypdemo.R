@@ -91,6 +91,7 @@ NA0<-function (x)
 {return (ifelse(is.na(x),0,x))}
 demo$CiblesDemo <- xlsx::read.xlsx(paste0(".\\parametres\\Param_demo\\ciblesDemographie_",champ,".xls"),sheetName ="CiblesDemo",startRow = 2,colClasses=rep("numeric",48))%>%
   mutate_all(funs(NA0))
+assign(paste0("fec_",fec,"_vie_",evie,"_mig_",mi),demo)
 ####################
 # on sauvegarde le tout dans le réperoire data
-save(demo,file=paste0("data/fec_",fec,"_vie_",evie,"_mig_",mi,".Rdata"))
+save(list=c(paste0("fec_",fec,"_vie_",evie,"_mig_",mi)),file=paste0("data/fec_",fec,"_vie_",evie,"_mig_",mi,".rda"))
