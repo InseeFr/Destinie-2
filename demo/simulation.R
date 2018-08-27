@@ -15,6 +15,7 @@
 #echantillon de depart
 ######################################
 library(destinie)
+library(dplyr)
 data("test")
 simul=test
 rm(test)
