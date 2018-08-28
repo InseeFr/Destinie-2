@@ -392,7 +392,7 @@ class DroitsRetr {
   /** \brief calcul du minmum contributif au RG et au RSI (appelée par AppliqueBonif) 
    * 
    * Calcul du montant attribuable au titre du minimum contributif. Suppose que les
-   * durées de cotisation sont connues, donc des appels préalables de DurBase et
+   * durées de cotisation sont connues, nécessite donc des appels préalables de DurBase et
    * DurMajo (source, Doc N° 4, séance COR du 27 juin 2006)
    * 
    */

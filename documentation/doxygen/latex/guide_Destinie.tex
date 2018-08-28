@@ -1,7 +1,8 @@
 \section{Guide de prise en main du modèle Destinie}
 \subsection{Lancer une projection avec le modèle Destinie}
-Ce guide vise à faciliter la première prise en main du modèle. La seule garantie proposée par ses rédacteurs est que dans des circonstances "utilisateurs"\footnote{Lorsque des inscriptions précises sont données, elles ont été testées sous Windows 10  sous un ordinateur où rien n'était pré-installé.}, cette procédure a fonctionné comme décrite.\\
+Ce guide vise à faciliter la première prise en main du modèle, tant pour des utilisateurs voulant utiliser le modèle dans sa forme actuelle (voir parties \ref{subsec::instmin} et \ref{subsec::simul}), que pour des utilisateurs plus experts voulant accéder au code source.\\
 \subsubsection{Installation minimale}
+\label{subsec::instmin}
 \begin{enumerate}
 \item Installations préalables : \\
 \begin{itemize}
@@ -11,18 +12,19 @@ Ce guide vise à faciliter la première prise en main du modèle. La seule garan
 \item Installations recommandées : \\
 \begin{itemize}
 \item Installer	Rstudio (\url{https://www.rstudio.com/products/rstudio/download/}), environnement de travail R auquel il est parfois fait référence dans la documentation.
-\item Installer git (\url{https://git-scm.com/})de façon à pouvoir suivre les futures mises à jour du modèle.
+\item Installer git (\url{https://git-scm.com/}) de façon à pouvoir suivre les futures mises à jour du modèle.
 \item Installer par exemple TortoiseGit (\url{https://tortoisegit.org/}) pour pouvoir utiliser Git en "clic-bouton".
 \item Disposer d'un tableur (tel Microsoft Excel ou LibreOffice Calc).
 \end{itemize}
 \item Installer les packages nécessaires à Destinie :\\
 \textit{install.packages(c("githubinstall","devtools","pkgbuild"))}
 \item Installation du package Destinie :\\
-L'installation se faisant à partir des fichiers sources, il est nécessaire pour les utilisateurs de Windows de lancer au préalable : \textit{devtools::find\_rtools()} ou \textit{pkgbuild::find\_rtools()} pour obtenir un True \\
+L'installation se faisant à partir des fichiers sources, il est nécessaire pour les utilisateurs de Windows de lancer au préalable : \textit{devtools::find\_rtools()} ou \textit{pkgbuild::find\_rtools()} pour obtenir un "TRUE".\\
 Puis \textit{githubinstall("Destinie-2")} (par défaut les packages dont dépend destinie seront installés)
 \end{enumerate}
 
 \subsubsection{Réaliser une première simulation}
+\label{subsec::simul}
 Dans le logiciel R,
 \begin{enumerate}
 \item On charge le package : \textit{library(destinie)}
@@ -159,14 +161,14 @@ simulation$Indicateurs_an %>%
 
 \begin{enumerate}
 \item Récupérer le dossier contenant le modèle : 
-Créer un dossier Destinie ; puis y clôner le dépôt en le nommant destinie. \footnote{Le fait que le dossier soit dans \url{/Destinie/destinie} pour que les liens dans les fichiers de paramètres soient corrects.} \\
+Créer un dossier Destinie ; puis y clôner le dépôt en le nommant destinie. \footnote{Le fait que le dossier soit dans \url{/Destinie/destinie} permet aux liens dans les fichiers de paramètres de rester corrects.} \\
 Par exemple, pour les utilisateurs de TortoiseGit :
 \begin{itemize}
 \item Faire un clic droit dans l'explorateur
 \item Cliquer sur "Git clôner"
 \item  dans URL, inscrire : \url{https://github.com/InseeFr/Destinie-2}
 \item dans Répertoire inscrire l'emplacement où vous souhaitez installer Destinie. \item Récupérer le dossier contenant le modèle : 
-Créer un dossier Destinie ; puis y clôner le dépôt en le nommant destinie. \footnote{Le fait que le dossier soit dans \url{/Destinie/destinie} pour que les liens dans les fichiers de paramètres soient corrects.} \\
+Créer un dossier Destinie ; puis y clôner le dépôt en le nommant destinie. \\
 \end{itemize}
 %\item Chargement du package devtools. Exécuter: \\
 % \url{assignInNamespace("version_info", c(devtools:::version_info, list("3.5" = list(version_min = "3.3.0", version_max = "99.99.99", path = "bin"))), "devtools")}\footnote{Cette ligne est nécessaire au fonctionnement sous R.3.5.0 au 19 juillet 2017 ; ce passage se simplifiera dans quelques semaines, d’après : \url{https://github.com/r-lib/devtools/issues/1772\# issuecomment-388639815}}  \\

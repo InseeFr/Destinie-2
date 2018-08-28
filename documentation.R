@@ -93,7 +93,7 @@ doxy_edit(pathToDoxyfile = "./documentation/doxygen/Doxyfile",options =
                       "INPUT_ENCODING"="UTF-8","DOXYFILE_ENCODING"="UTF-8","SHOW_NAMESPACES"="NO","EXCLUDE_PATTERNS" = "*/range.h /\ */OutilsRcpp.h",
               "COMPACT_LATEX"="YES","EXTRACT_ALL"="NO","HIDE_SCOPE_NAMES"="YES","LATEX_TIMESTAMP"="YES","HAVE_DOT"="NO" 
               ,"REPEAT_BRIEF"="NO","CITE_BIB_FILES"="./documentation/doxygen/latex/bibliography.bib","LATEX_BIB_STYLE"="apalike-fr","LATEX_SOURCE_CODE"="YES",
-              "EXTRA_PACKAGES"="{booktabs}    {lscape}     {natbib} "))
+              "EXTRA_PACKAGES"="{booktabs}    {lscape}     {listings} "))
 
 doxy(pathToDoxyfile = "./documentation/doxygen/Doxyfile")
 

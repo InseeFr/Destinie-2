@@ -897,9 +897,6 @@ struct Retraite_comp {
     la fonction est appelée APRES le calcul du montant de pension (hors bonification)
     mais AVANT la définition des variables d'âge fin.
     
-    Remarque : ne sont pas encore programmées ici :
-    - la modification du taux de bonification à l'Agirc et à l'Arrco pour les points acquis après 2012
-    - la proratisation de la limite de 1000 euros par an pour la bonification Agirc et Arrco après 2012
    */
   void DroitsRetr::AppliqueBonif()
   {
@@ -964,7 +961,7 @@ struct Retraite_comp {
   
  //Fonction Mincont
     //Calcul du montant attribuable au titre du minimum contributif. Suppose que les
-    //durées de cotisation sont connues, donc des appels préalables de DurBase et
+    //durées de cotisation sont connues, nécessite donc des appels préalables de DurBase et
     //DurMajo (source, Doc N° 4, séance COR du 27 juin 2006)
   void DroitsRetr::MinCont(int AnneeRefAnticip)
   {

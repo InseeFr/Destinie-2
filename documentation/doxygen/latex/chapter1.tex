@@ -1,13 +1,28 @@
 \section{Introduction}
-Le modèle Destinie 2 (modèle Démographique Économique et Social de Trajectoires INdividuelles sImulÉs, version 2) est un modèle de microsimulation dynamique, développé et géré par l'Insee, dont l'objectif principal est la projection à long terme des retraites.\\
+Le modèle Destinie 2 (modèle Démographique Économique et Social de Trajectoires INdividuelles sImulÉs, version 2) est un modèle de microsimulation dynamique, développé et géré par l’Insee, dont l’objectif principal est la projection à long terme des retraites. Il succède à Destinie 1, premier modèle de microsimulation élaboré sur ce domaine en France, depuis 2010.
 
-La simulation se fait au niveau individuel, sur la base d'un échantillon représentatif de la population française au 1er janvier 2010. Cet échantillon, composé d'environ 62 000 individus, est construit à partir de l'enquête Patrimoine 2009-2010. Le modèle projette les situations familiales, carrières professionnelles et départs à la retraite des personnes de cette population, dont le renouvellement est assuré par la simulation des naissances, décès et flux migratoires. Les individus sont répartis en trois grands groupes : les salariés du secteur privé, les titulaires de la fonction publique et les indépendants. Il s'agit donc d'un modèle simplifié : par exemple, les membres des régimes spéciaux sont considérés comme affiliés au secteur privé. Au niveau d’un individu, Destinie 2 permet de suivre l’ensemble de sa trajectoire professionnelle (statuts d’activité et revenus), et simule les liquidations à la retraite sous diverses hypothèses de comportement de départ et de législation. Les liens familiaux (unions, naissances, séparations) étant également simulés, ce modèle permet de réaliser des estimations au niveau du ménage.\\
+\subsection*{Utilisation}
+Ce modèle est mobilisé lors des exercices de projection de long terme conduits par le Conseil d’Orientation des Retraites (COR) ou la Commission européenne, mais aussi dans le cadre d'études afin d'éclairer le débat économique et social dans le domaine de la protection sociale (retraites, mais également dépendance ou encore dépenses de santé). En effet, la construction d’un échantillon démographique, couplée à la constitution des liens familiaux et des trajectoires professionnelles, offre au modèle une perspective plus généraliste, qui s’étend au-delà des retraites stricto sensu. Sa dimension « ménages » le distingue d’autres modèles de microsimulation. Par ailleurs, la taille modeste de l'échantillon permet une simulation rapide et ainsi la réalisation de nombreuses variantes, au prix d’une plus faible précision des résultats.
 
-Le modèle comprend deux modules distincts : le module générateur de biographies et le module de simulation des droits retraite.\\
-La construction des trajectoires démographiques s'appuie sur les projections démographiques de l'Insee réalisées en 2016, couvrant le champ France entière sur la période 2013-2070. Les parcours professionnels des individus sont connus jusqu’en 2009, année de base. \`A compter de 2010, leurs carrières (statuts d’activité et revenus) sont projetées en respectant des contraintes de calage sur des hypothèses macroéconomiques. Ces hypothèses portent sur la croissance de la productivité du travail et le taux de chômage, fournies par le Conseil d'Orientation des Retraites (COR), et le taux d'activité, repris des projections de population active de l'Insee.\\
-Le module retraite simule le départ à la retraite selon la date de législation et l'hypothèse de comportement de liquidation choisies, et calcule le montant des droits associés. Les droits couvrent la pension de droit direct et de réversion des régimes de base (le régime général, le Service des Retraites de l'État (SRE) et la Caisse nationale de retraites des agents des collectivités locales (CNRACL), la Sécurité Sociale pour les Indépendants (SSI)) et complémentaires (Association pour le régime de retraite complémentaire des salariés(Arrco), Association générale des institutions de retraite complémentaire des cadres(Agirc)). La dimension ménage permet d'inclure le minimum vieillesse.\\
-Ce document détaille le contenu des fichiers de code source du modèle. 
 
+\subsection*{Méthodologie}
+Le modèle s’appuie sur un échantillon représentatif de la population française au 1er janvier 2010, construit à partir de l’enquête Patrimoine 2009-2010. Composé d'environ 62 000 individus, cet échantillon initial contient des informations sur les liens familiaux ainsi que l'historique des positions occupées sur le marché du travail. 
+La simulation est effectuée au niveau individuel. Le modèle renouvelle la population initiale en simulant des naissances, des décès et des flux migratoires. Il projette ensuite les carrières professionnelles, les revenus d’activité et le départ à la retraite de chaque individu. 
+Les personnes en emploi sont réparties en trois grands groupes (les salariés du secteur privé, les titulaires de la fonction publique et les indépendants), comme les retraités (en autant de régimes de base). Ce modèle simplifie un certain nombre d’éléments législatifs (par exemple, les indépendants sont simulés en étant tous soumis aux mêmes règles de calcul des droits). Destinie 2 permet de reconstituer l’ensemble de la trajectoire professionnelle d’un individu (statuts d’activité et revenus) et simule la liquidation de la retraite selon les règles en vigueur pour chaque régime. 
+
+\subsection*{Trois modules principaux}
+Le modèle comprend trois modules distincts, écrits en C++ et transcrits en R : le module générateur des biographies démographiques, le module générateur des trajectoires professionnelles et le module «  retraite ».
+La construction des trajectoires démographiques s’appuie sur les projections démographiques de l’Insee publiées en 2016, couvrant le champ France entière sur la période 2013-2070. Le nombre de décès, de naissances et les flux migratoires sont ainsi calés chaque année de la projection. 
+Les parcours professionnels des individus sont observés jusqu’en 2009, année de base. À compter de 2010, leurs carrières (statuts d’activité et revenus) sont projetées en respectant des contraintes de calage fondées sur des hypothèses macroéconomiques. Ces hypothèses portent sur les gains de productivité du travail, le taux de chômage, tous deux repris des publications du COR, et le taux d’activité, issu des projections de population active de l’Insee.
+Le module « retraite » simule le départ à la retraite et calcule le montant des droits associés. Ces droits incluent les droits directs et la pension de réversion des régimes de base (le régime général de la Sécurité sociale, le Service des Retraites de l’État (SRE), la Caisse nationale de retraites des agents des collectivités locales (CNRACL), la Sécurité Sociale pour les Indépendants (SSI)) et de certains régimes complémentaires (Association pour le régime de retraite complémentaire des salariés (Arrco), Association générale des institutions de retraite complémentaire des cadres (Agirc)). Outre la réversion, la dimension « ménages » permet de simuler l’attribution de l’Allocation de Solidarité aux Personnes Âgées (Aspa).
+\subsection*{Plusieurs options de simulation}
+Le modèle permet une simulation à la carte via un vaste choix d'options. Certaines options permettent d’évaluer la robustesse des résultats obtenus, d'autres ont été rajoutées à l’occasion d’études spécifiques. Les options incluent :
+\begin{itemize}
+    \item le scénario démographique de l’Insee utilisé en projection relatif à la mortalité, à la fécondité ou encore au solde migratoire.
+    \item la législation à appliquer : soit la dernière législation intégrée, soit une précédente législation.
+    \item le type de mortalité : prise en compte ou non d'une mortalité différenciée selon le niveau de diplôme.
+\end{itemize}    
+Les autres options présentes dans le modèle sont documentées sur le dépôt en ligne.
 
 
 \section{Vue d'ensemble}
@@ -43,10 +58,10 @@ Le sous-répertoire {\tt Projections\_COR\_2018} comprend les 5 scénarios écon
     \end{tabular}%
   \label{tab:hypscCOR}%
 \end{table}%
-		\item[data] contient un échantillon test \textbf{non représentatif} de la population mais que l'on peut utiliser pour prendre en main le modèle de microsimulation mais aussi des jeux de paramètres du modèle préchaargés sous forme d'environnement.
+		\item[data] contient un échantillon test \textbf{non représentatif} de la population mais que l'on peut utiliser pour prendre en main le modèle de microsimulation mais aussi des jeux de paramètres du modèle préchargés sous forme d'environnement.
 		\item[data\_ raw] contient les scripts R ayant permis d'obtenir les environnements de paramètres et l'échantillon non représentatif. Ces fichiers peuvent être réutilisés pour construire d'autres jeux d'hypothèses.
 		\item[demo] contient le script simulation.R permettant de lancer une première simulation avec le modèle.
-		\item[documentation] contient la documentation du package, des conseils pratiques, la liste des documents de travail de l'Insee publiés à partir du modèle Destinie 2 et la liste des contributeurs au modèle.
+		\item[documentation] contient la documentation du package, des conseils pratiques, la liste des documents de travail de l'Insee publiés à partir du modèle Destinie 2 et la liste des contributeurs du modèle.
 	\end{description}
 
 
@@ -100,7 +115,7 @@ Un vaste choix d'options et de paramètres permet une simulation à la carte. Ce
 Les scénarios démographiques se distinguent par leurs variantes sur trois composantes que sont la natalité, la mortalité et le solde migratoire. Pour chaque composante, trois variantes existent : centrale (modalité \textit{Cent}), basse (modalité \textit{Bas}), haute (modalité \textit{Haut}). Il existe autant de scénarios que de croisements possibles entre ces variantes, soit 27. Les scénarios s'appuient sur les projections démographiques de l'Insee de 2016, couvrant la période 2013-2070.
 
 \subsubsection{Hypothèses économiques}
-Le cadre macroéconomique est défini selon deux axes : le scénario de chômage et de productivité du travail. Trois scénarios de taux de chômage de long terme sont proposés : 4,5\%, 7\%, 10\%. Quant à la productivité, elle évolue selon quatre variantes de croissance tendancielle : 1,0\%, 1,3\%, 1,5\%, 1,8\%.
+Le cadre macroéconomique est défini selon deux axes : le scénario de chômage et de productivité du travail. Trois scénarios de taux de chômage de long terme sont proposés : 4,5 \%, 7 \%, 10 \%. Quant à la productivité, elle évolue selon quatre variantes de croissance tendancielle : 1,0 \%, 1,3 \%, 1,5 \%, 1,8 \%.
 
 \subsubsection{Hypothèses règlementaires et autres}
 Avant d'effectuer une simulation, certains paramètres auxiliaires doivent être renseignés dans l'objet \textit{options}. Il s'agit :
@@ -112,7 +127,7 @@ Avant d'effectuer une simulation, certains paramètres auxiliaires doivent être
 \item de l'horizon de projection (variable \textit{AN\_MAX})
 \item du champ de la projection : France entière (modalité "FE") ou métropolitaine (modalité "FM")
 \end{itemize}
-D'autres options existent et sont détaillées dans \textbf{mettre lien vers partie sur les options de simulation}. Parmi celles-ci, toutes les options booléennes valent 0 par défaut.
+D'autres options existent et sont détaillées dans la partie \ref{struct_options}. Parmi celles-ci, toutes les options booléennes valent 0 par défaut.
 
 \subsection{Choix de la législation}
 La liquidation des droits se fait selon la législation en vigueur à une date choisie par l'utilisateur, stockée dans la variable \textit{anLeg} de l'objet \textit{options}. La législation est alors figée à celle prévalant à cette date.
@@ -168,11 +183,11 @@ La liquidation des droits se fait selon la législation en vigueur à une date c
    \item	Allongement de la durée intervenant dans le coefficient de proratisation, censée à terme évoluer comme la durée cible d'assurance
    \item	Réduction de la décote à partir de la génération 1944, de 0,5 point par an pour atteindre 5\% par annuité manquante pour les 
          générations nées après 1952 (la décote n'est appliquée que si la liquidation a lieu avant 65 ans)
-   \item	Surcote de 3\% par année supplémentaire travaillée après le 1er janvier 2004 ; la surcote a été renforcée par le plan « emploi des 
+   \item	Surcote de 3 \% par année supplémentaire travaillée après le 1er janvier 2004 ; la surcote a été renforcée par le plan « emploi des 
 seniors » au printemps 2005
    \item	Modification du mode de calcul du minimum contributif
    \item	Possibilité de départ anticipé pour carrière longue : depuis le 1er janvier 2004, les assurés qui ont commencé à travailler très 
-         jeune (avant 18 ans), et qui ont eu une longue carrière  peuvent partir à la retraite avant 60 ans (la condition de début de carrière est 
+         jeunes (avant 18 ans), et qui ont eu une longue carrière  peuvent partir à la retraite avant 60 ans (la condition de début de carrière est 
          un obstacle pour les assurés nés à partir de 1953 qui ont connu une scolarité obligatoire jusqu'à 16 ans).
 \end{itemize}
 
@@ -219,7 +234,7 @@ seniors » au printemps 2005
          parallèle à partir de 2006
 	\item	Décote de 0,5 point par annuité manquante, augmentée de 0,5 point à chaque génération pour atteindre 5\% en 2015 (avec hausse 
          progressive de l'âge pivot à partir duquel la décote s'annule)
-	\item	Surcote de 3\% par année supplémentaire travaillée, comme dans le secteur privé
+	\item	Surcote de 3 \% par année supplémentaire travaillée, comme dans le secteur privé
 	\item	Modification du mode de calcul du minimum garanti
 	\item	Modification des droits familiaux et conjugaux
 \end{itemize}
@@ -244,7 +259,7 @@ retraite au plus tôt, sous réserve d'avoir la durée de
 cotisation requise pour leur génération, plus 2 ans.
 	\item   Pour les salariés qui, du fait d'une situation 
 d'usure professionnelle, ont une incapacité physique 
-supérieure ou égale à 20\%, l'âge légal de départ à la 
+supérieure ou égale à 20 \%, l'âge légal de départ à la 
 retraite reste fixé à 60 ans et aucune décote ne leur est 
 appliquée. \textit{Dispositif non intégré dans le modèle.}
 	\item   Les jeunes en chômage non indemnisé peuvent 
@@ -254,7 +269,7 @@ valider jusqu'à 6 trimestres (au lieu de 4).
  référence sur lequel sera calculée la pension de retraite. \textit{Dispositif non intégré dans le modèle.}
 	 \item    de nouvelles recettes financières sont instaurées, 
  comme la hausse de la tranche la plus élevée de l'impôt sur 
- le revenu (41\% au lieu de 40\%), l'augmentation des 
+ le revenu (41 \% au lieu de 40 \%), l'augmentation des 
  taxes sur les stock-options et les retraites-chapeaux, le 
  relèvement des prélèvements forfaitaires sur les revenus du 
  capital et des taxes sur les dividendes perçus par les 
@@ -293,9 +308,9 @@ Le décret du 2 juillet 2012 étend le dispositif de départs anticipés pour ca
    \item Pour les individus liquidant leur retraite de base au taux plein, application d'un coefficient de minoration de 10\% sur la pension complémentaire, et ce, pour une durée de trois ans dans la limité de l'âge d'annulation de la décote. Ce coefficient ne s'applique pas aux individus qui liquident un an au moins après avoir rempli les conditions du taux plein. Pour les individus exonérés de la CSG ou soumis à un taux réduit, le coefficient ne s'applique pas ou est réduit.
    \item Pour les individus remplissant les conditions du taux plein dans les régimes de base mais reportant leur liquidation de la retraite complémentaire d'au moins deux années, application, pour une durée d'un an, d'un coefficient majorant :
    \begin{itemize}
-   \item de 10\% si la liquidation a lieu au moins deux ans après
-   \item de 20\% si la liquidation a lieu au moins trois ans après
-   \item de 30\% si la liquidation a lieu au moins quatre ans après
+   \item de 10 \% si la liquidation a lieu au moins deux ans après
+   \item de 20 \% si la liquidation a lieu au moins trois ans après
+   \item de 30 \% si la liquidation a lieu au moins quatre ans après
    \end{itemize}
 \end{itemize}
 
