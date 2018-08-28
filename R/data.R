@@ -23,60 +23,6 @@
 #' @source Insee
 "test"
 
-#' parametres demographiques correspondant au scenario central
-#'
-#' @format environnement contenant 10 tables 
-#'  \describe{
-#'   \item{CiblesDemo}{}
-#'   \item{espvie_F}{}
-#'   \item{espvie_H}{}
-#'   \item{mortadiff_dip_F}{}
-#'   \item{Survie_F}{}
-#'   \item{mortadiff_dip_H}{}
-#'   \item{Qmort_F}{}
-#'   \item{Survie_H}{}
-#'   \item{Qmort_H}{}
-#'   \item{mortalite_diff}{}
-#' }
-#' @source Insee
-"fec_Cent_vie_Cent_mig_Cent"
-
-#' parametres demographiques correspondant a une population agee
-#'
-#' @format environnement contenant 10 tables 
-#'  \describe{
-#'   \item{CiblesDemo}{}
-#'   \item{espvie_F}{}
-#'   \item{espvie_H}{}
-#'   \item{mortadiff_dip_F}{}
-#'   \item{Survie_F}{}
-#'   \item{mortadiff_dip_H}{}
-#'   \item{Qmort_F}{}
-#'   \item{Survie_H}{}
-#'   \item{Qmort_H}{}
-#'   \item{mortalite_diff}{}
-#' }
-#' @source Insee
-"fec_Bas_vie_Bas_mig_Bas"
-
-#' parametres demographiques correspondant a une population jeune
-#'
-#' @format environnement contenant 10 tables 
-#'  \describe{
-#'   \item{CiblesDemo}{}
-#'   \item{espvie_F}{}
-#'   \item{espvie_H}{}
-#'   \item{mortadiff_dip_F}{}
-#'   \item{Survie_F}{}
-#'   \item{mortadiff_dip_H}{}
-#'   \item{Qmort_F}{}
-#'   \item{Survie_H}{}
-#'   \item{Qmort_H}{}
-#'   \item{mortalite_diff}{}
-#' } 
-#' @source Insee
-"fec_Haut_vie_Haut_mig_Haut"
-
 #' parametres structurels
 #'
 #'
@@ -134,3 +80,1433 @@
 #' }
 #' @source Insee
 "eco_cho_45_prod18"
+
+#' trajectoire maroeconomique avec pour cible de long-terme
+#' un chomage a 7\% et une croissance de la productivite a 1,0\%
+#'
+#' @format  environnement contenant 2 dataframes
+#'  \describe{
+#'   \item{macro}{series du PIB, de l'inflation ou encore de parametres du systeme de retraite}
+#'   \item{CiblesTrans}{cible de chomage et d'inactivite par tranche d'age et par sexe}
+#' }
+#' @source Insee
+"eco_cho_7_prod10"
+
+#' trajectoire maroeconomique avec pour cible de long-terme
+#' un chomage a 7\% et une croissance de la productivite a 1,8\%
+#'
+#' @format  environnement contenant 2 dataframes
+#'  \describe{
+#'   \item{macro}{series du PIB, de l'inflation ou encore de parametres du systeme de retraite}
+#'   \item{CiblesTrans}{cible de chomage et d'inactivite par tranche d'age et par sexe}
+#' }
+#' @source Insee
+"eco_cho_7_prod18"
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Cent
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Cent_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Cent
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Cent_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Cent
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Cent_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Cent
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Cent_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Bas
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Bas_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Bas
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Bas_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Bas
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Bas_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Bas
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Bas_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Haut
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Haut_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Haut
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Haut_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Haut
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Haut_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Haut
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Haut_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Travail
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Travail_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Travail
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Travail_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Travail
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Travail_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Cent 
+#' esperance de vie : Travail
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Cent_vie_Travail_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Cent
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Cent_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Cent
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Cent_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Cent
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Cent_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Cent
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Cent_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Bas
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Bas_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Bas
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Bas_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Bas
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Bas_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Bas
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Bas_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Haut
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Haut_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Haut
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Haut_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Haut
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Haut_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Haut
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Haut_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Travail
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Travail_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Travail
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Travail_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Travail
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Travail_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Bas 
+#' esperance de vie : Travail
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Bas_vie_Travail_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Cent
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Cent_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Cent
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Cent_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Cent
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Cent_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Cent
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Cent_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Bas
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Bas_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Bas
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Bas_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Bas
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Bas_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Bas
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Bas_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Haut
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Haut_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Haut
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Haut_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Haut
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Haut_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Haut
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Haut_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Travail
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Travail_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Travail
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Travail_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Travail
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Travail_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Haut 
+#' esperance de vie : Travail
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Haut_vie_Travail_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Cent
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Cent_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Cent
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Cent_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Cent
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Cent_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Cent
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Cent_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Bas
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Bas_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Bas
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Bas_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Bas
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Bas_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Bas
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Bas_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Haut
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Haut_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Haut
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Haut_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Haut
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Haut_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Haut
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Haut_mig_Travail"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Travail
+#' migrations : Cent
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Travail_mig_Cent"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Travail
+#' migrations : Bas
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Travail_mig_Bas"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Travail
+#' migrations : Haut
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Travail_mig_Haut"
+
+
+#' autres parametres demographiques : 
+#' fecondite : Travail 
+#' esperance de vie : Travail
+#' migrations : Travail
+#'
+#' @format environnement contenant 10 tables 
+#'  \describe{
+#'   \item{CiblesDemo}{}
+#'   \item{espvie_F}{}
+#'   \item{espvie_H}{}
+#'   \item{mortadiff_dip_F}{}
+#'   \item{Survie_F}{}
+#'   \item{mortadiff_dip_H}{}
+#'   \item{Qmort_F}{}
+#'   \item{Survie_H}{}
+#'   \item{Qmort_H}{}
+#'   \item{mortalite_diff}{}
+#' }
+#' @source Insee
+"fec_Travail_vie_Travail_mig_Travail"
+
