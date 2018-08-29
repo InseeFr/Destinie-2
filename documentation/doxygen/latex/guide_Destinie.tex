@@ -17,10 +17,17 @@ Ce guide vise à faciliter la première prise en main du modèle, tant pour des 
 \item Disposer d'un tableur (tel Microsoft Excel ou LibreOffice Calc).
 \end{itemize}
 \item Installer les packages nécessaires à Destinie :\\
-\textit{install.packages(c("githubinstall","devtools","pkgbuild"))}
+\begin{lstlisting}install.packages(c("devtools","pkgbuild"))
+\end{lstlisting}
 \item Installation du package Destinie :\\
-L'installation se faisant à partir des fichiers sources, il est nécessaire pour les utilisateurs de Windows de lancer au préalable : \textit{devtools::find\_rtools()} ou \textit{pkgbuild::find\_rtools()} pour obtenir un "TRUE".\\
-Puis \textit{githubinstall("Destinie-2")} (par défaut les packages dont dépend destinie seront installés)
+L'installation se faisant à partir des fichiers sources, il est nécessaire pour les utilisateurs de Windows de lancer au préalable : 
+\begin{lstlisting}
+devtools::find_rtools()
+# ou pkgbuild::find_rtools()
+\end{lstlisting} pour obtenir un "TRUE".\\
+Puis \begin{lstlisting}
+devtools::install_github("InseeFr/Destinie-2",rep="release")
+\end{lstlisting} (par défaut les packages dont dépend destinie seront installés)
 \end{enumerate}
 
 \subsubsection{Réaliser une première simulation}
