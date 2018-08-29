@@ -41,7 +41,6 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
                       AN_MAX=as.integer(fin_simul),champ,
                       NoAccordAgircArrco=F, NoRegUniqAgircArrco=T, 
                       SecondLiq=F,mort_diff_dip=T,effet_hrzn=T) 
-                      # pas1=1/12 (pas mensuel pour proj COR)
 
   ################
   #choix du scenario demographique 

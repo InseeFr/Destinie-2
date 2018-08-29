@@ -27,7 +27,7 @@ Le modèle permet une simulation à la carte via un vaste choix d'options. Certa
 - le scénario démographique de l’Insee utilisé en projection relatif à la mortalité, à la fécondité ou encore au solde migratoire.
 - la législation à appliquer : soit la dernière législation intégrée, soit une précédente législation.
 - le type de mortalité : prise en compte ou non d'une mortalité différenciée selon le niveau de diplôme.
-\end{itemize}    
+
 Les autres options présentes dans le modèle sont documentées sur le dépôt en ligne.
 
 ## Licence
