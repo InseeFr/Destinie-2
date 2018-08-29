@@ -24,10 +24,9 @@ Le module « retraite » simule le départ à la retraite et calcule le montant 
 ## Plusieurs options de simulation
 
 Le modèle permet une simulation à la carte via un vaste choix d'options. Certaines options permettent d’évaluer la robustesse des résultats obtenus, d'autres ont été rajoutées à l’occasion d’études spécifiques. Les options incluent :
-\begin{itemize}
-    \item le scénario démographique de l’Insee utilisé en projection relatif à la mortalité, à la fécondité ou encore au solde migratoire.
-    \item la législation à appliquer : soit la dernière législation intégrée, soit une précédente législation.
-    \item le type de mortalité : prise en compte ou non d'une mortalité différenciée selon le niveau de diplôme.
+- le scénario démographique de l’Insee utilisé en projection relatif à la mortalité, à la fécondité ou encore au solde migratoire.
+- la législation à appliquer : soit la dernière législation intégrée, soit une précédente législation.
+- le type de mortalité : prise en compte ou non d'une mortalité différenciée selon le niveau de diplôme.
 \end{itemize}    
 Les autres options présentes dans le modèle sont documentées sur le dépôt en ligne.
 
@@ -47,6 +46,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ## Contact
 #########################	FRANCAIS	#########################
+
 En cas de question, merci de lire attentivement la documentation fournie,
 notamment les fichiers documentation.pdf et conseils_pratiques.txt.
 Veuillez noter qu'il existe de nombreuses ressources en ligne décrivant le 
