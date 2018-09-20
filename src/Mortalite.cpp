@@ -3,6 +3,7 @@
 #include "Migration.h"
 
 
+
 void mortalite(int t, bool option_mort_diff, bool option_mort_tirageCale,bool option_sante=false, bool option_mort_diff_dip=false) {
 
   auto indiv_par_age = make_vector2(121,3,deque<int>());
