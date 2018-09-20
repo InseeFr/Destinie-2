@@ -5,6 +5,7 @@
 
 const vector<int> NC_NonTit = {S_NC, S_NONTIT};
 
+
 double CotMalRetrComp(Indiv& X, int age) {
     int t = X.anaiss%1900 + age;  
     if(X.retr->pension_ar>0 || X.retr->pension_ag>0||X.retr->pension_ag_ar>0) {
