@@ -37,7 +37,7 @@ def upload_file():
 
             result_path = '%s.results.xlsx' % file_path
             
-            myCmd = 'Rscript ../demo/test.R --file %s' % file_path
+            myCmd = 'Rscript ../demo/simulation.R --file %s' % file_path
 
             os.system(myCmd)
             return send_file(result_path, as_attachment=True)
