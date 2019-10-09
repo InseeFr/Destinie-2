@@ -3,9 +3,10 @@ import os
 from flask import Flask, flash, request, redirect, url_for, send_file
 from werkzeug.utils import secure_filename
 
+import datetime
 from time import sleep
 
-UPLOAD_FOLDER = '/tmp/files'
+UPLOAD_FOLDER = '/var/log/destinie/files'
 ALLOWED_EXTENSIONS = {'xlsx'}
 
 def allowed_file(filename):
@@ -37,7 +38,8 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            prefix = str(datetime.datetime.now()).replace(':', '-').replace(' ', '--')
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], '%s%s' % (prefix, filename))
             file.save(file_path)
 
 
