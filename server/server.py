@@ -43,7 +43,7 @@ def upload_file():
             file.save(file_path)
 
 
-            result_path = '%s.results.xlsx' % file_path
+            result_path = '%s.results.xlsx' % file_path[:-5]
             
             myCmd = 'Rscript ../demo/simulation.R --file %s' % file_path
 
