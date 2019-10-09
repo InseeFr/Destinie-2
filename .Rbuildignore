@@ -8,3 +8,4 @@
 ^README.txt$
 ^data-raw$
 ^documentation.R$
+^server$

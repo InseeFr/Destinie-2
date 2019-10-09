@@ -16,9 +16,90 @@
 ######################################
 library(destinie)
 library(dplyr)
+library(jsonlite)
+library(stringr)
 data("test")
+
+
+library(openxlsx)
+
+
+args = commandArgs(trailingOnly = FALSE)
+prefixIndex = which(args == "--file")
+if (length(prefixIndex) && prefixIndex < length(args)) {
+  input_path = args[prefixIndex+1]
+} else {
+  input_path = "data.json"
+}
+
+## test
+
+# print(input_path)
+# input = fromJSON(input_path)
+# naissance = as.integer(input$naissance[1])
+# debut=input$debut[1]
+# sal = input$salaires
+# statut = c(rep(63,debut),rep(1, length(sal)-debut))
+
 simul=test
-rm(test)
+
+# simul$ech = data.frame(Id=as.integer(1),
+#                        sexe=as.integer(1),
+#                        findet=as.integer(0),
+#                        typeFP=as.integer(20),
+#                        anaiss=naissance,
+#                        neFrance=as.integer(1),
+#                        k=0,
+#                        taux_prim=0,
+#                        moisnaiss=as.integer(1),
+#                        emigrant=as.integer(0),
+#                        tresdip=as.integer(0),
+#                        peudip=as.integer(0),
+#                        dipl=as.integer(0))
+
+# simul$emp = data.frame(Id=as.integer(1),
+#                        age=as.integer(0:(length(sal)-1)),
+#                        statut=as.integer(statut),
+#                        salaire=sal)
+
+###
+
+sourcepath = input_path
+
+conv = list(ech=c('Id', 'sexe','findet',
+                  'typeFP',
+                  'anaiss',
+                  'neFrance',
+                  'moisnaiss',
+                  'emigrant',
+                  'tresdip',
+                  'peudip',
+                  'dipl'),
+            emp=c('Id',
+                  'age',
+                  'statut'),
+            fam=c('pere',
+                  'mere',
+                  'enf1',
+                  'enf2',
+                  'enf3',
+                  'enf4',
+                  'enf5',
+                  'enf6',
+                  'matri',
+                  'Id',
+                  'annee',
+                  'conjoint'
+            ))
+for (field in c('ech', 'emp', 'fam')){
+  simul[[field]] = read.xlsx(sourcepath, field)
+  for (d in conv[[field]]) {
+    simul[[field]][[d]] = as.integer(simul[[field]][[d]])
+  }
+}
+
+
+#rm(test)
 ###################################
 #remplacer ici test  par l'echantillon disponible sur Quetelet 
 ###################################
@@ -37,7 +118,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
 ######################################
     simul$options_salaires <- list()    
     
-    simul$options <- list("tp",anLeg=2016,pas1=3/12,pas2=1,
+    simul$options <- list("tp",anLeg=2019,pas1=3/12,pas2=1,
                       AN_MAX=as.integer(fin_simul),champ,
                       NoAccordAgircArrco=F, NoRegUniqAgircArrco=T, 
                       SecondLiq=F,mort_diff_dip=T,effet_hrzn=T) 
@@ -52,7 +133,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
   # les autres scenarios s'obtiennent en utilisant le programme \data_raw\obtention_hypdemo.R    
   data("fec_Cent_vie_Cent_mig_Cent")
   demo=fec_Cent_vie_Cent_mig_Cent
-  rm(fec_Cent_vie_Cent_mig_Cent)
+  #rm(fec_Cent_vie_Cent_mig_Cent)
 
   ############
   #chargement des equations regissant le marche du travail, de sante 
@@ -66,7 +147,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
 
   data("eco_cho_7_prod13")
   eco=eco_cho_7_prod13
-  rm(eco_cho_7_prod13)
+  #rm(eco_cho_7_prod13)
   eco$macro <-eco$macro%>%
     mutate( 
       SMPTp = ifelse(is.na(SMPTp),0,SMPTp),
@@ -105,30 +186,25 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
 #####################
   eco=as.list(eco)
   demo=as.list(demo)
-  simul=as.list(simul)
+  simullist=as.list(simul)
   eq_struct=as.list(eq_struct)
-  simulation=as.environment(c(demo,eco,simul,eq_struct))
-  rm(demo,eco,simul,eq_struct)
+  simulation=as.environment(c(demo,eco,simullist,eq_struct))
+  #rm(demo,eco,simul,eq_struct)
 ############
 #simulation
 ###########
-destinieDemographie(simulation)
-destinieTransMdt(simulation)
-destinieImputSal(simulation)
-destinieCalageSalaires(simulation)
-destinieSim(simulation)
+
+#destinieDemographie(simulation)
+demoSimulation = as.environment(simulation)
+destinieSim(demoSimulation)
 
 
-
-##############################################
-# Resultats ----------------------------------
-#age moyen de liquidation pour tous et par sexes
-simulation$Indicateurs_an %>% 
-  filter(regime=="tot" & annee > 2000) %>%
-  ggplot(aes(x=annee,y=Age_Ret_Flux,color=sexe)) + geom_line()
-#masse des pensions sur le Pib
-simulation$Indicateurs_an %>%
-  filter(regime=="tot"& sexe=="ens" & annee > 2010& annee<=2070)%>%
-  left_join(simulation$macro)%>% 
-  ggplot(aes(x=annee,y=M_Pensions_ma/10/PIB,color=sexe)) + geom_line()+
-  theme_bw()
+## Create a new workbook
+wb <- createWorkbook("fullhouse")
+for (field in c("ech", "emp", "fam", "liquidations", "retraites", "salairenet", "cotisations")){
+  addWorksheet(wb, field)
+  writeData(wb, field, demoSimulation[[field]])
+}
+## Save workbook
+outputfile = str_c(sourcepath, 'results.xlsx', sep=".")
+saveWorkbook(wb, outputfile, overwrite = TRUE)
