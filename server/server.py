@@ -39,7 +39,7 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             prefix = str(datetime.datetime.now()).replace(':', '-').replace(' ', '--')
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], '%s%s' % (prefix, filename))
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], '%s-%s' % (prefix, filename))
             file.save(file_path)
 
 
