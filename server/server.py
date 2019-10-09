@@ -15,6 +15,12 @@ def allowed_file(filename):
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
+@app.route('/example.xlsx', methods=['GET'])
+def get_example():
+    return send_file('example.xlsx', as_attachment=True)
+
+
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
@@ -49,4 +55,5 @@ def upload_file():
       <input type=file name=file>
       <input type=submit value=Upload>
     </form>
+    <a href="example.xlsx">Example file</a>
     '''
