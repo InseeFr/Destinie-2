@@ -1757,6 +1757,7 @@ struct Simulation {
 
 
 
+void ecriture_aide();
 void ecriture_liquidations();     ///< Crée une table R liquidations
 void ecriture_retraites(int t);   ///< Exporte dans la table R retraite l'ensemble des pensions versées dans l'année
 void ecriture_droitsRetr(Indiv& X, DroitsRetr& r);

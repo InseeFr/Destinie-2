@@ -310,6 +310,8 @@ void destinieSim(Environment envSim) {
         df0.push_line(g+1900,age,sexe,cumEmp[g][age][sexe]);
  ecriture_cotisations();
  ecriture_salairenet();
+
+ ecriture_aide();
 }
 
 // [[Rcpp::export]]

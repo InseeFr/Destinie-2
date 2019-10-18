@@ -201,6 +201,18 @@ void ecriture_liquidations() {
 }
 
 
+void ecriture_aide() {
+
+  Rcpp::Rcout<<"ecriture_aide"<<endl;
+  static Rdout aide("aide", {
+    "yolo"
+    });
+
+  for(auto& X : pop) {
+    aide.push_line(0.0);
+  }
+}
+
 // Destinie 2
 // Copyright © 2005-2018, Institut national de la statistique et des études économiques
 // This program is free software: you can redistribute it and/or modify

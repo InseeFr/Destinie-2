@@ -2,6 +2,52 @@
 
 Le modèle Destinie 2 (modèle Démographique Économique et Social de Trajectoires INdividuelles sImulÉs, version 2) est un modèle de microsimulation dynamique, développé et géré par l’Insee, dont l’objectif principal est la projection à long terme des retraites. Il succède à Destinie 1, premier modèle de microsimulation élaboré sur ce domaine en France, depuis 2010.
 
+
+## Prise en main
+
+
+Dans RStudio, ouvrir le projet Destinie-2 puis « Install and Restart ».
+
+
+Voir page 106 de la documentation.
+
+```
+# 3. Installer les packages nécessaires à Destinie :
+install.packages(c("devtools","pkgbuild"))
+```
+
+ERROR: dependencies 'usethis', 'covr', 'httr', 'roxygen2', 'rversions' are not available for package 'devtools'
+
+
+```
+export LC_ALL=C
+apt-get install libssl-dev libcurl4-openssl-dev libxml2-dev
+```
+
+```
+# 4. Installation du package Destinie :
+# pour obtenir un "TRUE".
+library(devtools)
+devtools::find_rtools()
+# ou pkgbuild::find_rtools()
+
+
+install.packages(c("zip", "openxlsx", "plogr", "rJava", "tidyselect", "xlsxjars", "xlsx"))
+
+
+devtools::install()
+```
+
+https://github.com/hannarud/r-best-practices/wiki/Installing-RJava-(Ubuntu)
+
+apt-get install default-jre
+apt-get install default-jdk
+
+R CMD javareconf
+
+apt-get install r-cran-rjava
+
+
 ## Utilisation
 
 Ce modèle est mobilisé lors des exercices de projection de long terme conduits par le Conseil d’Orientation des Retraites (COR) ou la Commission européenne, mais aussi dans le cadre d'études afin d'éclairer le débat économique et social dans le domaine de la protection sociale (retraites, mais également dépendance ou encore dépenses de santé). En effet, la construction d’un échantillon démographique, couplée à la constitution des liens familiaux et des trajectoires professionnelles, offre au modèle une perspective plus généraliste, qui s’étend au-delà des retraites stricto sensu. Sa dimension « ménages » le distingue d’autres modèles de microsimulation. Par ailleurs, la taille modeste de l'échantillon permet une simulation rapide et ainsi la réalisation de nombreuses variantes, au prix d’une plus faible précision des résultats.

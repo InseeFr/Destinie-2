@@ -14,11 +14,9 @@
 ####################################
 #echantillon de depart
 ######################################
-library(destinie)
 library(dplyr)
 library(jsonlite)
 library(stringr)
-data("test")
 
 
 library(openxlsx)
@@ -29,8 +27,11 @@ prefixIndex = which(args == "--file")
 if (length(prefixIndex) && prefixIndex < length(args)) {
   input_path = args[prefixIndex+1]
 } else {
-  input_path = "data.json"
+  input_path = "server/example.xlsx"
 }
+
+library(destinie)
+data("test")
 
 ## test
 
@@ -196,7 +197,8 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
 
 #destinieDemographie(simulation)
 demoSimulation = as.environment(simulation)
-destinieSim(demoSimulation)
+#library(destinie)
+destinie::destinieSim(demoSimulation)
 
 
 ## Create a new workbook
