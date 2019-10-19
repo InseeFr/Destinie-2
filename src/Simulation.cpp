@@ -209,7 +209,7 @@ void ecriture_aide() {
     });
 
   for(auto& X : pop) {
-    aide.push_line(0.0);
+    aide.push_line(M->ValeurPointReforme[100]);
   }
 }
 

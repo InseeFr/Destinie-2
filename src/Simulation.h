@@ -1636,7 +1636,8 @@ struct Macro {
   * dans le cas où l'option options->coeff_demo est mise en oeuvre.
   * Voir \cite dubois_koubi_2017
   */  
-  _(correct_demo,0)  ;
+  _(correct_demo,0),
+  _(ValeurPointReforme)  ;
   
   
   NumericVector daterevalobase;      		///< Mois de revalorisation des régimes de base 
