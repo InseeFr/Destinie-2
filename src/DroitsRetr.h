@@ -213,6 +213,12 @@ class DroitsRetr {
          indic_mc_in = false;         ///< Indicatrice minimum contributif au RSI 
   bool   dar = false;                 ///< Indicatrice départ anticipé pour carrière longue 
   int type_liq = liq_non;     ///< Motif de liquidation (par défaut, l'individu n'a pas liquidé)
+
+  // reforme
+  double eur_trans = 0,
+      pt_trans = 0,
+      pt_cur = 0,
+      total_pens = 0;
   
   int t = 0;                      ///< année testée 
   int age = 0;                    ///< age au 31/12 testé 

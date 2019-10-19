@@ -160,7 +160,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
       RevaloRG = ifelse(is.na(RevaloRG),1+Prixp,RevaloRG),
       RevaloFP = ifelse(is.na(RevaloFP),1+Prixp,RevaloFP),
       RevaloSPC = ifelse(is.na(RevaloSPC),1+Prixp,RevaloSPC),
-      ValeurPointReforme = annee
+      ValeurPointReforme = 1/(42*12)
     ) %>%
     projection(
       SMPT ~ cumprod((1+SMPTp)*(1+Prixp)),

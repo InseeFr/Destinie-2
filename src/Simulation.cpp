@@ -161,7 +161,8 @@ void ecriture_droitsRetr(Indiv& X, DroitsRetr& r) {
    "tp", "agetest", "ageliq", "primoliq", "liq", 
    "agefin_totliq", "agefin_primoliq", "ageprimoliq",
    "indic_mc", "indic_mg", "indic_mc_in", "dar", "t","type_liq", 
-   "ageFinEmp", "ageFinAct", "partavtprimo", "partavtliq"/*,"derSalNet"*/
+   "ageFinEmp", "ageFinAct", "partavtprimo", "partavtliq",/*,"derSalNet"*/
+   "eur_trans", "pt_trans", "pt_cur", "total_pens"
   }); /* ,"type_liq",type_liq_labels */
   
   liquidations.push_line( 
@@ -188,7 +189,11 @@ void ecriture_droitsRetr(Indiv& X, DroitsRetr& r) {
      r.indic_mc, r.indic_mg, r.indic_mc_in, r.dar, r.t,r.type_liq, 
      r.ageFinEmp(), r.ageFinAct(),
      r.partavtprimo(r.ageprimoliq), r.partavtliq(r.ageliq)
-     /*, r.derSalNet()*/);   
+     /*, r.derSalNet()*/
+     , r.eur_trans
+     , r.pt_trans
+     , r.pt_cur
+     , r.total_pens);
 }
 
 void ecriture_liquidations() {
