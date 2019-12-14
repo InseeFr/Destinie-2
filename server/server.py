@@ -25,7 +25,6 @@ def example():
 @app.route('/expert', methods=['GET', 'POST'])
 def expert_mode():
     if request.method == 'POST':
-        sleep(3)
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
