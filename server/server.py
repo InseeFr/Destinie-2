@@ -18,12 +18,12 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route('/example.xlsx', methods=['GET'])
-def get_example():
+def example():
     return send_file('example.xlsx', as_attachment=True)
 
 
-@app.route('/', methods=['GET', 'POST'])
-def upload_file():
+@app.route('/expert', methods=['GET', 'POST'])
+def expert_mode():
     if request.method == 'POST':
         sleep(3)
         # check if the post request has the file part
@@ -51,11 +51,61 @@ def upload_file():
             return send_file(result_path, as_attachment=True)
     return '''
     <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
+    <title>Version expert</title>
+    <h1>Version expert</h1>
+    <p>
+        Cette version demande une saisie assez détaillée des informations. Un fichier Excel doit être rempli puis envoyé à partir du formulaire ci-dessous.
+        Un exemple de fichier Excel <a href="example.xlsx">est disponible</a>.
+    </p>
+    <p>
+        3 catégories d'informations sont nécessaires&nbs;:
+        <ul>
+            <li>Les caractéristiques de l'individu et les informations qui le concernent (année de naissance, sexe, etc.)</li>
+            <li>Les salaires bruts et les statuts (étudiant, cadre, non-cadre, chomeur, fonctionnaire, contractuel, etc.) tout au long de la vie.</li>
+            <li>Les informations sur la situation familiale (mode expert++ à vos risques et périls)</li>
+        </ul>
+        Afin de bien remplir le fichier Excel, il peut être utile de consulter la
+        <a
+            target="_blank"
+            rel="noopener"
+            href="https://github.com/nosretraites/Destinie-2/blob/master/documentation/documentation.pdf"
+            >
+            documentation de Destinie</a>.
+    </p>
+    <p>
+        Le résultat de la simulation est ausi un fichier Excel avec des données supplémentaires.
+        <ul>
+            <li>Des informations sur le moment de passage à la retraite (liquidation)</li>
+            <li>L'évolution de la retraite</li>
+            <li>Le détail des salaires nets (calculés à partir des salaires bruts)</li>
+            <li>Le détail des cotisations sociales</li>
+        </ul>
+    </p>
+    <p>Bon jeu</p>
+
     <form method=post enctype=multipart/form-data>
       <input type=file name=file>
-      <input type=submit value=Upload>
+      <input type=submit value=Envoi>
     </form>
-    <a href="example.xlsx">Example file</a>
+    <div><a href="/">Accueil</a></div>
+    '''
+
+@app.route('/basic', methods=['GET'])
+def basic_mode():
+    return '''
+    <!doctype html>
+    <title>Simuler les retraites</title>
+    <h1>Version basique</h1>
+    <p>À faire</p>
+    <div><a href="/">Accueil</a></div>
+    '''
+
+@app.route('/', methods=['GET'])
+def home():
+    return '''
+    <!doctype html>
+    <title>Simuler les retraites</title>
+    <h1>Simuler les retraites</h1>
+    <div><a href="/basic">Version basique</a></div>
+    <div><a href="/expert">Version expert</a></div>
     '''
