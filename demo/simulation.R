@@ -22,83 +22,74 @@ library(stringr)
 library(openxlsx)
 
 
+with_input_path = FALSE
 args = commandArgs(trailingOnly = FALSE)
 prefixIndex = which(args == "--file")
 if (length(prefixIndex) && prefixIndex < length(args)) {
   input_path = args[prefixIndex+1]
+  with_input_path = TRUE
 } else {
   input_path = "server/example.xlsx"
+  #with_input_path = TRUE
+}
+
+with_config_path = FALSE
+if (with_input_path) {
+  sourcepath = input_path
+} else {
+  prefixIndex = which(args == "--config")
+  if (length(prefixIndex) && prefixIndex < length(args)) {
+    config_path = args[prefixIndex+1]
+    with_config_path = TRUE
+  } else {
+    config_path = "/var/log/destinie/files/2019-12-14--19-42-20.027783-config"
+    with_config_path = TRUE
+    # input_path = "server/example.xlsx"
+    # with_input_path = TRUE
+  }
+  sourcepath = config_path
 }
 
 library(destinie)
 data("test")
 
-## test
-
-# print(input_path)
-# input = fromJSON(input_path)
-# naissance = as.integer(input$naissance[1])
-# debut=input$debut[1]
-# sal = input$salaires
-# statut = c(rep(63,debut),rep(1, length(sal)-debut))
 
 simul=test
 
-# simul$ech = data.frame(Id=as.integer(1),
-#                        sexe=as.integer(1),
-#                        findet=as.integer(0),
-#                        typeFP=as.integer(20),
-#                        anaiss=naissance,
-#                        neFrance=as.integer(1),
-#                        k=0,
-#                        taux_prim=0,
-#                        moisnaiss=as.integer(1),
-#                        emigrant=as.integer(0),
-#                        tresdip=as.integer(0),
-#                        peudip=as.integer(0),
-#                        dipl=as.integer(0))
+if (with_input_path) {
 
-# simul$emp = data.frame(Id=as.integer(1),
-#                        age=as.integer(0:(length(sal)-1)),
-#                        statut=as.integer(statut),
-#                        salaire=sal)
-
-###
-
-sourcepath = input_path
-
-conv = list(ech=c('Id', 'sexe','findet',
-                  'typeFP',
-                  'anaiss',
-                  'neFrance',
-                  'moisnaiss',
-                  'emigrant',
-                  'tresdip',
-                  'peudip',
-                  'dipl'),
-            emp=c('Id',
-                  'age',
-                  'statut'),
-            fam=c('pere',
-                  'mere',
-                  'enf1',
-                  'enf2',
-                  'enf3',
-                  'enf4',
-                  'enf5',
-                  'enf6',
-                  'matri',
-                  'Id',
-                  'annee',
-                  'conjoint'
-            ))
-for (field in c('ech', 'emp', 'fam')){
-  simul[[field]] = read.xlsx(sourcepath, field)
-  for (d in conv[[field]]) {
-    simul[[field]][[d]] = as.integer(simul[[field]][[d]])
+  conv = list(ech=c('Id', 'sexe','findet',
+                    'typeFP',
+                    'anaiss',
+                    'neFrance',
+                    'moisnaiss',
+                    'emigrant',
+                    'tresdip',
+                    'peudip',
+                    'dipl'),
+              emp=c('Id',
+                    'age',
+                    'statut'),
+              fam=c('pere',
+                    'mere',
+                    'enf1',
+                    'enf2',
+                    'enf3',
+                    'enf4',
+                    'enf5',
+                    'enf6',
+                    'matri',
+                    'Id',
+                    'annee',
+                    'conjoint'
+              ))
+  for (field in c('ech', 'emp', 'fam')){
+    simul[[field]] = read.xlsx(sourcepath, field)
+    for (d in conv[[field]]) {
+      simul[[field]][[d]] = as.integer(simul[[field]][[d]])
+    }
   }
 }
-
 
 #rm(test)
 ###################################
@@ -194,7 +185,53 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
   #rm(demo,eco,simul,eq_struct)
 ############
 #simulation
-###########
+
+
+if (with_config_path) {
+  input = fromJSON(config_path)
+  naissance = as.integer(input$naissance[1])
+  age_mort=80
+  duree_carriere=43
+  debut=input$debut[1]
+  statut = c(rep(63,debut),rep(1, age_mort-debut))
+  salaire = c(
+    rep(0,debut),
+    input$proportion*eco$macro[[input$base]][(naissance-1900):((naissance-1900)+duree_carriere-1)],
+    rep(0, age_mort-debut-duree_carriere)
+  )
+
+  simulation$ech = data.frame(Id=as.integer(1),
+                        sexe=as.integer(1),
+                        findet=as.integer(0),
+                        typeFP=as.integer(20),
+                        anaiss=naissance,
+                        neFrance=as.integer(1),
+                        k=0,
+                        taux_prim=0,
+                        moisnaiss=as.integer(1),
+                        emigrant=as.integer(0),
+                        tresdip=as.integer(0),
+                        peudip=as.integer(0),
+                        dipl=as.integer(0))
+
+  simulation$emp = data.frame(Id=as.integer(1),
+                        age=as.integer(0:(age_mort-1)),
+                        statut=as.integer(statut),
+                        salaire=salaire)
+
+  simulation$fam = data.frame(Id=as.integer(1),
+                        pere=as.integer(0),
+                        mere=as.integer(0),
+                        enf1=as.integer(0),
+                        enf2=as.integer(0),
+                        enf3=as.integer(0),
+                        enf4=as.integer(0),
+                        enf5=as.integer(0),
+                        enf6=as.integer(0),
+                        matri=as.integer(1),
+                        annee=as.integer(2019),
+                        conjoint=as.integer(0))
+}
 
 #destinieDemographie(simulation)
 demoSimulation = as.environment(simulation)
