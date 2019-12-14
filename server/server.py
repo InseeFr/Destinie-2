@@ -51,8 +51,11 @@ def expert_mode():
     return render_template('expert.html')
 
 
-@app.route('/basic', methods=['GET'])
+@app.route('/basic', methods=['GET', 'POST'])
 def basic_mode():
+    if request.method == 'POST':
+        return render_template('basic.html', form=request.form)
+
     return render_template('basic.html')
 
 
