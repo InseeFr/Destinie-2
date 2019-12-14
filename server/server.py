@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 
 import datetime
 from time import sleep
+import json
 
 UPLOAD_FOLDER = '/var/log/destinie/files'
 ALLOWED_EXTENSIONS = {'xlsx'}
@@ -51,8 +52,29 @@ def expert_mode():
     return render_template('expert.html')
 
 
-@app.route('/basic', methods=['GET'])
+@app.route('/basic', methods=['GET', 'POST'])
 def basic_mode():
+    if request.method == 'POST':
+        filename = "config.json"
+        prefix = str(datetime.datetime.now()).replace(':', '-').replace(' ', '--')
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], '%s-%s' % (prefix, filename))
+        data = {
+            "naissance": int(request.form["naissance"]),
+            "debut": int(request.form["debut"]),
+            "base": request.form["base"],
+            "proportion": float(request.form["proportion"]),
+        }
+        with open(file_path, "w+") as fp:
+            json.dump(data, fp)
+            print(file_path)
+
+        result_path = '%s.results.xlsx' % file_path[:-5]
+        myCmd = 'Rscript ../demo/simulation.R --config %s' % file_path
+        os.system(myCmd)
+        return send_file(result_path, as_attachment=True)
+
+        #return render_template('basic.html', form=request.form)
+
     return render_template('basic.html')
 
 

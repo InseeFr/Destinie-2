@@ -2,4 +2,21 @@
 <title>Simuler les retraites</title>
 <h1>Version basique</h1>
 <p>À faire</p>
+<style>
+  label {
+    display: block;
+  }
+</style>
+<form method=post>
+  <label>Année de naissance<input name="naissance" value="{{ form['naissance'] if 'naissance' in form else '1980' }}"/></label>
+  <label>Âge de début de carrière<input name="debut" value="{{ form['debut'] if 'debut' in form else '21' }}"/></label>
+  <label>Base du salaire
+    <select name="base">
+      <option value="SMIC" {{ 'selected' if 'base' in form and form['base'] == 'SMIC' }}>SMIC</option>
+      <option value="SMPT" {{ 'selected' if 'base' in form and form['base'] == 'SMPT' }}>SMPT</option>
+    </select>
+  </label>
+  <label>Proportion de la base<input name="proportion" value="{{ form['proportion'] if 'proportion' in form else '1' }}"/></label>
+  <button type="submit">Envoyer</button>
+</form>
 <div><a href="/">Accueil</a></div>
