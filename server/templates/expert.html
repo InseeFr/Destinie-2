@@ -1,5 +1,10 @@
 <!doctype html>
 <title>Version expert</title>
+<style type="text/css">
+    strong {
+        color: darkred;
+    }
+</style>
 <h1>Version expert</h1>
 <p>
     Cette version demande une saisie assez détaillée des informations. Un fichier Excel doit être rempli puis envoyé à partir du formulaire ci-dessous.
@@ -30,6 +35,12 @@
     </ul>
 </p>
 <p>Bon jeu</p>
+
+{% if message %}
+<p><strong>
+    {{message}}
+</strong></p>
+{% endif %}
 
 <form method=post enctype=multipart/form-data>
   <input type=file name=file>
