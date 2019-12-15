@@ -199,6 +199,9 @@ class DroitsRetr {
          taux_prorat_in = 0,      ///< taux de proratisation au RSI 
          taux_prorat_fp = 0;      ///< taux de proratisation FP 
 
+  double points_univ_ante=0,
+        points_univ_post=0;
+
   
   double coeffTemp = 1.0;         ///< coefficient temporaire Agirc Arrco
   double ageAnnulCoeffTemp = 0.0; ///< âge d'annulation du coefficient temporaire Agirc Arrco
