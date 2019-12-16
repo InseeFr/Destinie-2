@@ -15,7 +15,7 @@
 #echantillon de depart
 ######################################
 library(jsonlite)
-.libPaths("~/R-tests")
+#.libPaths("~/R-tests")
 library(openxlsx)
 library(dplyr)
 library(stringr)
