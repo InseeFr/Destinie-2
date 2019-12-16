@@ -761,6 +761,7 @@ struct Retraite_comp {
   double maj_points_agirc_arrco =
       0; ///< Nombre de points au régime unifié complémentaire du privé acquis
          ///< pour majoration pour enfants
+  double points_univ_post = 0; /// proposition gouv
 };
 
 /**
@@ -770,7 +771,7 @@ struct Retraite_comp {
   stocke les résultats dans les variables points_arrco, points_agirc.
 */
 void DroitsRetr::Points(
-    int AnneeRefAnticip) { // AnneeRefAnticip == Année de référence anticipée.
+    int AnneeRefAnticip, int anneeMax) { // AnneeRefAnticip == Année de référence anticipée.
                            // Utilisée dans TestLiq afin de prendre en compte
                            // l'anticipation de l'évolution du salaire de
                            // référence.
@@ -799,8 +800,14 @@ void DroitsRetr::Points(
 
   // On recalcule tous les points déjà acquis
   for (int a = age_deb; a <= age_max; a++) {
+
     Retraite_comp rc = {};
     u = (X.anaiss + a) % 1900;
+
+    if (u>=anneeMax) {
+      break;
+    }
+
     trunc =
         (a == age_max) ? arr_mois(agefin_finact, X.moisnaiss + 1) - age_arr : 1;
 
@@ -965,6 +972,8 @@ void DroitsRetr::Points(
       rcp.assietteFP = 0;
     }
 
+    rcp.points_univ_post += X.salaires[a] * 0.2531 / 10;
+
     /*else if(rc.durpergratuit){
         rcp.assietteCad  *= M->Prix[t] / M->Prix[t-1];
         rcp.assietteNC   *= M->Prix[t] / M->Prix[t-1];
@@ -986,6 +995,7 @@ void DroitsRetr::Points(
   maj_points_agirc_arrco = rcp.maj_points_agirc_arrco;
 
   points_agirc_arrco = rcp.points_agirc_arrco;
+  points_univ_post = rcp.points_univ_post;
 }
 
 /** Fonction AppliqueBonif
@@ -1664,6 +1674,8 @@ void DroitsRetr::Liq() {
     primoliq = true;
     liq = true;
     dar = primoliq && dar;
+
+    univ();
   }
   // ???
 
@@ -1684,6 +1696,47 @@ void DroitsRetr::Liq() {
   return;
 }
 
+
+bool DroitsRetr::univ() {
+    if (options->codeRegime == DELEVOYE && t >= 125) {
+      Points(9999); // 125 == 2035
+      double total_point_univ = points_univ_post;
+      Points(9999,125); // 125 == 2035
+      LiqPrive(125);
+
+      // Points pre 2025
+      points_univ_post = total_point_univ - points_univ_post;
+
+      ecriture_droitsRetr(X, *this);
+
+      // celine
+      //pension_rg = 6453;
+      //pension_ar = 2542;
+
+      pension = pension_rg + pension_ar + pension_ag + pension_fp + pension_in +
+                pension_ag_ar;
+
+      points_univ_ante = 16355;// pension / 0.55;
+      //points_univ_post = 13743;
+
+      pension_rg = 0;
+      pension_ar = 0;
+      pension_ag = 0;
+      pension_fp = 0;
+      pension_in = 0;
+      pension_ag_ar = 0;
+      pension_univ = (points_univ_ante + points_univ_post) * 0.55;
+      pension = pension_univ;
+
+      ageliq = int_mois(agetest, X.moisnaiss + 1);
+      agefin_totliq = agetest;
+      pliq = pension;
+
+      return true;
+    }
+    return false;
+}
+
 // Fonction SecondLiq
 // Permet la liquidation finale de tous les droits pour les personnes qui
 // liquident en 2 temps Par hypothèse, on considère que la liquidation finale a
@@ -1693,6 +1746,28 @@ void DroitsRetr::Liq() {
 void DroitsRetr::SecondLiq() {
 
   int t = int_mois(X.anaiss + agetest, 1 + X.moisnaiss) % 1900;
+
+  if(univ()) {
+
+    ageliq = int_mois(agetest, X.moisnaiss + 1);
+    agefin_totliq = agetest;
+    pliq = pension;
+    liq = 1;
+
+    if (pension || VFU_rg || VFU_ar || VFU_ag) {
+      tp = 1;
+      if (duree_fp_maj > 0 && tauxliq_rg < 1) {
+        if (duree_fp_maj < l.DureeCibFP)
+          tp = 0;
+        if (tauxliq_fp < 1)
+          tp = 0;
+      }
+      if ((duree_rg_maj || duree_in_maj) && tauxliq_rg < 1)
+        tp = 0;
+    }
+    return;
+  }
+
   int age = t - X.anaiss % 1900;
 
   SalBase();

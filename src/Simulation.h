@@ -755,6 +755,9 @@ struct Options {
     _(prolongeDuree2013)     ,  _(effet_hrzn)          ,  _(super_effet_hrzn)   ,
     _(effet_hrzn_indiv)      ,  _(SalNoEffetGen)       ,  _(transNonCalees)	,
     _(DepInact), _(SecondLiq) ;
+
+  int
+    _(codeRegime);
 };
 
 
@@ -1761,7 +1764,7 @@ struct Simulation {
 void ecriture_aide();
 void ecriture_liquidations();     ///< Crée une table R liquidations
 void ecriture_retraites(int t);   ///< Exporte dans la table R retraite l'ensemble des pensions versées dans l'année
-void ecriture_droitsRetr(Indiv& X, DroitsRetr& r);
+void ecriture_droitsRetr(const Indiv& X, DroitsRetr& r);
 
 
 

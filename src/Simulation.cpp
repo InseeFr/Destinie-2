@@ -121,6 +121,7 @@ Simulation::~Simulation() {
 void ecriture_retraites(int t) {
   static Rdout retraites("retraites", {
     "pension", "pension_rg", "pension_fp", "pension_in", "pension_ar", "pension_ag", "pension_ag_ar", /*"coeffTemp", "ageAnnulCoeffTemp",*/
+    "pension_univ",
     "rev", "rev_rg", "rev_fp", "rev_in", "rev_ar", "rev_ag",
     "min_vieil","Id","age", "annee","retraite_nette"
     });
@@ -131,6 +132,7 @@ void ecriture_retraites(int t) {
       Retraite& r = *(X.retr);
       retraites.push_line(
         r.pension_tot, r.pension_rg, r.pension_fp, r.pension_in, r.pension_ar, r.pension_ag, r.pension_ag_ar,
+        r.pension_univ,
         r.rev_tot, r.rev_rg, r.rev_fp, r.rev_in, r.rev_ar, r.rev_ag,
         r.min_vieil, X.Id, X.age(t), X.anaiss + X.age(t),r.retraite_net);
     }
@@ -138,7 +140,7 @@ void ecriture_retraites(int t) {
 }
 
 
-void ecriture_droitsRetr(Indiv& X, DroitsRetr& r) {
+void ecriture_droitsRetr(const Indiv& X, DroitsRetr& r) {
   static Rdout liquidations("liquidations", {
    "Id","annee","sexe","anaiss","findet",
    "duree_cho", "duree_PR", "duree_inv", "duree_snat", 
@@ -162,7 +164,7 @@ void ecriture_droitsRetr(Indiv& X, DroitsRetr& r) {
    "agefin_totliq", "agefin_primoliq", "ageprimoliq",
    "indic_mc", "indic_mg", "indic_mc_in", "dar", "t","type_liq", 
    "ageFinEmp", "ageFinAct", "partavtprimo", "partavtliq",/*,"derSalNet"*/
-   "eur_trans", "pt_trans", "pt_cur", "total_pens"
+   "eur_trans", "pt_trans", "pt_cur", "total_pens", "points_ante", "points_post"
   }); /* ,"type_liq",type_liq_labels */
   
   liquidations.push_line( 
@@ -193,7 +195,10 @@ void ecriture_droitsRetr(Indiv& X, DroitsRetr& r) {
      , r.eur_trans
      , r.pt_trans
      , r.pt_cur
-     , r.total_pens);
+     , r.total_pens
+     , r.points_univ_ante
+     , r.points_univ_post
+     );
 }
 
 void ecriture_liquidations() {

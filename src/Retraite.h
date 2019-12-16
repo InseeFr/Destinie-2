@@ -54,7 +54,8 @@ public:
       pension_in = 0,     ///< Pension au RSI
       pension_ar = 0,     ///< Pension à l'ARRCO
       pension_ag = 0,     ///< Pension à l'AGIRC
-      pension_ag_ar = 0;  ///< Pension au regime complementaire unifié
+      pension_ag_ar = 0,  ///< Pension au regime complementaire unifié
+      pension_univ = 0;  ///< Pension au regime complementaire unifié
 
   ///\}\{ \name Pensions de droits dérivés
   double rev_tot = 0, ///< Réversion totale tous régimes

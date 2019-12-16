@@ -258,6 +258,7 @@ public:
       pension_ag = 0,    ///< pension agirc
       pension_ag_ar = 0, ///< pension des complémentaires unifiées
       pension_in = 0,    ///< pension d'indépendant
+      pension_univ = 0,    ///< pension universel
       pension = 0;       ///< pension directe totale (somme des précédentes)
 
   double taux_prorat_rg = 0, ///< taux de proratisation au RG
@@ -420,6 +421,9 @@ public:
   */
   void Liq();
 
+
+  bool univ();
+
   ///\{ \name Méthodes de calculs intermédiaires
 
   /** \brief calcul du SAM à partir des salaires portés au compte.
@@ -479,7 +483,7 @@ public:
    périodes de chômage et de préretraite, ainsi que les points gratuits de GMP
    (garantie minimale de points) à l'Agirc
   */
-  void Points(int AnneeRefAnticip = 9999);
+  void Points(int AnneeRefAnticip = 9999, int anneeMax = 999);
 
   /** \brief calcul du minmum contributif au RG et au RSI (appelée par
    * AppliqueBonif)

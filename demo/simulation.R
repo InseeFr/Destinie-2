@@ -14,12 +14,11 @@
 ####################################
 #echantillon de depart
 ######################################
-library(dplyr)
 library(jsonlite)
-library(stringr)
-
-
+.libPaths("~/R-tests")
 library(openxlsx)
+library(dplyr)
+library(stringr)
 
 
 with_input_path = FALSE
@@ -48,6 +47,26 @@ if (with_input_path) {
     # with_input_path = TRUE
   }
   sourcepath = config_path
+}
+
+with_infla=1
+if (length(which(args == "--no-infla"))) {
+  with_infla=0
+}
+
+
+## Regimes
+# 1 ACTUEL
+# 2 ACTUEL_MODIF
+# 3 DELEVOYE
+regime = 1
+regimes = c(ACTUEL=1, ACTUEL_MODIF=2, DELEVOYE=3)
+prefixIndex = which(args == "--regime")
+if (length(prefixIndex) && prefixIndex < length(args)) {
+  regime=regimes[args[prefixIndex+1]]
+  if(is.na(regime)) {
+    regime=1
+  }
 }
 
 library(destinie)
@@ -113,7 +132,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
     simul$options <- list("tp",anLeg=2019,pas1=3/12,pas2=1,
                       AN_MAX=as.integer(fin_simul),champ,
                       NoAccordAgircArrco=F, NoRegUniqAgircArrco=T, 
-                      SecondLiq=F,mort_diff_dip=T,effet_hrzn=T) 
+                      SecondLiq=F,mort_diff_dip=T,effet_hrzn=T,codeRegime=as.integer(regime))
 
   ################
   #choix du scenario demographique 
@@ -146,7 +165,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
       SMICp = ifelse(is.na(SMICp),0,SMICp),
       PIBp = ifelse(is.na(PIBp),0,PIBp),
       PlafondSSp = ifelse(is.na(PlafondSSp),0,PlafondSSp),
-      Prixp = ifelse(is.na(Prixp),0,Prixp),
+      Prixp = with_infla*ifelse(is.na(Prixp),0,Prixp), # Pour supprimer l'
       MinPRp = 1.02,
       RevaloRG = ifelse(is.na(RevaloRG),1+Prixp,RevaloRG),
       RevaloFP = ifelse(is.na(RevaloFP),1+Prixp,RevaloFP),
@@ -241,10 +260,12 @@ destinieSim(demoSimulation)
 
 ## Create a new workbook
 wb <- createWorkbook("fullhouse")
-for (field in c("ech", "emp", "fam", "liquidations", "retraites", "salairenet", "cotisations")){
+for (field in c("ech", "emp", "fam", "liquidations", "retraites", "salairenet", "cotisations", "macro")){
   addWorksheet(wb, field)
   writeData(wb, field, demoSimulation[[field]])
 }
+
+print(demoSimulation$liquidations)
 ## Save workbook
 outputfile = str_c(str_sub(sourcepath,end=-6), 'results.xlsx', sep=".")
 saveWorkbook(wb, outputfile, overwrite = TRUE)
