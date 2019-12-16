@@ -15,6 +15,12 @@ const int NB_ENF_MAX = 6;     ///< Nombre maximal d'enfants
 
 // Modalités des variables
 
+enum code_mode_regime {
+  ACTUEL=1,
+  ACTUEL_MODIF=2,
+  DELEVOYE=3
+} ;
+
 /// Codes sexe :
 enum code_sexe {
   HOMME=1,    ///< Sexe : modalité HOMME

@@ -204,10 +204,12 @@ void Retraite::revaloDir(int t) {
         liq->pension_ag * M->ValPtAGIRC[t] / M->ValPtAGIRC[t_liq] * invCoeffTmp;
     pension_ag_ar = liq->pension_ag_ar * M->ValPtAGIRC_ARRCO[t] /
                     M->ValPtAGIRC_ARRCO[t_liq] * invCoeffTmp;
+
+    pension_univ = liq->pension_univ;
   }
 
   pension_tot = pension_fp + pension_rg + pension_in + pension_ar + pension_ag +
-                pension_ag_ar;
+                pension_ag_ar + pension_univ;
 
   retraite_tot = pension_tot + rev_tot;
 }

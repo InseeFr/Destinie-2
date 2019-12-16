@@ -38,6 +38,12 @@ install.packages(c("zip", "openxlsx", "plogr", "rJava", "tidyselect", "xlsxjars"
 devtools::install()
 ```
 
+```
+Rscript -e ".libPaths('~/R-tests');install.packages(c('ggplot2', 'tidyr', 'dplyr', 'openxlsx', 'xlsx'))"
+Rscript -e ".libPaths('~/R-tests');install.packages(c('xlsx'))"
+```
+
+
 https://github.com/hannarud/r-best-practices/wiki/Installing-RJava-(Ubuntu)
 
 apt-get install default-jre
