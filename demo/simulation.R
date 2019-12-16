@@ -265,7 +265,7 @@ for (field in c("ech", "emp", "fam", "liquidations", "retraites", "salairenet", 
   writeData(wb, field, demoSimulation[[field]])
 }
 
-print(demoSimulation$liquidations)
+#print(demoSimulation$liquidations)
 ## Save workbook
 outputfile = str_c(str_sub(sourcepath,end=-6), 'results.xlsx', sep=".")
 saveWorkbook(wb, outputfile, overwrite = TRUE)
