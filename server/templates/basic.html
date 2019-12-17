@@ -1,11 +1,7 @@
 <!doctype html>
 <title>Simuler les retraites</title>
+{% include 'style.html' %}
 <h1>Version basique</h1>
-<style>
-  label {
-    display: block;
-  }
-</style>
 <form method=post>
   <label>Année de naissance<input name="naissance" value="{{ form['naissance'] if 'naissance' in form else '1980' }}"/></label>
   <label>Âge de début de carrière<input name="debut" value="{{ form['debut'] if 'debut' in form else '21' }}"/></label>
@@ -16,6 +12,7 @@
     </select>
   </label>
   <label>Proportion de la base<input name="proportion" value="{{ form['proportion'] if 'proportion' in form else '1' }}"/></label>
+  {% include 'common.html' %}
   <button type="submit">Envoyer</button>
 </form>
 <div><a href="/">Accueil</a></div>

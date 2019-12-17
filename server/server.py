@@ -23,6 +23,22 @@ def example():
     return send_file('example.xlsx', as_attachment=True)
 
 
+SANE_MODELS = ['ACTUEL', 'ACTUEL_MODIF', 'DELEVOYE']
+def common_parameters(form, sep=' '):
+    params = []
+
+    if ('noInfla' in form):
+        if (form['noInfla'] == 'on'):
+            params.append('--no-infla')
+
+    if ('modele' in form):
+        if (form['modele'] in SANE_MODELS):
+            params.append('--regime')
+            params.append(form['modele'])
+
+    return sep.join(params)
+
+
 @app.route('/expert', methods=['GET', 'POST'])
 def expert_mode():
     if request.method == 'POST':
@@ -43,7 +59,7 @@ def expert_mode():
 
             result_path = '%s.results.xlsx' % file_path[:-5]
             
-            myCmd = 'Rscript ../demo/simulation.R --file %s' % file_path
+            myCmd = 'Rscript ../demo/simulation.R --file %s %s' % (file_path, common_parameters(request.form))
 
             os.system(myCmd)
             return send_file(result_path, as_attachment=True)
@@ -69,7 +85,7 @@ def basic_mode():
             print(file_path)
 
         result_path = '%s.results.xlsx' % file_path[:-5]
-        myCmd = 'Rscript ../demo/simulation.R --config %s' % file_path
+        myCmd = 'Rscript ../demo/simulation.R --config %s %s' % (file_path, common_parameters(request.form))
         os.system(myCmd)
         return send_file(result_path, as_attachment=True)
 

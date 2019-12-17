@@ -1,0 +1,8 @@
+<label>Désactiver l'inflation<input name="noInfla" type="checkbox" /></label>
+<label>Modèle
+  <select name="modele">
+    <option value="ACTUEL" {{ 'selected' if 'modele' in form and form['modele'] == 'ACTUEL' }}>ACTUEL</option>
+    <option value="ACTUEL_MODIF" {{ 'selected' if 'modele' in form and form['modele'] == 'ACTUEL_MODIF' }}>ACTUEL_MODIF</option>
+    <option value="DELEVOYE" {{ 'selected' if 'modele' in form and form['modele'] == 'DELEVOYE' }}>DELEVOYE</option>
+  </select>
+</label>

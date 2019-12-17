@@ -1,10 +1,6 @@
 <!doctype html>
 <title>Version expert</title>
-<style type="text/css">
-    strong {
-        color: darkred;
-    }
-</style>
+{% include 'style.html' %}
 <h1>Version expert</h1>
 <p>
     Cette version demande une saisie assez détaillée des informations. Un fichier Excel doit être rempli puis envoyé à partir du formulaire ci-dessous.
@@ -44,6 +40,7 @@
 
 <form method=post enctype=multipart/form-data>
   <input type=file name=file>
+  {% include 'common.html' %}
   <input type=submit value=Envoi>
 </form>
 <div><a href="/">Accueil</a></div>
