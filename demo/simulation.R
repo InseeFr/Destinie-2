@@ -15,7 +15,7 @@
 #echantillon de depart
 ######################################
 library(jsonlite)
-#.libPaths("~/R-tests")
+.libPaths("~/R-tests")
 library(openxlsx)
 library(dplyr)
 library(stringr)
@@ -29,7 +29,7 @@ if (length(prefixIndex) && prefixIndex < length(args)) {
   with_input_path = TRUE
 } else {
   input_path = "server/example.xlsx"
-  #with_input_path = TRUE
+  with_input_path = TRUE
 }
 
 with_config_path = FALSE
@@ -68,8 +68,9 @@ if (length(prefixIndex) && prefixIndex < length(args)) {
     regime=1
   }
 }
-
+#detach(package:destinie, unload=T)
 library(destinie)
+
 data("test")
 
 
@@ -109,6 +110,7 @@ if (with_input_path) {
     }
   }
 }
+#simul$ech$age_exo = 64
 
 #rm(test)
 ###################################
@@ -132,7 +134,11 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
     simul$options <- list("tp",anLeg=2019,pas1=3/12,pas2=1,
                       AN_MAX=as.integer(fin_simul),champ,
                       NoAccordAgircArrco=F, NoRegUniqAgircArrco=T, 
-                      SecondLiq=F,mort_diff_dip=T,effet_hrzn=T,codeRegime=as.integer(regime))
+                      SecondLiq=F,mort_diff_dip=T,effet_hrzn=T,
+                      comp=0,# 0 = TP ; 3 = EXO
+                      ecrit_dr_test=F,
+                      codeRegime=as.integer(regime)
+                      )
 
   ################
   #choix du scenario demographique 
@@ -231,7 +237,8 @@ if (with_config_path) {
                         emigrant=as.integer(0),
                         tresdip=as.integer(0),
                         peudip=as.integer(0),
-                        dipl=as.integer(0))
+                        dipl=as.integer(0)
+                        )
 
   simulation$emp = data.frame(Id=as.integer(1),
                         age=as.integer(0:(age_mort-1)),
@@ -264,8 +271,7 @@ for (field in c("ech", "emp", "fam", "liquidations", "retraites", "salairenet", 
   addWorksheet(wb, field)
   writeData(wb, field, demoSimulation[[field]])
 }
-
-#print(demoSimulation$liquidations)
+print(demoSimulation$retraites)
 ## Save workbook
 outputfile = str_c(str_sub(sourcepath,end=-6), 'results.xlsx', sep=".")
 saveWorkbook(wb, outputfile, overwrite = TRUE)

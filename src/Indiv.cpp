@@ -20,6 +20,7 @@ Indiv::Indiv(Ech& ech, Emp& emp, Fam& fam, int& i, int& i_e, int& i_f)
   peudip 	  = ech.peudip[i]	;
   tresdip 	= ech.tresdip[i]	;
   dipl      = ech.dipl[i];
+  age_exo   = ech.age_exo[i];
   
   int j_size = emp.Id.size();
   int k_size = fam.Id.size();

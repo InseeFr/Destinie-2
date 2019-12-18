@@ -253,12 +253,13 @@
   
   bool TestLiq(Indiv & X, DroitsRetr & dr, Leg &l, double agetest)
   {
-    static Rdout df("test",{"Id","type"});
+    static Rdout TestLiq("TestLiq",{"Id","type"});
     int agearr = int_mois(agetest, X.moisnaiss+1);
+    TestLiq.push_line(X.Id,0);
       
     bool agemin = dr.AgeMin(); 
     if(dr.duree_tot==0 || !agemin) {
-        if(options->ecrit_dr_test) df.push_line(X.Id,1);
+        if(options->ecrit_dr_test) TestLiq.push_line(X.Id,1);
         return false;
     }
      
@@ -268,7 +269,7 @@
     if(arr_mois(agetest) >= arr_mois(dr.AgeMax())) {
         dr.Liq();
         if(!dr.type_liq) dr.type_liq = liq_agemax;
-        if(options->ecrit_dr_test) df.push_line(X.Id,2);
+        if(options->ecrit_dr_test) TestLiq.push_line(X.Id,2);
         return true;
     }
     
@@ -287,7 +288,7 @@
               
             dr.Liq();
             if(!dr.type_liq) dr.type_liq = liq_tp;
-            if(options->ecrit_dr_test) df.push_line(X.Id,3);
+            if(options->ecrit_dr_test) TestLiq.push_line(X.Id,3);
             return true;
         }
     }
@@ -300,14 +301,15 @@
         // TODO vérifier effets de bord sur l.AgeMinRG X.AgeMinRG ?
         dr.Liq();
         if(!dr.type_liq) dr.type_liq = liq_invald;
-        if(options->ecrit_dr_test) df.push_line(X.Id,4);
+        if(options->ecrit_dr_test) TestLiq.push_line(X.Id,4);
         return true;
     }
 	
-	if(options->DepInact && X.statuts[agearr]==S_INA && agetest>=l.AgeMinRG && X.retr->primoliq) {
-		dr.Liq();
-		if(!dr.type_liq) dr.type_liq = liq_inact;
-		return true;
+	  if(options->DepInact && X.statuts[agearr]==S_INA && agetest>=l.AgeMinRG && X.retr->primoliq) {
+		  dr.Liq();
+		  if(!dr.type_liq) dr.type_liq = liq_inact;
+      if(options->ecrit_dr_test) TestLiq.push_line(X.Id,5);
+      return true;
     }
 	
     int comport_liq = options->comp;
@@ -316,19 +318,21 @@
       comport_liq = in(X.statuts[agearr], Statuts_occ) ? comp_uinst : comp_tp;
     
     if(comport_liq == comp_tp) {
-      if(options->ecrit_dr_test) df.push_line(X.Id,5);
-        return test_TP(X,dr,l,agetest);  
+      if(options->ecrit_dr_test) TestLiq.push_line(X.Id,6);
+      return test_TP(X,dr,l,agetest);
 		  if (X.Id==13526) {Rcout << " X.Id test tp " << X.Id <<" agetest " << agetest <<" test "<<test_TP(X,dr,l,agetest) <<endl;}
     }
     else if(comport_liq == comp_exo) {
-        return arr_mois(agetest) >= arr_mois(X.age_exo);
+      if(options->ecrit_dr_test) TestLiq.push_line(X.Id,7);
+      if (arr_mois(agetest) >= arr_mois(X.age_exo)) {
+        dr.Liq();
+        return true;
+      }
+      return false;
     }
     else if(comport_liq == comp_uinst) {
-      df.push_line(X.Id,7);
-        return test_uinst(X,dr,l,agetest);
-    }
-    else if(comport_liq == comp_uinst) {
-        return test_uinst(X,dr,l,agetest);
+      if(options->ecrit_dr_test) TestLiq.push_line(X.Id,8);
+      return test_uinst(X,dr,l,agetest);
     }
     
     return false;
@@ -336,22 +340,27 @@
    
   bool TestSecondLiq(Indiv & X, DroitsRetr & dr, Leg& l, double agetest)
   {
+    static Rdout TestLiq2("TestLiq2",{"Id","type"});
 	  int agearr = int_mois(agetest, X.moisnaiss+1);
-      dr.AgeMin();
-      dr.DecoteSurcote();
+    dr.AgeMin();
+    dr.DecoteSurcote();
+    TestLiq2.push_line(X.Id,0);
       
 	  if(options->DepInact && X.statuts[agearr]==S_INA && agetest>=l.AgeMinRG && X.retr->primoliq) {
-		dr.SecondLiq();
-		return true;
+		  dr.SecondLiq();
+      if(options->ecrit_dr_test) TestLiq2.push_line(X.Id,1);
+		  return true;
     }
 	
 	  if(!options->SecondLiq && options->anLeg>=2014 && int_mois(X.anaiss+agetest, X.moisnaiss+1)>=2015 && (X.anaiss+X.retr->primoliq->ageprimoliq >=2015) && agetest>=l.AgeMinRG) {
-		dr.SecondLiq();
-		return true;
-	}
+		  dr.SecondLiq();
+      if(options->ecrit_dr_test) TestLiq2.push_line(X.Id,2);
+		  return true;
+	 }
 	
       if(dr.tauxliq_rg >=1 && agetest>=l.AgeMinRG) {
           dr.SecondLiq();
+          if(options->ecrit_dr_test) TestLiq2.push_line(X.Id,3);
           return true;
       }
   

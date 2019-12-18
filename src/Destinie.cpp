@@ -236,7 +236,6 @@ void destinieSim(Environment envSim) {
   auto S = Simulation(envSim);
   
   // boucle sur chaque année
-   
 
   for(int t=50; t <= AN_FIN; t++) {
         

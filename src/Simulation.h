@@ -450,6 +450,10 @@ struct Ech {
     */  
     _(taux_prim), 
     /**
+    * \brief Age de liquidation en mode exogène
+    */
+    _(age_exo, 0),
+    /**
     * \brief Paramètre pour l'option de départ uinst (utilité instantannée cible)
     */
     _(k);
