@@ -29,7 +29,7 @@ if (length(prefixIndex) && prefixIndex < length(args)) {
   with_input_path = TRUE
 } else {
   input_path = "server/example.xlsx"
-  with_input_path = TRUE
+  #with_input_path = TRUE
 }
 
 with_config_path = FALSE
