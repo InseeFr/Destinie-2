@@ -221,7 +221,7 @@ if (with_config_path) {
   statut = c(rep(63,debut),rep(1, age_mort-debut))
   salaire = c(
     rep(0,debut),
-    input$proportion*eco$macro[[input$base]][(naissance-1900):((naissance-1900)+duree_carriere-1)],
+    input$proportion*eco$macro[[input$base]][(naissance+debut-1900+1):((naissance+debut-1900+1)+duree_carriere-1)],
     rep(0, age_mort-debut-duree_carriere)
   )
 
