@@ -15,7 +15,6 @@
 #echantillon de depart
 ######################################
 library(jsonlite)
-.libPaths("~/R-tests")
 library(openxlsx)
 library(dplyr)
 library(stringr)
@@ -54,6 +53,9 @@ if (length(which(args == "--no-infla"))) {
   with_infla=0
 }
 
+if (length(which(args == "--separated-lib"))) {
+  .libPaths("~/R-tests")
+}
 
 ## Regimes
 # 1 ACTUEL
@@ -271,7 +273,6 @@ for (field in c("ech", "emp", "fam", "liquidations", "retraites", "salairenet", 
   addWorksheet(wb, field)
   writeData(wb, field, demoSimulation[[field]])
 }
-print(demoSimulation$retraites)
 ## Save workbook
 outputfile = str_c(str_sub(sourcepath,end=-6), 'results.xlsx', sep=".")
 saveWorkbook(wb, outputfile, overwrite = TRUE)

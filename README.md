@@ -11,6 +11,26 @@ Dans RStudio, ouvrir le projet Destinie-2 puis « Install and Restart ».
 
 Voir page 106 de la documentation.
 
+### Depuis un shell
+
+Depuis le dossier Destinie-2 (root du dépôt)
+
+```
+R CMD INSTALL . --preclean --debug
+Rscript demo/simulation.R --file server/example.xlsx
+test -f server/example.results.xlsx
+```
+
+
+Il sera très vraisemblablement nécessaire de lancer plusieurs fois la commande suivante avec divers noms de libraries.
+
+```
+Rscript -e ".libPaths('~/R-tests');install.packages(c('xlsx'))"
+```
+
+### Notes de debug 😅
+
+
 ```
 # 3. Installer les packages nécessaires à Destinie :
 install.packages(c("devtools","pkgbuild"))
