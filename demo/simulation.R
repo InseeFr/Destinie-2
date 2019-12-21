@@ -16,7 +16,6 @@
 ######################################
 library(jsonlite)
 library(openxlsx)
-library(dplyr)
 library(stringr)
 
 
@@ -28,7 +27,8 @@ if (length(prefixIndex) && prefixIndex < length(args)) {
   with_input_path = TRUE
 } else {
   input_path = "server/example.xlsx"
-  #with_input_path = TRUE
+  #input_path = "~/Documents/Retraite/2019-12-19/salarie_smpt_g90_2_/simu-67.xlsx"
+  with_input_path = TRUE
 }
 
 with_config_path = FALSE
@@ -48,12 +48,15 @@ if (with_input_path) {
   sourcepath = config_path
 }
 
-with_infla=1
+with_infla=0
 if (length(which(args == "--no-infla"))) {
   with_infla=0
 }
 
-if (length(which(args == "--separated-lib"))) {
+#detach(package:destinie, unload=T)
+separate_lib=F
+if (separate_lib || length(which(args == "--separated-lib"))) {
+  print('load separated lib...')
   .libPaths("~/R-tests")
 }
 
@@ -70,7 +73,6 @@ if (length(prefixIndex) && prefixIndex < length(args)) {
     regime=1
   }
 }
-#detach(package:destinie, unload=T)
 library(destinie)
 
 data("test")
@@ -112,7 +114,7 @@ if (with_input_path) {
     }
   }
 }
-#simul$ech$age_exo = 64
+simul$ech$age_exo = 67
 
 #rm(test)
 ###################################
@@ -133,12 +135,12 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
 ######################################
     simul$options_salaires <- list()    
     
-    simul$options <- list("tp",anLeg=2019,pas1=3/12,pas2=1,
+    simul$options <- list(tp=F,anLeg=2019,pas1=3/12,pas2=1,
                       AN_MAX=as.integer(fin_simul),champ,
                       NoAccordAgircArrco=F, NoRegUniqAgircArrco=T, 
                       SecondLiq=F,mort_diff_dip=T,effet_hrzn=T,
-                      comp=0,# 0 = TP ; 3 = EXO
-                      ecrit_dr_test=F,
+                      comp=3,# 0 = TP ; 3 = EXO
+                      ecrit_dr_test=T,
                       codeRegime=as.integer(regime)
                       )
 
@@ -163,6 +165,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
   ###################
   #chargement des parametres economiques puis projection des parametres dans le futur
   ##################
+  library(dplyr)
 
   data("eco_cho_7_prod13")
   eco=eco_cho_7_prod13

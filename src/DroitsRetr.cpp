@@ -511,8 +511,7 @@ int DroitsRetr::AgeMin() // fonction refondue le 11/04/2013
   // cela permet de ne plus avoir à la retester ensuite,
   // et donc d'optimiser le temps de calcul
 
-  if (arr_mois(agetest) >= arr_mois(min(l.AgeMinRG, l.AgeMinFP)))
-    DecoteSurcote();
+  DecoteSurcote();
 
   return (arr_mois(agetest) >= arr_mois(min(l.AgeMinRG, l.AgeMinFP)));
 }
@@ -1584,7 +1583,7 @@ void DroitsRetr::Liq() {
     LiqPublic();
   }
 
-  if (arr_mois(agetest) < arr_mois(l.AgeMinRG) ||
+  if ((arr_mois(agetest) < arr_mois(l.AgeMinRG) && (options->comp != comp_exo  || (options->comp == comp_exo && arr_mois(agetest) < arr_mois(X.age_exo)))) ||
       ((options->SecondLiq || options->anLeg < 2014 ||
         int_mois(X.anaiss + agetest, X.moisnaiss + 1) < 2015 ||
         duree_fp == 0) &&
