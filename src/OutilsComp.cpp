@@ -255,14 +255,13 @@
   {
     static Rdout TestLiq("TestLiq",{"Id","type"});
     int agearr = int_mois(agetest, X.moisnaiss+1);
-    TestLiq.push_line(X.Id,0);
+      int comport_liq = options->comp;
       
     bool agemin = dr.AgeMin(); 
-    if(dr.duree_tot==0 || !agemin) {
+    if(dr.duree_tot==0 || (!agemin && comport_liq != comp_exo)) {
         if(options->ecrit_dr_test) TestLiq.push_line(X.Id,1);
         return false;
     }
-     
       
     
     // Liquidation d'office si age max
@@ -311,8 +310,6 @@
       if(options->ecrit_dr_test) TestLiq.push_line(X.Id,5);
       return true;
     }
-	
-    int comport_liq = options->comp;
     
     if(comport_liq == comp_umixt)
       comport_liq = in(X.statuts[agearr], Statuts_occ) ? comp_uinst : comp_tp;
