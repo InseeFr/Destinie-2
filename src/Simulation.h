@@ -1644,7 +1644,9 @@ struct Macro {
   * Voir \cite dubois_koubi_2017
   */  
   _(correct_demo,0),
-  _(ValeurPointReforme)  ;
+  _(CotisationReforme),
+  _(ValeurAchatReforme),
+  _(ValeurVenteReforme);
   
   
   NumericVector daterevalobase;      		///< Mois de revalorisation des régimes de base 

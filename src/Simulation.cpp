@@ -218,9 +218,6 @@ void ecriture_aide() {
     "yolo"
     });
 
-  for(auto& X : pop) {
-    aide.push_line(M->ValeurPointReforme[100]);
-  }
 }
 
 // Destinie 2

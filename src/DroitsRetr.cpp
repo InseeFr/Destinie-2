@@ -971,7 +971,9 @@ void DroitsRetr::Points(
       rcp.assietteFP = 0;
     }
 
-    rcp.points_univ_post += X.salaires[a] * 0.2531 / 10;
+    if (u>=125) {
+      rcp.points_univ_post += X.salaires[a] * M->CotisationReforme[u] / M->ValeurAchatReforme[u];
+    }
 
     /*else if(rc.durpergratuit){
         rcp.assietteCad  *= M->Prix[t] / M->Prix[t-1];

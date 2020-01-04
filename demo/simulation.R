@@ -180,8 +180,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
       MinPRp = 1.02,
       RevaloRG = ifelse(is.na(RevaloRG),1+Prixp,RevaloRG),
       RevaloFP = ifelse(is.na(RevaloFP),1+Prixp,RevaloFP),
-      RevaloSPC = ifelse(is.na(RevaloSPC),1+Prixp,RevaloSPC),
-      ValeurPointReforme = 1/(42*12)
+      RevaloSPC = ifelse(is.na(RevaloSPC),1+Prixp,RevaloSPC)
     ) %>%
     projection(
       SMPT ~ cumprod((1+SMPTp)*(1+Prixp)),
@@ -201,6 +200,27 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
       MinRevRG|SeuilExoCSG|SeuilExoCSG2|SeuilTxReduitCSG|SeuilTxReduitCSG2 ~cumprod(1+Prixp),
       .~1
     ) 
+
+  # Indexation des valeurs de points de la réforme
+  total = length(eco$macro$annee)
+  duree = 17 # année
+  debut = 2025
+  base = 'Prixp'
+  dest = 'SMPTp'
+
+  idebut = debut - 1900 +1
+  transition = 0:duree/duree
+  propBase = c(rep(1, idebut -1),1-transition,rep(0,total-duree-idebut))
+  propDest = c(rep(0, idebut -1),transition,rep(1,total-duree-idebut))
+  seriep = cumprod(1 + eco$macro[[base]] * propBase + eco$macro[[dest]] * propDest)
+
+  eco$macro <-eco$macro%>% mutate(
+    IndexationBaseReforme = propBase,
+    IndexationDestReforme = propDest,
+    CotisationReforme = 0.2531,
+    ValeurAchatReforme = 10 * seriep,
+    ValeurVenteReforme = 0.05 * seriep
+  )
 
   eco$macro=eco$macro%>%filter(annee<=fin_simul)
   eco$CiblesTrans <-  left_join(eco$macro %>% select(annee), eco$CiblesTrans)
