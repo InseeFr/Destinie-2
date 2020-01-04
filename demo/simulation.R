@@ -48,7 +48,7 @@ if (with_input_path) {
   sourcepath = config_path
 }
 
-with_infla=0
+with_infla=1
 if (length(which(args == "--no-infla"))) {
   with_infla=0
 }
