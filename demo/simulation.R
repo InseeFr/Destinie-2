@@ -204,13 +204,13 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
   # Indexation des valeurs de points de la réforme
   total = length(eco$macro$annee)
   duree = 17 # année
-  debut = 2025
+  debut = 2025+1 # pas de croissance en 2025
   base = 'Prixp'
   dest = 'SMPTp'
 
   idebut = debut - 1900 +1
   transition = 0:duree/duree
-  propBase = c(rep(1, idebut -1),1-transition,rep(0,total-duree-idebut))
+  propBase = c(rep(0, idebut -1),1-transition,rep(0,total-duree-idebut))
   propDest = c(rep(0, idebut -1),transition,rep(1,total-duree-idebut))
   seriep = cumprod(1 + eco$macro[[base]] * propBase + eco$macro[[dest]] * propDest)
 
