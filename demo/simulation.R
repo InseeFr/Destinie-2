@@ -106,7 +106,15 @@ if (with_input_path) {
     }
   }
 }
+
+# 0 = TauxPlein ; 3 = EXO
+comportement=0
 simul$ech$age_exo = 67
+prefixIndex = which(args == "--age-exo")
+if (length(prefixIndex) && prefixIndex < length(args)) {
+  simul$ech$age_exo=as.integer(args[prefixIndex+1])
+  comportement=3
+}
 
 #rm(test)
 ###################################
@@ -131,7 +139,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
                       AN_MAX=as.integer(fin_simul),champ,
                       NoAccordAgircArrco=F, NoRegUniqAgircArrco=T, 
                       SecondLiq=F,mort_diff_dip=T,effet_hrzn=T,
-                      comp=3,# 0 = TP ; 3 = EXO
+                      comp=comportement,# 0 = TP ; 3 = EXO
                       ecrit_dr_test=T,
                       codeRegime=as.integer(regime)
                       )
