@@ -70,6 +70,10 @@ library(destinie)
 data("test")
 
 
+# 0 = TauxPlein ; 3 = EXO
+comportement=0
+
+
 simul=test
 
 if (with_input_path) {
@@ -105,10 +109,12 @@ if (with_input_path) {
       simul[[field]][[d]] = as.integer(simul[[field]][[d]])
     }
   }
+
+  if(length(which(simul$ech$age_exo > 0))) {
+    comportement=3
+  }
 }
 
-# 0 = TauxPlein ; 3 = EXO
-comportement=0
 age_exo=0
 prefixIndex = which(args == "--age-exo")
 if (length(prefixIndex) && prefixIndex < length(args)) {
