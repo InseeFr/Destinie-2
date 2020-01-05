@@ -4,7 +4,7 @@
 <h1>Version basique</h1>
 <form method=post>
   <label>Année de naissance<input name="naissance" value="{{ form['naissance'] if 'naissance' in form else '1980' }}"/></label>
-  <label>Âge de début de carrière<input name="debut" value="{{ form['debut'] if 'debut' in form else '21' }}"/></label>
+  <label>Âge de début de carrière<input name="debut" value="{{ form['debut'] if 'debut' in form else '22' }}"/></label>
   <label>Base du salaire
     <select name="base">
       <option value="SMIC" {{ 'selected' if 'base' in form and form['base'] == 'SMIC' }}>SMIC</option>
