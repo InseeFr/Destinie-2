@@ -109,11 +109,12 @@ if (with_input_path) {
 
 # 0 = TauxPlein ; 3 = EXO
 comportement=0
-simul$ech$age_exo = 67
+age_exo=0
 prefixIndex = which(args == "--age-exo")
 if (length(prefixIndex) && prefixIndex < length(args)) {
-  simul$ech$age_exo=as.integer(args[prefixIndex+1])
+  age_exo=as.integer(args[prefixIndex+1])
   comportement=3
+  simul$ech$age_exo=age_exo
 }
 
 #rm(test)
@@ -262,7 +263,8 @@ if (with_config_path) {
                         emigrant=as.integer(0),
                         tresdip=as.integer(0),
                         peudip=as.integer(0),
-                        dipl=as.integer(0)
+                        dipl=as.integer(0),
+                        age_exo=age_exo
                         )
 
   simulation$emp = data.frame(Id=as.integer(1),
@@ -282,6 +284,14 @@ if (with_config_path) {
                         matri=as.integer(1),
                         annee=as.integer(2019),
                         conjoint=as.integer(0))
+
+  if(!is.null(input$age[1])) {
+    age_value = as.integer(input$age[1])
+    if(age_value) {
+      simulation$options$comp = 3
+      simulation$ech$age_exo=age_value
+    }
+  }
 }
 
 #destinieDemographie(simulation)

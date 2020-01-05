@@ -36,6 +36,12 @@ def common_parameters(form, sep=' '):
             params.append('--regime')
             params.append(form['modele'])
 
+    if ('age' in form):
+        val = int(request.form['age'])
+        if val:
+            params.append('--age-exo')
+            params.append(str(val))
+
     return sep.join(params)
 
 

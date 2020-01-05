@@ -1,3 +1,15 @@
+<label>Âge de départ à la retraite
+  <select name="age">
+    <option value="0" {{ 'selected' if 'age' in form and form['age'] == '0' }}>au taux plein</option>
+    <option value="62" {{ 'selected' if 'age' in form and form['age'] == '62' }}>62</option>
+    <option value="63" {{ 'selected' if 'age' in form and form['age'] == '63' }}>63</option>
+    <option value="64" {{ 'selected' if 'age' in form and form['age'] == '64' }}>64</option>
+    <option value="65" {{ 'selected' if 'age' in form and form['age'] == '65' }}>65</option>
+    <option value="66" {{ 'selected' if 'age' in form and form['age'] == '66' }}>66</option>
+    <option value="67" {{ 'selected' if 'age' in form and form['age'] == '67' }}>67</option>
+    <option value="68" {{ 'selected' if 'age' in form and form['age'] == '68' }}>68</option>
+  </select>
+</label>
 <label>Désactiver l'inflation<input name="noInfla" type="checkbox" /></label>
 <label>Modèle
   <select name="modele">
