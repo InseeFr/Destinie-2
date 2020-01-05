@@ -290,6 +290,28 @@ demoSimulation = as.environment(simulation)
 destinieSim(demoSimulation)
 
 
+# desindexation infla
+base=2019
+adjust_infla = demoSimulation$macro %>% select(annee, Prix)
+adjust_infla$ref = adjust_infla$Prix / adjust_infla$Prix[which(adjust_infla$annee == base)]
+deflate <- function(df, index) {
+  return(
+    df %>%
+      left_join(index %>% select(annee, ref), by="annee") %>%
+      mutate(
+        pension_neut = pension / ref,
+        retraite_nette_neut = retraite_nette / ref
+      ) %>% select(-ref)
+  )
+}
+demoSimulation$retraites <- deflate(demoSimulation$retraites, adjust_infla) %>%
+  mutate(
+    pension_m = pension / 12,
+    pension_neut_m = pension_neut / 12,
+    retraite_nette__m = retraite_nette / 12,
+    retraite_nette_neut_mensuelle = retraite_nette_neut / 12
+  )
+
 ## Create a new workbook
 wb <- createWorkbook("fullhouse")
 for (field in c("ech", "emp", "fam", "liquidations", "retraites", "salairenet", "cotisations", "macro")){
