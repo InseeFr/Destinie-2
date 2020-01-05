@@ -241,8 +241,8 @@ if (with_config_path) {
   input = fromJSON(config_path)
   naissance = as.integer(input$naissance[1])
   age_mort=80
-  duree_carriere=43
-  debut=input$debut[1]
+  debut=as.integer(input$debut[1])
+  duree_carriere=age_mort-debut#50
   statut = c(rep(63,debut),rep(1, age_mort-debut))
   salaire = c(
     rep(0,debut),
