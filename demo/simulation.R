@@ -18,34 +18,26 @@ library(jsonlite)
 library(openxlsx)
 library(stringr)
 
-
-with_input_path = FALSE
 args = commandArgs(trailingOnly = FALSE)
-prefixIndex = which(args == "--file")
-if (length(prefixIndex) && prefixIndex < length(args)) {
-  input_path = args[prefixIndex+1]
-  with_input_path = TRUE
-} else {
-  input_path = "server/example.xlsx"
-  #input_path = "~/Documents/Retraite/2019-12-19/salarie_smpt_g90_2_/simu-67.xlsx"
-  with_input_path = TRUE
-}
 
 with_config_path = FALSE
-if (with_input_path) {
-  sourcepath = input_path
-} else {
-  prefixIndex = which(args == "--config")
-  if (length(prefixIndex) && prefixIndex < length(args)) {
-    config_path = args[prefixIndex+1]
-    with_config_path = TRUE
-  } else {
-    config_path = "/var/log/destinie/files/2019-12-14--19-42-20.027783-config"
-    with_config_path = TRUE
-    # input_path = "server/example.xlsx"
-    # with_input_path = TRUE
-  }
+prefixIndex = which(args == "--config")
+if (length(prefixIndex) && prefixIndex < length(args)) {
+  config_path = args[prefixIndex+1]
+  with_config_path = TRUE
   sourcepath = config_path
+}
+
+with_input_path = FALSE
+if (!with_config_path) {
+  with_input_path = TRUE
+  prefixIndex = which(args == "--file")
+  if (length(prefixIndex) && prefixIndex < length(args)) {
+    input_path = args[prefixIndex+1]
+  } else {
+    input_path = "server/example.xlsx"
+  }
+  sourcepath = input_path
 }
 
 with_infla=1
