@@ -220,7 +220,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
     IndexationDestReforme = propDest,
     CotisationReforme = 0.2531,
     ValeurAchatReforme = 10 * seriep,
-    ValeurVenteReforme = 0.05 * seriep
+    ValeurVenteReforme = 0.55 * seriep
   )
 
   eco$macro=eco$macro%>%filter(annee<=fin_simul)
