@@ -1700,13 +1700,8 @@ void DroitsRetr::Liq() {
 
 bool DroitsRetr::univ() {
     if (options->codeRegime == DELEVOYE && t >= 125) {
-      Points(9999); // 125 == 2035
-      double total_point_univ = points_univ_post;
       Points(9999,125); // 125 == 2035
       LiqPrive(125);
-
-      // Points pre 2025
-      points_univ_post = total_point_univ - points_univ_post;
 
       ecriture_droitsRetr(X, *this);
 

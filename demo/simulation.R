@@ -56,8 +56,9 @@ if (separate_lib || length(which(args == "--separated-lib"))) {
 # 1 ACTUEL
 # 2 ACTUEL_MODIF
 # 3 DELEVOYE
+# 4 COMM_PM
 regime = 1
-regimes = c(ACTUEL=1, ACTUEL_MODIF=2, DELEVOYE=3)
+regimes = c(ACTUEL=1, ACTUEL_MODIF=2, DELEVOYE=3, COMM_PM=4)
 prefixIndex = which(args == "--regime")
 if (length(prefixIndex) && prefixIndex < length(args)) {
   regime=regimes[args[prefixIndex+1]]
