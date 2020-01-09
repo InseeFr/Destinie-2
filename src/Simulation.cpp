@@ -120,7 +120,7 @@ Simulation::~Simulation() {
 
 void ecriture_retraites(int t) {
   static Rdout retraites("retraites", {
-    "pension", "pension_rg", "pension_fp", "pension_in", "pension_ar", "pension_ag", "pension_ag_ar", /*"coeffTemp", "ageAnnulCoeffTemp",*/
+    "pension", "pension_rg", "pension_fp", "pension_in", "pension_ar", "pension_ag", "pension_ag_ar",
     "pension_univ",
     "rev", "rev_rg", "rev_fp", "rev_in", "rev_ar", "rev_ag",
     "min_vieil","Id","age", "annee","retraite_nette"
@@ -150,7 +150,7 @@ void ecriture_droitsRetr(const Indiv& X, DroitsRetr& r) {
    "dureecotdra_tot", "duree_rg_maj", "duree_fp_maj", 
    "duree_in_maj", "duree_tot_maj", "durdecote_fp", 
    "dursurcote_fp", "durdecote_rg", "dursurcote_rg", 
-   "tauxliq_fp", "tauxliq_rg", "tauxliq_ar", 
+   "tauxliq_fp", "tauxliq_rg", "tauxliq_ar",
    "majo_min_rg", "majo_min_in", "majo_min_fp", 
    "majo_3enf_rg", "majo_3enf_ar", "majo_3enf_ag", 
    "majo_3enf_in", "majo_3enf_fp", "min_cont", 
@@ -159,7 +159,7 @@ void ecriture_droitsRetr(const Indiv& X, DroitsRetr& r) {
    "points_agirc", "points_agirc_arrco", "coeffTemp", "ageAnnulCoeffTemp", "ntp_FP", "VFU_rg", "VFU_ar", 
    "VFU_ag", "pliq", "pension_fp", "pension_rg", 
    "pension_ar", "pension_ag", "pension_ag_ar", "pension_in", "pension", 
-   "taux_prorat_rg", "taux_prorat_in", "taux_prorat_fp", 
+   "taux_prorat_rg", "taux_prorat_in", "taux_prorat_fp", "taux_prorat_univ", "maj_rendement_univ",
    "tp", "agetest", "ageliq", "primoliq", "liq", 
    "agefin_totliq", "agefin_primoliq", "ageprimoliq",
    "indic_mc", "indic_mg", "indic_mc_in", "dar", "t","type_liq", 
@@ -176,7 +176,7 @@ void ecriture_droitsRetr(const Indiv& X, DroitsRetr& r) {
      r.dureecotdra_tot, r.duree_rg_maj, r.duree_fp_maj, 
      r.duree_in_maj, r.duree_tot_maj, r.durdecote_fp, 
      r.dursurcote_fp, r.durdecote_rg, r.dursurcote_rg, 
-     r.tauxliq_fp, r.tauxliq_rg, r.tauxliq_ar, 
+     r.tauxliq_fp, r.tauxliq_rg, r.tauxliq_ar,
      r.majo_min_rg, r.majo_min_in, r.majo_min_fp, 
      r.majo_3enf_rg, r.majo_3enf_ar, r.majo_3enf_ag, 
      r.majo_3enf_in, r.majo_3enf_fp, r.min_cont, 
@@ -185,7 +185,7 @@ void ecriture_droitsRetr(const Indiv& X, DroitsRetr& r) {
      r.points_agirc, r.points_agirc_arrco, r.coeffTemp, r.ageAnnulCoeffTemp, r.ntp_FP, r.VFU_rg, r.VFU_ar, 
      r.VFU_ag, r.pliq, r.pension_fp, r.pension_rg, 
      r.pension_ar, r.pension_ag, r.pension_ag_ar, r.pension_in, r.pension, 
-     r.taux_prorat_rg, r.taux_prorat_in, r.taux_prorat_fp, 
+     r.taux_prorat_rg, r.taux_prorat_in, r.taux_prorat_fp, r.taux_prorat_univ, r.maj_rendement_univ,
      r.tp, r.agetest, r.ageliq, r.primoliq, r.liq, 
      r.agefin_totliq, r.agefin_primoliq, r.ageprimoliq,
      r.indic_mc, r.indic_mg, r.indic_mc_in, r.dar, r.t,r.type_liq, 

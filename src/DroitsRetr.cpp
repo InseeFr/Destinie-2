@@ -1,6 +1,10 @@
 #include "DroitsRetr.h"
 #include "Retraite.h"
 
+
+// 2025
+const int t_transition = 125;
+
 DroitsRetr::DroitsRetr(const Indiv &X, Leg &leg, double agetest)
     : X(X), l(leg), agetest(agetest) {
   // RMQ sur les âges :
@@ -971,7 +975,7 @@ void DroitsRetr::Points(
       rcp.assietteFP = 0;
     }
 
-    if (u>=125) {
+    if (u>=t_transition) {
       rcp.points_univ_post += X.salaires[a] * M->CotisationReforme[u] / M->ValeurAchatReforme[u];
     }
 
@@ -1395,6 +1399,16 @@ void DroitsRetr::LiqPrive(int AnneeRefAnticip) {
   }
 
   double taux = (agetest >= l.AgeMinRG) ? tauxliq_rg * l.TauxPleinRG : 0;
+
+
+  if (options->codeRegime == COMM_PM && t >= t_transition) {
+    // Corrige le taux de proratisation
+    double t_debut_carriere = X.anaiss % 1900 + 22; // 22 TODO
+    taux_prorat_univ = min(1.0, max(0.0, (t_transition - t_debut_carriere) / (t - t_debut_carriere)));
+
+    taux *= taux_prorat_univ;
+  }
+
   // if  {taux=0;}
   // else
   //{
@@ -1699,30 +1713,23 @@ void DroitsRetr::Liq() {
 
 
 bool DroitsRetr::univ() {
-    if (options->codeRegime == DELEVOYE && t >= 125) {
-      Points(9999,125); // 125 == 2035
-      LiqPrive(125);
+    if (options->codeRegime == DELEVOYE && t >= t_transition) {
+    } else if (options->codeRegime == COMM_PM && t >= t_transition) {
+      Points(9999); // UNIV
+      double points_univ = points_univ_post;
+
+      Points(9999, t_transition); // AGIRC ARCO
+
+      points_univ_post = points_univ;
+
+      LiqPrive(t);
+      maj_rendement_univ = (agetest - 64) * 0.05;
+      pension_univ = points_univ_post * (M->ValeurVenteReforme[t] * (1 + maj_rendement_univ));
+      pension = pension_rg + pension_ar + pension_ag + pension_ag_ar + pension_fp +
+            pension_in + pension_univ;
 
       ecriture_droitsRetr(X, *this);
 
-      // celine
-      //pension_rg = 6453;
-      //pension_ar = 2542;
-
-      pension = pension_rg + pension_ar + pension_ag + pension_fp + pension_in +
-                pension_ag_ar;
-
-      points_univ_ante = 16355;// pension / 0.55;
-      //points_univ_post = 13743;
-
-      pension_rg = 0;
-      pension_ar = 0;
-      pension_ag = 0;
-      pension_fp = 0;
-      pension_in = 0;
-      pension_ag_ar = 0;
-      pension_univ = (points_univ_ante + points_univ_post) * 0.55;
-      pension = pension_univ;
 
       ageliq = int_mois(agetest, X.moisnaiss + 1);
       agefin_totliq = agetest;
