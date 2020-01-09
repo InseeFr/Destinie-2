@@ -18,7 +18,8 @@ const int NB_ENF_MAX = 6;     ///< Nombre maximal d'enfants
 enum code_mode_regime {
   ACTUEL=1,
   ACTUEL_MODIF=2,
-  DELEVOYE=3
+  DELEVOYE=3,
+  COMM_PM=4
 } ;
 
 /// Codes sexe :

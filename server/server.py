@@ -23,7 +23,7 @@ def example():
     return send_file('example.xlsx', as_attachment=True)
 
 
-SANE_MODELS = ['ACTUEL', 'ACTUEL_MODIF', 'DELEVOYE']
+SANE_MODELS = ['ACTUEL', 'ACTUEL_MODIF', 'DELEVOYE', 'COMM_PM']
 def common_parameters(form, sep=' '):
     params = []
 

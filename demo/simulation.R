@@ -56,8 +56,9 @@ if (separate_lib || length(which(args == "--separated-lib"))) {
 # 1 ACTUEL
 # 2 ACTUEL_MODIF
 # 3 DELEVOYE
+# 4 COMM_PM
 regime = 1
-regimes = c(ACTUEL=1, ACTUEL_MODIF=2, DELEVOYE=3)
+regimes = c(ACTUEL=1, ACTUEL_MODIF=2, DELEVOYE=3, COMM_PM=4)
 prefixIndex = which(args == "--regime")
 if (length(prefixIndex) && prefixIndex < length(args)) {
   regime=regimes[args[prefixIndex+1]]
@@ -211,7 +212,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
   # Indexation des valeurs de points de la réforme
   total = length(eco$macro$annee)
   duree = 17 # année
-  debut = 2025+1 # pas de croissance en 2025
+  debut = 2025 # croissance de 2025 appliquée en 2026 cf lag dans seriep
   base = 'Prixp'
   dest = 'SMPTp'
 
@@ -219,7 +220,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
   transition = 0:duree/duree
   propBase = c(rep(0, idebut -1),1-transition,rep(0,total-duree-idebut))
   propDest = c(rep(0, idebut -1),transition,rep(1,total-duree-idebut))
-  seriep = cumprod(1 + eco$macro[[base]] * propBase + eco$macro[[dest]] * propDest)
+  seriep = cumprod(1 + lag(eco$macro[[base]] * propBase + eco$macro[[dest]] * propDest, default=0))
 
   eco$macro <-eco$macro%>% mutate(
     IndexationBaseReforme = propBase,

@@ -263,7 +263,10 @@ public:
 
   double taux_prorat_rg = 0, ///< taux de proratisation au RG
       taux_prorat_in = 0,    ///< taux de proratisation au RSI
-      taux_prorat_fp = 0;    ///< taux de proratisation FP
+      taux_prorat_fp = 0,    ///< taux de proratisation FP
+      taux_prorat_univ = 0;    ///< taux de proratisation pour la transition
+
+  double maj_rendement_univ = 0;
 
   double points_univ_ante = 0, points_univ_post = 0;
 
