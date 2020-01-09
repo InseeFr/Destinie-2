@@ -103,3 +103,4 @@ documentation/doxygen/latex/*
 
 __pycache__
 .venv
+*~

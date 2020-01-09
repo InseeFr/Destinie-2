@@ -6,8 +6,7 @@ ENV LC_ALL C.UTF-8
 RUN apt update -yq && \
   apt install -y libssl-dev libcurl4-openssl-dev libxml2-dev
 
-# install Java
-# Install OpenJDK-8
+# install OpenJDK-8
 RUN apt-get update && \
     apt-get install -y r-cran-rjava
 
@@ -20,11 +19,13 @@ RUN apt-get update && \
 # Setup JAVA_HOME -- useful for docker commandline
 ENV JAVA_HOME /usr/lib/jvm/default-java/
 
+# install R dependencies
+RUN Rscript -e "install.packages(c('ggplot2', 'tidyr', 'dplyr', 'openxlsx', 'xlsx','jsonlite'))"
+
 COPY . /destinie2
 WORKDIR /destinie2
 
+# expose
 VOLUME /destinie2/data
-
-RUN Rscript -e "install.packages(c('ggplot2', 'tidyr', 'dplyr', 'openxlsx', 'xlsx','jsonlite'))"
 
 RUN R CMD INSTALL . --preclean --debug
