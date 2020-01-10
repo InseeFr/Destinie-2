@@ -46,10 +46,11 @@ if (length(which(args == "--no-infla"))) {
 }
 
 #detach(package:destinie, unload=T)
-separate_lib=F
-if (separate_lib || length(which(args == "--separated-lib"))) {
+prefixIndex = which(args == "--library")
+if (length(prefixIndex) && prefixIndex < length(args)) {
   print('load separated lib...')
-  .libPaths("~/R-tests")
+  print(args[prefixIndex+1])
+  .libPaths(args[prefixIndex+1])
 }
 
 ## Regimes
@@ -328,13 +329,16 @@ demoSimulation$retraites <- deflate(demoSimulation$retraites, adjust_infla) %>%
     retraite_nette__m = retraite_nette / 12,
     retraite_nette_neut_mensuelle = retraite_nette_neut / 12
   )
+#print(demoSimulation$retraites %>% select(annee, pension_neut_m))
 
-## Create a new workbook
-wb <- createWorkbook("fullhouse")
-for (field in c("ech", "emp", "fam", "liquidations", "retraites", "salairenet", "cotisations", "macro")){
-  addWorksheet(wb, field)
-  writeData(wb, field, demoSimulation[[field]])
+if(T) {
+  ## Create a new workbook
+  wb <- createWorkbook("fullhouse")
+  for (field in c("ech", "emp", "fam", "liquidations", "retraites", "salairenet", "cotisations", "macro")){
+    addWorksheet(wb, field)
+    writeData(wb, field, demoSimulation[[field]])
+  }
+  ## Save workbook
+  outputfile = str_c(str_sub(sourcepath,end=-6), 'results.xlsx', sep=".")
+  saveWorkbook(wb, outputfile, overwrite = TRUE)
 }
-## Save workbook
-outputfile = str_c(str_sub(sourcepath,end=-6), 'results.xlsx', sep=".")
-saveWorkbook(wb, outputfile, overwrite = TRUE)
