@@ -1406,7 +1406,7 @@ void DroitsRetr::LiqPrive(int AnneeRefAnticip) {
     double t_debut_carriere = X.anaiss % 1900 + 22; // 22 TODO
     taux_prorat_univ = min(1.0, max(0.0, (t_transition - t_debut_carriere) / (t - t_debut_carriere)));
 
-    taux *= taux_prorat_univ;
+    taux *= taux_prorat_univ * (1 + maj_rendement_univ);
   }
 
   // if  {taux=0;}
@@ -1715,6 +1715,8 @@ void DroitsRetr::Liq() {
 bool DroitsRetr::univ() {
     if (options->codeRegime == DELEVOYE && t >= t_transition) {
     } else if (options->codeRegime == COMM_PM && t >= t_transition) {
+      maj_rendement_univ = (agetest - 64) * 0.05;
+
       Points(9999); // UNIV
       double points_univ = points_univ_post;
 
@@ -1723,7 +1725,6 @@ bool DroitsRetr::univ() {
       points_univ_post = points_univ;
 
       LiqPrive(t);
-      maj_rendement_univ = (agetest - 64) * 0.05;
       pension_univ = points_univ_post * (M->ValeurVenteReforme[t] * (1 + maj_rendement_univ));
       pension = pension_rg + pension_ar + pension_ag + pension_ag_ar + pension_fp +
             pension_in + pension_univ;
