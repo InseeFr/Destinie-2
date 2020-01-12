@@ -1846,6 +1846,10 @@ void DroitsRetr::coeffTempo() {
   coeffTemp = 1.0;
   ageAnnulCoeffTemp = agetest;
 
+  if (options->codeRegime == COMM_PM) {
+    return;
+  }
+
   if ((!options->NoCoeffTemp) && (l.an_leg >= 2015) &&
       (!options->NoAccordAgircArrco) && (tauxliq_rg >= 1) && (t >= 119) &&
       (X.anaiss >= 1957) && duree_emprg > 0) {
