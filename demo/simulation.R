@@ -18,12 +18,15 @@ library(jsonlite)
 library(openxlsx)
 library(stringr)
 
+config=''
+
 args = commandArgs(trailingOnly = FALSE)
 
 with_config_path = FALSE
 prefixIndex = which(args == "--config")
-if (length(prefixIndex) && prefixIndex < length(args)) {
-  config_path = args[prefixIndex+1]
+if (str_length(config) > 0 ||  {
+  from_args=length(prefixIndex) && prefixIndex < length(args)
+  config_path = ifelse(from_args, args[prefixIndex+1], config)
   with_config_path = TRUE
   sourcepath = config_path
 }
