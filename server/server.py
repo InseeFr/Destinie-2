@@ -74,6 +74,14 @@ def expert_mode():
     return render_template('expert.html')
 
 
+# from collections import namedtuple
+# C = namedtuple('Carriere', ['id', 'description'])
+# carrieres = [C('SMPT', 'SMPT'), C('SMIC', 'SMIC')]
+
+import pandas as pd
+meta = pd.read_excel('../demo/carrieres.xlsx', sheet_name='meta')
+carrieres = list(meta.itertuples())
+
 @app.route('/basic', methods=['GET', 'POST'])
 def basic_mode():
     if request.method == 'POST':
@@ -83,7 +91,8 @@ def basic_mode():
         data = {
             "naissance": int(request.form["naissance"]),
             "debut": int(request.form["debut"]),
-            "base": request.form["base"],
+            "carriere": request.form["carriere"],
+            "carrieres_path": "../demo/carrieres.xlsx",
             "proportion": float(request.form["proportion"]),
         }
         with open(file_path, "w+") as fp:
@@ -97,7 +106,7 @@ def basic_mode():
 
         #return render_template('basic.html', form=request.form)
 
-    return render_template('basic.html')
+    return render_template('basic.html', carrieres=carrieres)
 
 
 @app.route('/', methods=['GET'])

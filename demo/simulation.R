@@ -254,14 +254,26 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
 
 if (with_config_path) {
   input = fromJSON(config_path)
+  carrieres_path=input$carrieres_path[1]
+  meta = read.xlsx(carrieres_path, 'meta')
+  series = read.xlsx(carrieres_path, 'serie')
+
   naissance = as.integer(input$naissance[1])
   age_mort=80
   debut=as.integer(input$debut[1])
-  duree_carriere=age_mort-debut#50
+  p_proportion = input$proportion
+  profil_id=input$carriere
+  base_id=id=meta$base[meta$id == profil_id]
+
+  duree_carriere=age_mort-debut
+
+  profil = series[[profil_id]][(debut):(debut+duree_carriere-1)]
+  base = eco$macro[[base_id]]
+
   statut = c(rep(63,debut),rep(1, age_mort-debut))
   salaire = c(
     rep(0,debut),
-    input$proportion*eco$macro[[input$base]][(naissance+debut-1900+1):((naissance+debut-1900+1)+duree_carriere-1)],
+    p_proportion * profil * base[(naissance+debut-1900+1):((naissance+debut-1900+1)+duree_carriere-1)],
     rep(0, age_mort-debut-duree_carriere)
   )
 

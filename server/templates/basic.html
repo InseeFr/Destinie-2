@@ -6,9 +6,12 @@
   <label>Année de naissance<input name="naissance" value="{{ form['naissance'] if 'naissance' in form else '1980' }}"/></label>
   <label>Âge de début de carrière<input name="debut" value="{{ form['debut'] if 'debut' in form else '22' }}"/></label>
   <label>Base du salaire
-    <select name="base">
-      <option value="SMPT" {{ 'selected' if 'base' in form and form['base'] == 'SMPT' }}>SMPT</option>
-      <option value="SMIC" {{ 'selected' if 'base' in form and form['base'] == 'SMIC' }}>SMIC</option>
+    <select name="carriere">
+      {% for i in carrieres %}
+        <option value="{{ i.id }}" {{ 'selected' if 'carriere' in form and form['carriere'] == i.id }}>
+          {{ i.description }}
+        </option>
+      {% endfor %}
     </select>
   </label>
   <label>Proportion de la base<input name="proportion" value="{{ form['proportion'] if 'proportion' in form else '1' }}"/></label>
