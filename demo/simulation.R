@@ -25,7 +25,7 @@ args = commandArgs(trailingOnly = FALSE)
 
 with_config_path = FALSE
 prefixIndex = which(args == "--config")
-if (str_length(config) > 0 ||  {
+if (str_length(config) > 0 || length(prefixIndex) && prefixIndex < length(args)) {
   from_args=length(prefixIndex) && prefixIndex < length(args)
   config_path = ifelse(from_args, args[prefixIndex+1], config)
   with_config_path = TRUE
