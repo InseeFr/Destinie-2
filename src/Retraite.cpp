@@ -205,7 +205,7 @@ void Retraite::revaloDir(int t) {
     pension_ag_ar = liq->pension_ag_ar * M->ValPtAGIRC_ARRCO[t] /
                     M->ValPtAGIRC_ARRCO[t_liq] * invCoeffTmp;
 
-    pension_univ = liq->pension_univ;
+    pension_univ = liq->pension_univ * M->RevaloCumRG[t] / M->RevaloCumRG[t_liq];
   }
 
   pension_tot = pension_fp + pension_rg + pension_in + pension_ar + pension_ag +
@@ -394,7 +394,8 @@ double Retraite::pension_age(int age, int regime) {
           liq->pension_ag * invCoeffTemp * M->ValPtAGIRC[annee] /
               M->ValPtAGIRC[t_liq] +
           liq->pension_ag_ar * invCoeffTemp * M->ValPtAGIRC_ARRCO[annee] /
-              M->ValPtAGIRC_ARRCO[t_liq];
+              M->ValPtAGIRC_ARRCO[t_liq] +
+          liq->pension_univ * M->RevaloCumRG[annee] / M->RevaloCumRG[t_liq];
     }
   }
   return resultat;
