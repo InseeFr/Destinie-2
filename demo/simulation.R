@@ -325,27 +325,47 @@ demoSimulation = as.environment(simulation)
 #library(destinie)
 destinieSim(demoSimulation)
 
+# détermination des derniers salaires
+age_depart = demoSimulation$retraites %>% group_by(Id) %>% filter(pension != 0) %>%
+  summarise(age=min(age)) %>% select(Id,age)
+dernier_salaire_net_b = demoSimulation$salairenet %>% inner_join(age_depart, by=c('Id', 'age')) %>%
+  select(Id, age, dernier_salaire_net=salaires_net)
+naiss = demoSimulation$ech %>% select(Id, anaiss)
+dernier_salaire_net = dernier_salaire_net_b %>% left_join(by='Id', naiss) %>%
+  mutate(annee=age+anaiss) %>% select(Id, annee, dernier_salaire_net)
 
 # desindexation infla
 base=2019
 adjust_infla = demoSimulation$macro %>% select(annee, Prix)
 adjust_infla$ref = adjust_infla$Prix / adjust_infla$Prix[which(adjust_infla$annee == base)]
-deflate <- function(df, index) {
+
+deflate <- function(df, ...) {
+  name_it <- function(n) {
+    paste0(quo_name(n), '_neut')
+  }
+  expr_it <- function(n) {
+    quo((!! n) / ref)
+  }
+  exprs <- lapply(enquos(...), expr_it)
+  names(exprs) <- lapply(enquos(...), name_it)
   return(
     df %>%
-      left_join(index %>% select(annee, ref), by="annee") %>%
-      mutate(
-        pension_neut = pension / ref,
-        retraite_nette_neut = retraite_nette / ref
-      ) %>% select(-ref)
+      left_join(adjust_infla %>% select(annee, ref), by="annee") %>%
+      mutate(!!! exprs) %>% select(-ref)
   )
 }
-demoSimulation$retraites <- deflate(demoSimulation$retraites, adjust_infla) %>%
+
+dernier_salaire_net_n = dernier_salaire_net %>% deflate(dernier_salaire_net) %>%
+  select(Id, dernier_salaire_net_neut)
+demoSimulation$retraites <- demoSimulation$retraites %>%
+  deflate(pension, retraite_nette) %>%
+  left_join(by='Id', dernier_salaire_net_n) %>%
   mutate(
     pension_m = pension / 12,
     pension_neut_m = pension_neut / 12,
-    retraite_nette__m = retraite_nette / 12,
-    retraite_nette_neut_mensuelle = retraite_nette_neut / 12
+    retraite_nette_m = retraite_nette / 12,
+    retraite_nette_neut_m = retraite_nette_neut / 12,
+    TR_net_neut = retraite_nette_neut / dernier_salaire_net_neut
   )
 #print(demoSimulation$retraites %>% select(annee, pension_neut_m))
 
