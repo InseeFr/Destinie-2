@@ -9,7 +9,9 @@ git pull
 R CMD INSTALL . --preclean --debug
 
 cd server
+set +v
 source .venv/bin/activate
+set -v
 pip install --requirement requirements.txt
 
 systemctl reload destinie
