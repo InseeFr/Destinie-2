@@ -19,6 +19,7 @@ library(openxlsx)
 library(stringr)
 
 config=''
+lib=Sys.getenv('DESTINIE_LIB_PATH')
 
 args = commandArgs(trailingOnly = FALSE)
 
@@ -50,10 +51,12 @@ if (length(which(args == "--no-infla"))) {
 
 #detach(package:destinie, unload=T)
 prefixIndex = which(args == "--library")
-if (length(prefixIndex) && prefixIndex < length(args)) {
+if (str_length(lib) > 0 || (length(prefixIndex) && prefixIndex < length(args))) {
   print('load separated lib...')
-  print(args[prefixIndex+1])
-  .libPaths(args[prefixIndex+1])
+  from_args=length(prefixIndex) && prefixIndex < length(args)
+  separate_lib=ifelse(from_args, args[prefixIndex+1], lib)
+  print(separate_lib)
+  .libPaths(separate_lib)
 }
 
 ## Regimes
