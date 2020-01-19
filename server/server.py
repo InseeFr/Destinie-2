@@ -1,6 +1,7 @@
 
 import os
 from flask import Flask, flash, request, redirect, url_for, send_file, render_template
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 
 import datetime
@@ -16,7 +17,7 @@ def allowed_file(filename):
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
+CORS(app)
 
 @app.route('/example.xlsx', methods=['GET'])
 def example():
