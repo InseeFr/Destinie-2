@@ -274,6 +274,9 @@ if (with_config_path) {
   duree_carriere=age_mort-debut
 
   profil = series[[profil_id]][(debut):(debut+duree_carriere-1)]
+  if (is.null(profil)) {
+    profil = rep(1, duree_carriere)
+  }
   base = eco$macro[[base_id]]
 
   statut = c(rep(63,debut),rep(1, age_mort-debut))
@@ -337,7 +340,7 @@ age_depart = demoSimulation$retraites %>% group_by(Id) %>% filter(pension != 0) 
 dernier_salaire_net_b = demoSimulation$salairenet %>% inner_join(age_depart, by=c('Id', 'age')) %>%
   select(Id, age, dernier_salaire_net=salaires_net)
 naiss = demoSimulation$ech %>% select(Id, anaiss)
-dernier_salaire_net = dernier_salaire_net_b %>% left_join(by='Id', naiss) %>%
+derniers_salaires_nets = dernier_salaire_net_b %>% left_join(by='Id', naiss) %>%
   mutate(annee=age+anaiss) %>% select(Id, annee, dernier_salaire_net)
 
 # desindexation infla
@@ -360,8 +363,7 @@ deflate <- function(df, ...) {
       mutate(!!! exprs) %>% select(-ref)
   )
 }
-
-dernier_salaire_net_n = dernier_salaire_net %>% deflate(dernier_salaire_net) %>%
+dernier_salaire_net_n = derniers_salaires_nets %>% deflate(dernier_salaire_net) %>%
   select(Id, dernier_salaire_net_neut)
 demoSimulation$retraites <- demoSimulation$retraites %>%
   deflate(pension, retraite_nette) %>%
@@ -375,10 +377,11 @@ demoSimulation$retraites <- demoSimulation$retraites %>%
   )
 #print(demoSimulation$retraites %>% select(annee, pension_neut_m))
 
+demoSimulation$taux_remplacement = demoSimulation$retraites %>% group_by(Id) %>% mutate(debut=min(annee)) %>% filter(annee == debut) %>% select(Id, TR_net_neut)
 if(T) {
   ## Create a new workbook
   wb <- createWorkbook("fullhouse")
-  for (field in c("ech", "emp", "fam", "liquidations", "retraites", "salairenet", "cotisations", "macro")){
+  for (field in c("ech", "emp", "fam", "liquidations", "retraites", "salairenet", "taux_remplacement", "cotisations", "macro")){
     addWorksheet(wb, field)
     writeData(wb, field, demoSimulation[[field]])
   }
