@@ -1,0 +1,5 @@
+# PKG_CXXFLAGS=-O0 -ggdb
+# PKG_LIBS=-O0 -ggdb
+# CXX11FLAGS="a"
+# CXXFLAGS="b"
+PKG_CXXFLAGS= -ggdb -Og

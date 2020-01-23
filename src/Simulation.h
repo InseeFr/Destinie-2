@@ -1646,7 +1646,8 @@ struct Macro {
   _(correct_demo,0),
   _(CotisationReforme),
   _(ValeurAchatReforme),
-  _(ValeurVenteReforme);
+  _(ValeurVenteReforme),
+  _(AgeEquilibre);
   
   
   NumericVector daterevalobase;      		///< Mois de revalorisation des régimes de base 

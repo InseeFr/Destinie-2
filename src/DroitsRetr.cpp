@@ -1715,7 +1715,7 @@ void DroitsRetr::Liq() {
 bool DroitsRetr::univ() {
     if (options->codeRegime == DELEVOYE && t >= t_transition) {
     } else if (options->codeRegime == COMM_PM && t >= t_transition) {
-      maj_rendement_univ = (agetest - 64) * 0.05;
+      maj_rendement_univ = (agetest - M->AgeEquilibre[t]) * 0.05;
 
       Points(9999); // UNIV
       double points_univ = points_univ_post;
