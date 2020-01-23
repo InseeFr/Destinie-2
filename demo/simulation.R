@@ -184,6 +184,10 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
 
   data("eco_cho_7_prod13")
   eco=eco_cho_7_prod13
+
+  # Supprime  l'augmentation de la CSG prévue en 2018
+  eco$macro$TauxCSGRetFort[eco$macro$annee==2018] = NaN
+
   #rm(eco_cho_7_prod13)
   eco$macro <-eco$macro%>%
     mutate( 
