@@ -196,7 +196,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
       SMICp = ifelse(is.na(SMICp),0,SMICp),
       PIBp = ifelse(is.na(PIBp),0,PIBp),
       PlafondSSp = ifelse(is.na(PlafondSSp),0,PlafondSSp),
-      Prixp = with_infla*ifelse(is.na(Prixp),0,Prixp), # Pour supprimer l'
+      Prixp = with_infla*ifelse(is.na(Prixp),0,Prixp),
       MinPRp = 1.02,
       RevaloRG = ifelse(is.na(RevaloRG),1+Prixp,RevaloRG),
       RevaloFP = ifelse(is.na(RevaloFP),1+Prixp,RevaloFP),
