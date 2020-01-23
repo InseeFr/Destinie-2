@@ -156,6 +156,7 @@ fin_simul<-2070 #2110 au maximum ou 2070 plus classiquement
                       SecondLiq=F,mort_diff_dip=T,effet_hrzn=T,
                       comp=comportement,# 0 = TP ; 3 = EXO
                       ecrit_dr_test=T,
+                      NoCoeffTemp=T,
                       codeRegime=as.integer(regime)
                       )
 
