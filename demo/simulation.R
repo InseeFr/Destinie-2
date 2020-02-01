@@ -128,7 +128,9 @@ prefixIndex = which(args == "--age-exo")
 if (length(prefixIndex) && prefixIndex < length(args)) {
   age_exo=as.integer(args[prefixIndex+1])
   comportement=3
-  simul$ech$age_exo=age_exo
+  if (age_exo>0) {
+    simul$ech$age_exo=age_exo
+  }
 }
 
 #rm(test)
