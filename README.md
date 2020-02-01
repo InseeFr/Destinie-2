@@ -75,11 +75,15 @@ apt-get install r-cran-rjava
 
 ### Avec Docker
 
-* installer [Docker](https://www.docker.com/)
+* installer [Docker](https://www.docker.com/) ainsi que [docker-compose](https://docs.docker.com/compose/install/)
+
+* Lancer le serveur python avec `docker-compose up`
+
 * construire l'image `nosretraites/destinie-2`:
 
   ```
   $ docker build -t nosretraites/destinie-2 -f docker/destinie-2/Dockerfile .
+  $ docker build -t nosretraites/destinie-2-python -f docker/destinie-2/Dockerfile-python .
   ```
 * exécuter la simulation dans l'image docker:
 

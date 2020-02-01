@@ -10,11 +10,12 @@ RUN apt update -yq && \
 RUN apt-get update && \
     apt-get install -y r-cran-rjava
 
-# Fix certificate issues
+# Fix certificate issues and install python
 RUN apt-get update && \
     apt-get install ca-certificates-java && \
     apt-get clean && \
     update-ca-certificates -f
+
 
 # Setup JAVA_HOME -- useful for docker commandline
 ENV JAVA_HOME /usr/lib/jvm/default-java/
@@ -29,3 +30,7 @@ WORKDIR /destinie2
 VOLUME /destinie2/data
 
 RUN R CMD INSTALL . --preclean --debug
+
+RUN mkdir -p /var/log/destinie/files
+
+RUN apt-get install -y python3 python3-pip
