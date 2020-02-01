@@ -2,9 +2,11 @@ version: '3'
 
 services:
     server:
-        image: nosretraites/destinie-2-python
+        image: nosretraites/destinie-2:python
         volumes: 
             - .:/destinie2/
         ports:
             - '5000:5000'
+    redis:
+        image: redis
 
