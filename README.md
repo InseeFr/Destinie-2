@@ -1,10 +1,10 @@
-# Destinie 2
+# Destinie 2 
 
-Le modèle Destinie 2 (modèle Démographique Économique et Social de Trajectoires INdividuelles sImulÉs, version 2) est un modèle de microsimulation dynamique, développé et géré par l’Insee, dont l’objectif principal est la projection à long terme des retraites. Il succède à Destinie 1, premier modèle de microsimulation élaboré sur ce domaine en France, depuis 2010.
+Le modèle Destinie 2 (modèle Démographique Économique et Social de Trajectoires INdividuelles sImulÉs, version 2) est un modèle de microsimulation dynamique, développé et géré par l’Insee, dont l’objectif principal est la projection à long terme des retraites. Il succède à Destinie 1, premier modèle de microsimulation élaboré sur ce domaine en France, depuis 2010. 
 
 ## Utilisation
 
-Ce modèle est mobilisé lors des exercices de projection de long terme conduits par le Conseil d’Orientation des Retraites (COR) ou la Commission européenne, mais aussi dans le cadre d'études afin d'éclairer le débat économique et social dans le domaine de la protection sociale (retraites, mais également dépendance ou encore dépenses de santé). En effet, la construction d’un échantillon démographique, couplée à la constitution des liens familiaux et des trajectoires professionnelles, offre au modèle une perspective plus généraliste, qui s’étend au-delà des retraites stricto sensu. Sa dimension « ménages » le distingue d’autres modèles de microsimulation. Par ailleurs, la taille modeste de l'échantillon permet une simulation rapide et ainsi la réalisation de nombreuses variantes, au prix d’une plus faible précision des résultats.
+Ce modèle  est mobilisé lors des exercices de projection de long terme conduits par le Conseil d’Orientation des Retraites (COR) ou la Commission européenne, mais aussi dans le cadre d'études afin d'éclairer le débat économique et social dans le domaine de la protection sociale (retraites, mais également dépendance ou encore dépenses de santé). En effet, la construction d’un échantillon démographique, couplée à la constitution des liens familiaux et des trajectoires professionnelles, offre au modèle une perspective plus généraliste, qui s’étend au-delà des retraites stricto sensu. Sa dimension « ménages » le distingue d’autres modèles de microsimulation. Par ailleurs, la taille modeste de l'échantillon permet une simulation rapide et ainsi la réalisation de nombreuses variantes, au prix d’une plus faible précision des résultats. 
 
 
 

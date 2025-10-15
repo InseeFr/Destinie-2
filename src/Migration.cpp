@@ -72,7 +72,7 @@ int findet_migrant(Indiv& X) {
   else {
     u1=alea();
     u2=alea();
-    x1=sqrt(-2*log(u1))*cos(2*PI*u2);
+    x1=sqrt(-2*log(u1))*cos(2*3.141592*u2);  // nagui : on a remplacé PI par 3.141592 car "PI" non reconnu dans le compilateur c++ (02/2022)
     
     if (X.sexe==HOMME) {
       findet=min_max(int(20.70811+x1*2.806263+alea()),16,30);
@@ -96,6 +96,7 @@ void migrant (int t) {
   int cible= ciblesDemo->Soldemig_H[t]/M->poids + alea();
   double ecart = ciblesDemo->Soldemig_H[t]/M->poids -cible;
   for(int i : range(cible)) {
+	(void) i; // Type cast pour supprimer "unused variable warning"
     int age = age_arrive(HOMME,false,t);
     pop.emplace_back(pop.size(),HOMME,t+1900-age,18,age,0,0);
     Indiv& X = pop.back();
@@ -113,6 +114,7 @@ void migrant (int t) {
   cible= ciblesDemo->Soldemig_Fe[t]/M->poids +ecart + alea();
   ecart = ciblesDemo->Soldemig_Fe[t]/M->poids -cible;
   for(int i : range(cible)) {
+	(void) i; // Type cast pour supprimer "unused variable warning"
     int age = age_arrive(FEMME,false,t);
     pop.emplace_back(pop.size(),FEMME,t+1900-age,18,age,0,0);
     Indiv& X = pop.back();
@@ -138,6 +140,7 @@ void migrant (int t) {
   cible= ciblesDemo->Soldemig_G[t]/M->poids +ecart + alea();
   ecart = ciblesDemo->Soldemig_G[t]/M->poids -cible;
   for(int i : range(cible))  {
+	(void) i; // Type cast pour supprimer "unused variable warning"
     int age = age_arrive(HOMME,true,t);
     pop.emplace_back(pop.size(),HOMME,t+1900-age,18,age,0,0);
     Indiv& X = pop.back();
@@ -148,7 +151,8 @@ void migrant (int t) {
   }
   cible = ciblesDemo->Soldemig_Fi[t]/M->poids +ecart + alea();
   ecart = ciblesDemo->Soldemig_Fi[t]/M->poids -cible;
-  for(int i : range(cible))  {
+  for(int i : range(cible)) {
+	(void) i; // Type cast pour supprimer "unused variable warning"
     int age = age_arrive(FEMME,true,t);
     pop.emplace_back(pop.size(),FEMME,t+1900-age,18,age,0,0);  
     Indiv& X = pop.back();
@@ -224,6 +228,7 @@ void migrant (int t) {
   for(int e : liste_enfants) {
 	Indiv&X = pop[e];
     X.findet = findet_migrant(X);
+	X.dipl=(X.findet<16) ? SSDIPL : (X.findet==16) ? BREVET : (X.findet<18) ? CAP : (X.findet<20) ? BAC : UNIV;
     X.statuts[X.age(t)]=(X.age(t)<=X.findet)? S_SCO:999;
 	X.matri[X.age(t)] = CELIB;
   }

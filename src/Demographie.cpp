@@ -5,6 +5,7 @@
 #include "Mortalite.h"
 #include "Separations.h"
 #include "Sante.h"
+#include <set>
 
 enum {CAT_ACTIVE=1,CAT_SEDENTAIRE};
 
@@ -86,8 +87,8 @@ int age_arrivee(Indiv& X) {
  *       - imputation du cumul emploi-études lorsque age==X.findet
  *       - pour les statuts manquants après l'âge de sortie des études et jusqu'au décès, prolongation du dernier statut hors scolarité
  *       - affinage du statut FP selon la catégorie (active ou sédentaire), et du statut invalide selon le secteur (privé, public, indépendant)
- *       - attribution d'un pseudo-conjoint aux personnes veuves en 2010 afin d'initialiser le stock de réversataires. Nécessaire en l'absence,
- *       dans l'enquête Patrimoine, d'informations sur les liens conjuguaux avant 2010
+ *       - attribution d'un pseudo-conjoint aux personnes veuves en 2018 (2010 avant rebasage) afin d'initialiser le stock de réversataires. Nécessaire en l'absence,
+ *       dans l'enquête Patrimoine, d'informations sur les liens conjuguaux avant 2018 (2010 avant rebasage)
  */
 void imputations_base() {
   
@@ -106,7 +107,7 @@ void imputations_base() {
       }
     }
     
-    // impute les statuts manquants et prolonge les carrières durant la retraite
+    // impute les statuts manquants
     for(int age : range(0,X.ageMax)) {
       if(age < X.findet && X.statuts[age] == 999) {
         X.statuts[age] = S_SCO;
@@ -205,13 +206,11 @@ void imputations_base() {
 void destinieDemographie(Environment env) {
   auto S = Simulation(env); // Importation de l'échantillon et des paramètres macro
                             // tables: ech, emp, fam, macro, survie, options
-
-  Rcout<<"Taux de ponderation:"<<M->poids<<endl;
+  Rcout << "Taux de ponderation: " << M->poids << endl;
   imputations_base();
   pointage("fin sim redress");
 
-  int max_sim=(options->AN_MAX%1900)+1;
-  
+  int max_sim = (options->AN_MAX%1900) + 1;
   
   if (options->sante) { 
     for(int t : range(AN_BASE+1,max_sim)) {
@@ -230,21 +229,22 @@ void destinieDemographie(Environment env) {
       separation(t);
       mise_en_couple(t);
       naissance(t,options->tirage_simple_naiss);
-	}
+	  }
   } 
   // sortie des résultats
   static auto df_ech = Rdout("ech",{"Id","sexe","anaiss","findet","ageMax","mere","pere","neFrance","emigrant","moisnaiss","taux_prim","typeFP","k","enf1","enf2","enf3","enf4","enf5","enf6","pseudo_conjoint","peudip","tresdip","dipl"});
   for(Indiv& X : pop) {
-    if(X.Id!=0)
+    if (X.Id == 0) continue;
     df_ech.push_line(X.Id,X.sexe,X.anaiss,X.findet,X.ageMax,X.mere,X.pere,X.neFrance,X.emigrant,X.moisnaiss,X.taux_prim,X.typeFP,X.k,X.enf[0],X.enf[1],X.enf[2],X.enf[3],X.enf[4],X.enf[5],X.pseudo_conjoint,X.peudip,X.tresdip,X.dipl);
   }
 
-  if (options->sante){
-  static auto df_sante = Rdout("sante",{"Id","age","sante"});
-  for(Indiv& X : pop) {
-    for(int age : range(50,X.ageMax))
-      df_sante.push_line(X.Id,age,X.sante[age]);
-  }
+  if (options->sante) {
+    static auto df_sante = Rdout("sante", {"Id","age","sante"});
+    for (Indiv& X : pop) {
+      for (int age : range(50, X.ageMax)) {
+        df_sante.push_line(X.Id, age, X.sante[age]);
+      }
+    }
   }
   static auto df_emp = Rdout("emp",{"Id","age","statut","salaire"});
   for(Indiv& X : pop) {
@@ -252,23 +252,80 @@ void destinieDemographie(Environment env) {
       df_emp.push_line(X.Id,age,X.statuts[age],X.salaires[age]);
 	  }
   }
-
-  static auto df_fam = Rdout("fam",{"Id","annee","enf1","enf2","enf3","enf4","enf5","enf6","conjoint","matri","pere","mere"});
-  for(Indiv& X : pop) {
-    if(X.Id!=0){
-	if (X.ageMax==0)
-		df_fam.push_line(X.Id,X.date(0)+1900,X.enf[0],X.enf[1],X.enf[2],X.enf[3],X.enf[4],X.enf[5],X.conjoint[0],X.matri[0],X.pere,X.mere); 
-    for(int age : range(max(0,X.age(109)),X.ageMax))
-      //if(age == 0 || X.date(age)==109 || X.conjoint[age] != X.conjoint[age-1] ||
-        //    X.matri[age] != X.matri[age-1]) 
-		if(X.est_present(X.date(age)))
-			{
-        if(X.date(age)==109 && X.pseudo_conjoint != 0) 
-          df_fam.push_line(X.Id,X.date(age)+1900,X.enf[0],X.enf[1],X.enf[2],X.enf[3],X.enf[4],X.enf[5],X.pseudo_conjoint,X.matri[age],X.pere,X.mere);
-        else
-          df_fam.push_line(X.Id,X.date(age)+1900,X.enf[0],X.enf[1],X.enf[2],X.enf[3],X.enf[4],X.enf[5],X.conjoint[age],X.matri[age],X.pere,X.mere);
+  
+  auto df_union_base = Rdin<UnionBase>("union_base");
+  static auto df_union = Rdout("union", {"Id1", "Id2", "t_ageMax1", "t_ageMax2", "annee_union", "duree_union", "nb_enf" });
+  struct InfoUnion {
+    int annee_union = 9999;
+    int duree_union = 0;
+    int nb_enf = 0;
+  };
+  // Id1, Id2 -> duree_union, nb_enf
+  std::map<std::pair<int, int>, InfoUnion> union_map {};
+  std::unordered_map<int, int> t_ageMax {};
+  for (Indiv& X: pop) {
+    // On itère à partir de l'âge de la personne à l'année de base,
+    // ou lors de sa naissance si né après l'année de base.
+    for (int age : range(max(1900 + AN_BASE - X.anaiss, 0), X.ageMax)) {
+      int t = X.date(age);
+      int conjoint_Id = X.conjoint[age];
+      if ((conjoint_Id != 0) && (pop[conjoint_Id].est_present(t)) && X.matri[age] == MARIE && X.Id < conjoint_Id) {
+        union_map[{X.Id, conjoint_Id}].duree_union += 1;
+        union_map[{X.Id, conjoint_Id}].annee_union = min(union_map[{X.Id, conjoint_Id}].annee_union, 1900 + t);
       }
+    }
+    
+    if (X.emigrant != 1) {
+      t_ageMax.insert({X.Id, X.date(X.ageMax)});
+    } else {
+      // On ne détermine pas le t_ageMax des émigrants
+      t_ageMax.insert({X.Id, 9999});
+    }
   }
+  // On rajoute la durée des unions antérieures à l'année de base
+  int n_union_base = df_union_base.Id1.size();
+  for (int i : range(n_union_base)) {
+    union_map[{df_union_base.Id1[i], df_union_base.Id2[i]}].duree_union += 1900 + AN_BASE - df_union_base.annee_union[i];
+    union_map[{df_union_base.Id1[i], df_union_base.Id2[i]}].annee_union = df_union_base.annee_union[i];
+  }
+  
+  // On associe des naissances à des unions
+  for (Indiv& X: pop) {
+    for (const int anaiss_e : X.anaissEnf) {
+      if (anaiss_e == 0) continue;
+      int conjoint_Id = X.conjoint[X.age(anaiss_e - 1900)];
+      // Note : le modèle n'est pas complètement fermé, car il ne contient pas les
+      // ex-conjoints associés à la naissance de certains enfants
+      if ((conjoint_Id != 0) && X.Id < conjoint_Id) {
+        union_map[{X.Id, conjoint_Id}].nb_enf += 1;
+      }
+    }
+  }
+
+  for (const auto& couple : union_map) {
+    int Id1 = couple.first.first;
+    int Id2 = couple.first.second;
+    int t_ageMax1 = (t_ageMax.count(Id1) && t_ageMax[Id1] != 9999) ? 1900 + t_ageMax[Id1] : 9999; 
+    int t_ageMax2 = (t_ageMax.count(Id2) && t_ageMax[Id2] != 9999) ? 1900 + t_ageMax[Id2] : 9999; 
+    df_union.push_line(Id1, Id2, t_ageMax1, t_ageMax2, couple.second.annee_union, couple.second.duree_union, couple.second.nb_enf);
+  }
+    
+  static auto df_fam = Rdout("fam",{"Id","annee","enf1","enf2","enf3","enf4","enf5","enf6","conjoint","matri","pere","mere"});
+  for (Indiv& X : pop) {
+    if (X.Id == 0) continue;
+    if (X.ageMax == 0) {
+      df_fam.push_line(X.Id,X.date(0)+1900,X.enf[0],X.enf[1],X.enf[2],X.enf[3],X.enf[4],X.enf[5],X.conjoint[0],X.matri[0],X.pere,X.mere); 
+    }
+    for (int age : range(max(0,X.age(117)), X.ageMax)) { // REBASAGE : 117 à la place de 109
+      //if(age == 0 || X.date(age)==117 || X.conjoint[age] != X.conjoint[age-1] ||
+      //    X.matri[age] != X.matri[age-1]) 
+      if (!X.est_present(X.date(age))) continue;
+      if (X.date(age) == 117 && X.pseudo_conjoint != 0) { // REBASAGE : 117 à la place de 109
+        df_fam.push_line(X.Id,X.date(age)+1900,X.enf[0],X.enf[1],X.enf[2],X.enf[3],X.enf[4],X.enf[5],X.pseudo_conjoint,X.matri[age],X.pere,X.mere);
+      } else {
+        df_fam.push_line(X.Id,X.date(age)+1900,X.enf[0],X.enf[1],X.enf[2],X.enf[3],X.enf[4],X.enf[5],X.conjoint[age],X.matri[age],X.pere,X.mere);
+      }
+    }
   }
 }
 

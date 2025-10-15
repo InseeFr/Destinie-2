@@ -12,15 +12,13 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ##############################################
-options(java.parameters = "-Xmx2048m") #souvent nécessaire pour charger les fichiers excel
-library(xlsx)
-library(openxlsx)
+options(java.parameters = "-Xmx2048m") # souvent nécessaire pour charger les fichiers excel
 library(dplyr)
 
 ################
-#on se place dans le répertoire Destinie/destinie
+# on se place dans le répertoire Destinie/destinie
 ####################
-#setwd()
+# setwd()
 #######################
 # construction des paramètres démographiques
 #############################################
@@ -33,65 +31,81 @@ library(dplyr)
 # 3 scénario haut
 # 4 travail
 ###############
-champ="FE"
-m=1
-ev=1
-f=1
+champ <- "FE"
+m <- 1
+ev <- 1
+f <- 1
 
 ##############
-fec=ifelse(f==1,"Cent",
-           ifelse(f==2,"Bas",
-                  ifelse(f==3,"Haut","Travail")))
-evie=ifelse(ev==1,"Cent",
-            ifelse(ev==2,"Bas",
-                   ifelse(ev==3,"Haut","Travail")))
-mi=ifelse(m==1,"Cent",
-          ifelse(m==2,"Bas",
-                 ifelse(m==3,"Haut","Travail")))
-Cent=c("*","","","")
-Bas=c("","*","","")
-Haut=c("","","*","")
-Travail=c("","","","*")
-vec=c(1,2,3,4)
+fec <- ifelse(f == 1, "Cent",
+  ifelse(f == 2, "Bas",
+    ifelse(f == 3, "Haut", "Travail")
+  )
+)
+evie <- ifelse(ev == 1, "Cent",
+  ifelse(ev == 2, "Bas",
+    ifelse(ev == 3, "Haut", "Travail")
+  )
+)
+mi <- ifelse(m == 1, "Cent",
+  ifelse(m == 2, "Bas",
+    ifelse(m == 3, "Haut", "Travail")
+  )
+)
+Cent <- c("*", "", "", "")
+Bas <- c("", "*", "", "")
+Haut <- c("", "", "*", "")
+Travail <- c("", "", "", "*")
+vec <- c(1, 2, 3, 4)
 
-x=data.frame(fecondite=ifelse(vec==f,"*","")
-             ,esp_vie=ifelse(vec==ev,"*",""),migration=ifelse(vec==m,"*",""))
+x <- data.frame(
+  fecondite = ifelse(vec == f, "*", ""),
+  esp_vie = ifelse(vec == ev, "*", ""),
+  migration = ifelse(vec == m, "*", "")
+)
 
-row.names(x)<-c("Cent","Bas","Haut","Travail")
-sc_demo=t(x)
+row.names(x) <- c("Cent", "Bas", "Haut", "Travail")
+sc_demo <- t(x)
 rm(x)
 
-wb=xlsx::loadWorkbook(".\\parametres\\Param_demo\\sc_demo.xls")
-feuilles=xlsx::getSheets(wb)
-feuille=feuilles[[2]]
-xlsx::addDataFrame(sc_demo,sheet = feuille,row.names = T,col.names=T, startRow = 1,startColumn = 1)
+wb <- xlsx::loadWorkbook(".\\inst\\extdata\\Param_demo_2017\\sc_demo.xls")
+feuilles <- xlsx::getSheets(wb)
+feuille <- feuilles[[2]]
+xlsx::addDataFrame(sc_demo, sheet = feuille, row.names = T, col.names = T, startRow = 1, startColumn = 1)
 
 
-xlsx::saveWorkbook(wb, ".\\parametres\\Param_demo\\sc_demo.xls") 
+xlsx::saveWorkbook(wb, ".\\inst\\extdata\\Param_demo_2017\\sc_demo.xls")
 
-openXL(paste0(".\\parametres\\Param_demo\\ciblesDemographie_",champ,".xls"))
+openxlsx::openXL(paste0(".\\inst\\extdata\\Param_demo_2017\\ciblesDemographie_", champ, ".xls"))
 ######################
-#on met à jour les liens, on sauvegarde le fichier qui contient les paramètres de projections choisis
+# on met à jour les liens, on sauvegarde le fichier qui contient les paramètres de projections choisis
 ###################
-demo=new.env()
-morta <- xlsx::loadWorkbook(paste0(".\\parametres\\Param_demo\\ciblesDemographie_",champ,".xls"))
-demo$Survie_H <- as.matrix(xlsx::readColumns(morta$getSheet("SH"),2,122,2,colClasses = "numeric"))
-demo$Survie_F <- as.matrix(xlsx::readColumns(morta$getSheet("SF"),2,122,2,colClasses = "numeric"))
-demo$Qmort_H <- as.matrix(xlsx::readColumns(morta$getSheet("QH"),2,122,2,colClasses = "numeric"))
-demo$Qmort_F <- as.matrix(xlsx::readColumns(morta$getSheet("QF"),2,122,2,colClasses = "numeric"))
-demo$espvie_H<- as.matrix(xlsx::readColumns(morta$getSheet("espvieH"),2,122,2,colClasses = "numeric"))
-demo$espvie_F<- as.matrix(xlsx::readColumns(morta$getSheet("espvieF"),2,122,2,colClasses = "numeric"))
-demo$mortadiff_dip_F <- xlsx::read.xlsx(paste0(".\\parametres\\Param_demo\\MORTA_DIP.xls"),sheetName ="morta_dif_F",startRow = 1)
-demo$mortadiff_dip_H <- xlsx::read.xlsx(paste0(".\\parametres\\Param_demo\\MORTA_DIP.xls"),sheetName ="morta_dif_H",startRow = 1)
-demo$mortalite_diff <-  xlsx::read.xlsx(".\\parametres\\PARAM_Mortalite_diff.xls",sheetName = "Mortalite_diff",startRow = 2)
+demo <- new.env()
+morta <- xlsx::loadWorkbook(paste0(".\\inst\\extdata\\Param_demo_2017\\ciblesDemographie_", champ, ".xls"))
+demo$Survie_H <- as.matrix(xlsx::readColumns(morta$getSheet("SH"), 2, 122, 2, colClasses = "numeric"))
+demo$Survie_F <- as.matrix(xlsx::readColumns(morta$getSheet("SF"), 2, 122, 2, colClasses = "numeric"))
+demo$Qmort_H <- as.matrix(xlsx::readColumns(morta$getSheet("QH"), 2, 122, 2, colClasses = "numeric"))
+demo$Qmort_F <- as.matrix(xlsx::readColumns(morta$getSheet("QF"), 2, 122, 2, colClasses = "numeric"))
+demo$espvie_H <- as.matrix(xlsx::readColumns(morta$getSheet("espvieH"), 2, 122, 2, colClasses = "numeric"))
+demo$espvie_F <- as.matrix(xlsx::readColumns(morta$getSheet("espvieF"), 2, 122, 2, colClasses = "numeric"))
+demo$mortadiff_dip_F <- xlsx::read.xlsx(paste0(".\\inst\\extdata\\Param_demo_2017\\MORTA_DIP.xls"), sheetName = "morta_dif_F", startRow = 1)
+demo$mortadiff_dip_H <- xlsx::read.xlsx(paste0(".\\inst\\extdata\\Param_demo_2017\\MORTA_DIP.xls"), sheetName = "morta_dif_H", startRow = 1)
+demo$mortalite_diff <- xlsx::read.xlsx(".\\inst\\extdata\\PARAM_Mortalite_diff.xls", sheetName = "Mortalite_diff", startRow = 2)
 
 
 
-NA0<-function (x)
-{return (ifelse(is.na(x),0,x))}
-demo$CiblesDemo <- xlsx::read.xlsx(paste0(".\\parametres\\Param_demo\\ciblesDemographie_",champ,".xls"),sheetName ="CiblesDemo",startRow = 2,colClasses=rep("numeric",48))%>%
+NA0 <- function(x) {
+  return(ifelse(is.na(x), 0, x))
+}
+demo$CiblesDemo <- xlsx::read.xlsx(paste0(".\\inst\\extdata\\Param_demo_2017\\ciblesDemographie_", champ, ".xls"),
+  sheetName = "CiblesDemo", startRow = 2, colClasses = rep("numeric", 48)
+) %>%
   mutate_all(funs(NA0))
-assign(paste0("fec_",fec,"_vie_",evie,"_mig_",mi),demo)
+
+assign(paste0("fec_", fec, "_vie_", evie, "_mig_", mi), demo)
 ####################
 # on sauvegarde le tout dans le réperoire data
-save(list=c(paste0("fec_",fec,"_vie_",evie,"_mig_",mi)),file=paste0("data/fec_",fec,"_vie_",evie,"_mig_",mi,".rda"))
+save(
+  list = c(paste0("fec_", fec, "_vie_", evie, "_mig_", mi)),
+  file = paste0("data/fec_", fec, "_vie_", evie, "_mig_", mi, ".rda")
+)

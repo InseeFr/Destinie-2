@@ -11,13 +11,10 @@
 #include  "Simulation.h"
 #include  "DroitsRetr.h"
 
-
-
-
-  /**
-   * \class Reversion
-   * \brief Calcul de la liquidation d'une reversion 
-   */
+/**
+ * \class Reversion
+ * \brief Calcul de la liquidation d'une reversion 
+ */
 class Reversion
 {
 public:
@@ -31,7 +28,7 @@ public:
   int ageliq_rev;   ///< Âge à la liquidation
 	int nbEnfCharge;  ///< Nombre d'enfants à charge lors du décès du conjoint
 	int idConj;       ///< Identifiant du défunt
-    
+	
   /**
   * \fn Reversion(Indiv & X, Indiv & Y, int t, int legRetroMax)
   * Calcul de la liquidation d'une reversion pour le reversataire X,

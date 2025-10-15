@@ -16,11 +16,11 @@
 using namespace util::lang;
 
 /**
- * \struct Cotisations
- * \brief La structure Cotisations contient les différents taux de cotisations (maladie et retraite) par année.
+ * \struct CotisationsParamsTRI
+ * \brief La structure CotisationsParamsTRI contient les différents taux de cotisations (maladie et retraite) par année.
  * 
  */
-struct Cotisations {  
+struct CotisationsParamsTRI {  
   NumericVector
   _(Date),
   _(CotEmp_ss_plaf),
@@ -88,7 +88,7 @@ struct OptionsTRI {
 struct CotisationsTRI {
     Indiv& X;
     Macro& s;
-    Cotisations& c;
+    CotisationsParamsTRI& c;
     OptionsTRI& options_tri;
     double cot_patr_Retr_rg     = 0;
     double cot_patr_Retr_fpe    = 0;
@@ -112,7 +112,7 @@ struct CotisationsTRI {
     double cot_rg = 0;
     double cot_tot = 0;
     
-    CotisationsTRI(Indiv& X, int age, Macro& s, Cotisations& c, OptionsTRI& opt) :
+    CotisationsTRI(Indiv& X, int age, Macro& s, CotisationsParamsTRI& c, OptionsTRI& opt) :
         X(X), s(s), c(c), options_tri(opt)
     {
       int t = X.date(age);
@@ -226,13 +226,13 @@ struct CotisationsTRI {
       
       double cot_patr_AssCho = !(ind_rg)? 0 : c.CotEmpAssCho_taux_trA[t] * part(sal,  0, s.PlafondSS[t]) + c.CotEmpAssCho_taux_trB[t] * part(sal, s.PlafondSS[t], 4*s.PlafondSS[t]);
       double cot_sal_Assedic = !(ind_rg)? 0 : s.TauxAssedic[t] * part(sal, 0, 4*s.PlafondSS[t]);
-      int t_min = min(109,t);
+      int t_min = min(117,t);  // REBASAGE : 117 à la place de 109
       transferts_Unedic_Agirc_Arrco += c.Transferts_Unedic_Agirc_Arrco[t_min] * (cot_sal_Assedic + cot_patr_AssCho) * 
-          ((t > 109) ? (c.taux_chomage_C[t] / c.taux_chomage_C[109]) : 1.0);
+          ((t > 117) ? (c.taux_chomage_C[t] / c.taux_chomage_C[117]) : 1.0);       // REBASAGE : 117 à la place de 109
       
       static int k = 0;
-      if(t==110 && k < 10) {
-        Rcout << c.taux_chomage_C[t] / c.taux_chomage_C[109] << endl;
+      if(t==118 && k < 10) { // REBASAGE : 118 à la place de 110
+        Rcout << c.taux_chomage_C[t] / c.taux_chomage_C[117] << endl;  // REBASAGE : 117 à la place de 109
         k++;
       }
       

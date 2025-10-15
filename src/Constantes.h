@@ -8,10 +8,10 @@
 #include "OutilsBase.h" 
 #include "Simulation.h"
 
-const int AN_BASE = 109;      ///< Année base de l'échantillon
-const int AGE_MAX = 128;      ///< Âge en vie maximal
-const int NB_ENF_MAX = 6;     ///< Nombre maximal d'enfants
-
+const int AN_BASE = 117;                ///< Année base de l'échantillon (REBASAGE : 117 au lieu de 109)
+const int AGE_MAX = 128;                ///< Âge en vie maximal
+const int NB_ENF_MAX = 6;               ///< Nombre maximal d'enfants
+const int POP_BASE_ECHANTILLON = 61406; ///< Taille de l'échantillon initial
 
 // Modalités des variables
 
@@ -56,9 +56,7 @@ enum comportement {
   comp_uinst_old ///< Obsolète
 };
 
-//TODO: A améliorer : voir OutilsComp, prendre en compte double liquidation
-//Utilisé ? Documentation à partir de type_liq_labels
-///Type de liquidation (obsolète ?)
+///Type de liquidation
 enum type_liq {
   liq_non = 0,      ///< Type de liquidation: modalité Non
   liq_tp = 1,       ///< Type de liquidation: modalité taux plein
@@ -71,7 +69,8 @@ enum type_liq {
   liq_tp_aod = 8,   ///< Type de liquidation: modalité AOD
   liq_tp_duree = 9, ///< Type de liquidation: modalité Durée
   liq_tp_aad = 10,  ///< Type de liquidation: modalité AAD
-  liq_inact = 11    ///< Type de liquidation: modalité inactif
+  liq_inact = 11,   ///< Type de liquidation: modalité inactif
+  liq_racl = 12     ///< Type de liquidation: modalité retraite anticipée carrière longue
 };
 
 ///étiquettes associées à type_liq
@@ -174,9 +173,8 @@ enum statutPrive {NC, ///< Non Cadre
   };
 
 /// Définition des classes relatives aux équations de salaire 
-enum {FPE_F,FPE_H,FPHT_F,FPHT_H,IND_F,IND_H,PRI_F_deb,PRI_F_fin,PRI_H_deb,PRI_H_fin};
-/** Définition des classes relatives aux équations de salaire */
-const vector<string> STATUTS_EQS {"FPE_F","FPE_H","FPHT_F","FPHT_H","IND_F","IND_H","PRI_F","PRI_H"};
+enum {IND_F,IND_H,PRI_F,PRI_H,PUB_F,PUB_H};
+const vector<string> STATUTS_EQS {"IND_F","IND_H","PRI_F","PRI_H","PUB_F","PUB_H"};
 
 /// Types d'équation pour la simulation d'un état de santé
 enum nom_eqsante {INCID_0_F,  ///< incidence chez les femmes sans incapacité

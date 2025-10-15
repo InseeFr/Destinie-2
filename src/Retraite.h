@@ -3,6 +3,8 @@
 #include "DroitsRetr.h"
 #include  "Reversion.h"
 #include "Indiv.h"
+#include <vector>
+
 /** \file Retraite.h
  * \brief Contient la définition de la classe \ref Retraite et l'implémentation de quelques fonctions du module retraite.
  */
@@ -75,7 +77,7 @@ public:
   ptr<DroitsRetr> primoliq = nullptr; ///< Pointeur vers la première liquidation
   ptr<DroitsRetr> totliq = nullptr;   ///< Pointeur vers la liquidation totale
   ptr<DroitsRetr> liq = nullptr;      ///< Pointeur vers la dernière liquidation
-  ptr<Reversion> liqrev = nullptr;    ///< Pointeur vers la dernière liquidation de droits dérivé
+  std::vector<ptr<Reversion>> liqrevs = {};     ///< Vecteur de pointeurs vers les liquidations de droits dérivé
   
   Retraite(Indiv& X, int t);
   /**
@@ -265,10 +267,11 @@ public:
    * \brief Calcule une approximation des revenus pris en compte dans la condition de revenus pour la réversion des régimes alignés
    **/  
   double revenuReversion() {
+    // Note : Suppose que rev_ag_ar n'est pas renseigné quand rev_ag et rev_ar le sont
     if (liq)
-      return pension_tot+rev_fp;
+      return pension_tot + rev_fp + rev_ag + rev_ar + rev_ag_ar;
     else
-      return  X.salaires[age] *0.7 + rev_fp+pension_tot; // decote de 30% des revenus salariaux Article R353-1du code de la SS
+      return  0.7 * X.salaires[age] + rev_fp + rev_rg + rev_ar + rev_ag_ar + pension_tot; // decote de 30% des revenus salariaux Article R353-1du code de la SS
   }
   
   /**
@@ -326,6 +329,25 @@ public:
    * \param regime régime servant la pension
    */ 
   double pension_prorat(int age, int regime);
+      
+  /** 
+   * \fn a_acquis_droits_derives_fp(int idConj)
+   * \brief Vérifie si la personne a acquis des droits dérivés auprès d'un individu. (article L39 CPCMR)
+   * \param idConj Identifiant du conjoint potentiellement à l'origine de ces droits dérivés.
+   */ 
+  bool a_acquis_droits_derives_fp(int idConj);
+  
+  /**
+   * \fn tauxRempl_net_horsMal_10_rg()
+   * \brief Renvoie un taux de remplacement ne tenant compte que de la pension du régime général.
+   * Le dernier salaire cherché peut aller jusqu'à 10 ans avant la liquidation
+   */
+  double tauxRempl_net_horsMal_10_rg();
+  //Tom : ajout des nouvelles méthodes implémentées dans Retraite.cpp
+
+  double pensionliq_tot_nette_horsMal();
+  double tauxRempl_net_horsMal_10();
+
 };
 
 // Destinie 2

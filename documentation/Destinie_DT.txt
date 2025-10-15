@@ -21,6 +21,18 @@ Les publications dans des revues à comité de lecture
 Les documents de travail de l'Insee suivants ont été réalisés à l'aide du modèle Destinie 2,
 du plus récent au plus ancien: (liste exhaustive)
 
+G2025/08 D. BLANCHET, M. CHABAUD, T. OLIVIA et J. RUBIN
+Quels effets budgétaires et redistributifs des règles d'indexation des retraites ?
+
+G2023/04 L. GALIANA et L. WILNER
+L'accumulation du patrimoine au cours du cycle de vie : une approche par microsimulation comportementale
+
+G2022/06 N. BECHICHI, M. FABRE et T. OLIVIA
+Projections de la population active à l'horizon 2080
+
+G2018/12 A. CAZENAVE-LACROUTZ, F. GODET et V. LIN
+L'introduction d'un gradient social dans la mortalité au sein du modèle Destinie 2
+
 G2017/03 A. CAZENAVE-LACROUTZ et F. GODET
 L'espérance de vie en retraite sans incapacité sévère des générations nées entre 1960 et 1990 : une projection à partir du modèle Destinie
 
@@ -82,13 +94,24 @@ Le modèle de microsimulation Destinie 2 : principales caractéristiques et prem
 ###############################################################################################
 Les publications Insee Analyses/Insee Références, de la plus récente à la plus ancienne (liste à compléter)
 
+Insee Analyses - n°109
+CHABAUD M., OLIVIA T., RUBIN J. et BLANCHET D., 2025
+Quelles règles d'indexation des retraites pour diminuer la sensibilité du système à la croissance ?
+
+Insee Références - Emploi, chômage, revenus du travail, édition 2023
+FABRE M., OLIVIA T. et RUBIN J., 2023
+Une actualisation des projections de population active tenant compte de la réforme des retraites de 2023
+
+Insee Références - Emploi, chômage, revenus du travail, édition 2022
+BECHICHI N., FABRE M. et OLIVIA T., 2022
+Projections de population active : le nombre d'actifs diminuerait à partir de 2040
 
 Insee Analyses - n°30
 DUBOIS Y. et KOUBI M., 2017
 Report de l’âge de la retraite et taux d’emploi des séniors : le cas de la réforme des retraites de 2010 
 
 Insee Références - France Portrait Social, édition 2016
-CAZENAVE-LACROUTZ A. et GODET A., 2016
+CAZENAVE-LACROUTZ A. et GODET F., 2016
 L’espérance de vie en retraite sans incapacité sévère devrait être stable pour les générations nées entre 1960 et 1990 
 
 Insee Analyses - n°21

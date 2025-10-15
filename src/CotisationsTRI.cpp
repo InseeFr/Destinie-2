@@ -1,4 +1,5 @@
 #include "CotisationsTRI.h"
+#include "Cotisations.h"
 #include "Statistiques.h"
 /*resolution*/
 
@@ -6,9 +7,9 @@ double imput_espVie(Indiv& X, int age, double alea)
 {
   int age_deces = age;
   
-  for(int a : range(age+1,121)) {
-    int t = min(250,X.anaiss%1900+a);
-    if(alea >= M->survie[X.sexe](t,a) / M->survie[X.sexe](t,age))  break;
+  for(int a : range(age + 1, 121)) {
+    int t = min(250, X.anaiss%1900 + a);
+    if (alea >= M->survie[X.sexe](t, a) / M->survie[X.sexe](t, age))  break;
     age_deces = a;
   }
   return age_deces;
@@ -29,15 +30,141 @@ double calcule_tri(vector<double>& v) // précision 1/2**(22-1) ~ -1e6
   return (tx[0]*tx[0]<0.999) ? tx[0] : INFINITY;
 }
 
+//' Fonction destinieSimTRISimple
+//' @description Cale les droits de retraites et les taux de rendements internes
+//' @return Retourne le meme environnement avec les droits de retraites et TRI
+//' @param envSim Environment 
+//' @export
+// [[Rcpp::export]]
+void destinieSimTRISimple(Environment envSim) {
+  auto S = Simulation(envSim);
+  auto nb_ind = make_vector2(AN_NB, 3, 0.0); // Cellule génération (tranche par 5 ans) x sexe (0 ensemble, 1, 2) 
+  // Définition du champ :
+  // N'a jamais été indépendant ou fonctionnaire et
+  // A été au moins une fois salarié du privé
+  vector<int> Statuts_hors_champ = {S_IND, S_FPAAE, S_FPAATH, S_FPAE, S_FPATH, S_FPSE, S_FPSTH};
+  vector<int> Statuts_champ = {S_NC, S_NONTIT, S_CAD};
+  vector<bool> pop_champ(pop.size(), false);
+  for(Indiv& X : pop) {
+    bool a_ete_independant_ou_fonctionnaire = false; 
+    bool a_ete_salarie_prive = false;
+    
+    for(int age : range(X.ageMax)) {
+      if(in(X.statuts[age], Statuts_hors_champ)) a_ete_independant_ou_fonctionnaire = true;
+      if(in(X.statuts[age], Statuts_champ)) a_ete_salarie_prive = true;
+    }
+    
+    if(X.ageMax > 60 && !a_ete_independant_ou_fonctionnaire && a_ete_salarie_prive && X.anaiss > 1948 && X.anaiss < 1990) {
+      pop_champ[X.Id] = true; 
+      int g(int((X.anaiss%1900+2)/5)*5);
+      for(int s : {0, X.sexe}) nb_ind[g][s]++;
+    }
+  }
+  Rcout << "Effectif dans le champ : " << pop_champ.size() << endl; 
+  Rcout << "Poids individuels : " << M->poids << endl;
+  
+  // boucle sur les années
+  auto flux = make_vector3(AN_NB, 3, AGE_MAX, 0.0);
+  auto contrib = make_vector3(AN_NB, 3, AGE_MAX, 0.0);
+  auto presta = make_vector3(AN_NB, 3, AGE_MAX, 0.0);
+  auto sal = make_vector3(AN_NB, 3, AGE_MAX, 0.0);
+  auto ret = make_vector3(AN_NB, 3, AGE_MAX, 0.0);
+  auto act = make_vector3(AN_NB, 3, AGE_MAX, 0.0);
+  
+  for(int t = 50; t <= 90 + 120; t++) {
+    // Boucle pour les droits directs
+    for(Indiv & X: pop)  if(X.est_present(t)) {
+      X.retr->revaloDir(t);
+      if(X.age(t) >= 50 && !X.retr->totliq) X.retr->SimDir(X.age(t));
+    }
+    
+    // Boucle pour le minimum vieillesse
+    for(Indiv& X: pop) {
+      if(X.est_present(t)) {          
+        X.retr->min_vieil = 0;
+        if(X.age(t) >= 65 && X.est_persRef(t)) X.retr->minvieil(t);
+      }
+    }
+    
+    // Boucle pour les droits dérivés
+    for(Indiv& X: pop) if(X.est_present(t)) {
+      int age = X.age(t);
+      
+      Indiv& Y = pop[X.conjoint[age]];
+      if(Y.est_present(t - 1) && !Y.est_present(t)) {
+        X.retr->SimDer(Y, t);
+      } else if(t == AN_BASE && X.pseudo_conjoint > 0) {
+        Indiv& Y = pop[X.pseudo_conjoint] ; 
+        X.retr->SimDer(Y, t);
+      }
+      X.retr->revaloDer(t);
+    }
+    
+    // Boucle calcul des des contributions et prestations
+    for(Indiv& X: pop) if(X.est_present(t)) {
+      int age = X.age(t);
+      double partavtprimo = X.retr->primoliq ? min_max(arr_mois(X.retr->primoliq->agefin_primoliq - age, X.moisnaiss + 1), 0, 1) : 1;
+      
+      double contrib_retr_cot = 0;
+      double contrib_csg_cot = 0;
+      if(in(X.statuts[age], Statuts_occ) && X.retr->partavtliq(t) > 0) {
+        contrib_csg_cot = CSGSal(X, age);
+        contrib_retr_cot = CotRet(X, age) * partavtprimo;
+      }
+      
+      double presta_retr = 0;
+      double presta_retr_rg = 0;
+      double contrib_csg_retr = 0;
+      if (X.retr->pension_tot > 0) {
+        presta_retr = X.retr->pension_tot;
+        presta_retr_rg = X.retr->pension_rg;
+        contrib_csg_retr = CSGRet(X, age);
+      }
+      
+      static Rdout df_contrib_presta(
+        "contrib_presta", 
+        {"Id", "age", "annee", "sexe", "contrib_retr_cot", "contrib_csg_cot", "presta_retr", "presta_retr_rg", "contrib_csg_retr"}
+      );
+      df_contrib_presta.push_line(
+        X.Id, age, t, X.sexe, contrib_retr_cot, contrib_csg_cot, presta_retr, presta_retr_rg, contrib_csg_retr
+      );
+      
+      if(X.anaiss > 1948 && X.anaiss < 1990 && pop_champ[X.Id]) {
+        for(int s : {0, X.sexe}) {
+          int g(int((X.anaiss%1900+2)/5)*5), a(age);
+          flux[g][s][a] -= (contrib_retr_cot + contrib_csg_cot + contrib_csg_retr) / M->Prix[t];
+          flux[g][s][a] += presta_retr /  M->Prix[t];
+          
+          contrib[g][s][a] += (contrib_retr_cot + contrib_csg_cot + contrib_csg_retr) / M->Prix[t];
+          presta[g][s][a] += presta_retr / M->Prix[t];
+        }
+      }
+    }
+  }
+  
+  static Rdout df_TRI(
+      "TXRI",
+      {"gen", "sexe", "TXRI", "contrib", "presta", "nb_indiv"}
+  );
+  for(unsigned int g : indices(flux)) {
+    for(unsigned int s : indices(flux[g])) {
+      double tx_ri = calcule_tri(flux[g][s]);
+      double cot(0), pre(0);
+      for(auto c : contrib[g][s]) cot += c;
+      for(auto p : presta[g][s]) pre += p;
+      if(g > 48 && g < 190 && (g % 5 == 0)) {
+        df_TRI.push_line(g + 1900, s, tx_ri, cot, pre, nb_ind[g][s]);
+      }
+    }
+  }
+}
 
 
 // [[Rcpp::export]]
 void destinieSimTRI2(Environment envSim) {
-
-  
     // importation des paramètres
     auto S = Simulation(envSim);
-    auto cotisations = Rdin<Cotisations>("cotisations");
+    auto cotisations = Rdin<CotisationsParamsTRI>("cotisations");
     auto options_tri = Rdin<OptionsTRI>("options_tri");
     // Création du champ
     vector<int> Statuts_hors_champ = {S_IND,S_FPAAE,S_FPAATH,S_FPAE,S_FPATH,S_FPSE,S_FPSTH};

@@ -188,36 +188,28 @@ double Salaire::imput_sal(Indiv& X, int age,
   if(age >=55 && X.salaires[age-1] != 0)
     return X.salaires[age-1] * M->SMPT[t] / M->SMPT[t-1];
   
-  double D = duree_emp(X,age);
   int typeSal = 
-    in(X.statuts[age],{1,2,11})                ? ( D<=18 ? (X.sexe == HOMME ? PRI_H_deb : PRI_F_deb) : (X.sexe == HOMME ? PRI_H_fin : PRI_F_fin)) :
-    in(X.statuts[age],{311,321}) ? (X.sexe == HOMME ? FPE_H : FPE_F) :
-	in(X.statuts[age],{312,322}) ? (X.sexe == HOMME ? FPHT_H : FPHT_F) :
+    in(X.statuts[age],{1,2,11})                ? (X.sexe == HOMME ? PRI_H : PRI_F) : 
+    in(X.statuts[age],{311,312,321,322}) ? (X.sexe == HOMME ? PUB_H : PUB_F) :
     (X.statuts[age]==4)                     ? (X.sexe == HOMME ? IND_H : IND_F) : -99;
 	
-  r_assert(typeSal >= 0 && typeSal < 10);
+  r_assert(typeSal >= 0 && typeSal < 6);
   auto& eq = eqs[typeSal];      
   
   
   int findet = min_max(X.findet, 14, 26) - 14;
   int findet2 = findet*findet;
-  double gen = min_max((X.anaiss-1935)/40.0,0,1); // modif 2017    
+  double gen = min_max((X.anaiss-1935)/35.0,0,1); 
   
-  if(options->SalNoEffetGen) gen = 0;
   double adferelatif =  - 5
-  + 0.414          * findet
-    + (1-0.414)/12.0 * findet2
-    + 3.468          * (1-gen) 
-    + 0.307         * findet * (1-gen)
-    - 0.0576         * findet2 * (1-gen); // modif 2017
+  + 0.641          * findet
+    + (1-0.641)/12.0 * findet2
+    + 3.961          * (1-gen) 
+    + 0.0238         * findet * (1-gen)
+    - 0.0296         * findet2 * (1-gen);
     
-    if(options->SalNoEffetLinGen60) {
-      adferelatif += esc(X.anaiss,corr);
-    }
-    
-    double alea_indiv1 = min_max(alea_norm1(ei1,ei2), -3, 3); // Rmq : verification faite (cf. OutilsBase.h) : ei1 et ei2 sont indep et de loi uniforme sur [0,1] => Box-Müller s'applique. 
+    double alea_indiv1 = min_max(alea_norm1(ei1,ei2), -3, 3); // Rmq VL : Ok verif faite (cf. OutilsBase.h) : ei1 et ei2 sont indep et de loi uniforme sur [0,1] => Box-Müller s'applique. 
     double alea_indiv2 = min_max(alea_norm2(ei1,ei2), -3, 3);
-	
     if(options_sal.noAlea) {
       alea_indiv1= 0;
       alea_indiv2 = 0;
@@ -230,9 +222,7 @@ double Salaire::imput_sal(Indiv& X, int age,
     double stock_dur_emp6 = max(0.0,6.0-stock_dur_emp);
     double stock_dur_statut2 = stock_dur_statut*stock_dur_statut;
     double stock_dur_emp2 = stock_dur_emp*stock_dur_emp;
-	double log_fp = log(M->PointFP[X.date(age)]);
     
-	
     double xbeta =                                      
       eq.Intercept +
       (stock_dur_statut == 1)             *  eq.E_1er     +
@@ -248,37 +238,65 @@ double Salaire::imput_sal(Indiv& X, int age,
       stock_dur_emp * adferelatif         *  eq.FR_D      +
       stock_dur_emp6                      *  eq.D_0       +
       stock_dur_emp6 * adferelatif        *  eq.FR_D_0    +
-	  log_fp * eq.log_fp +
       adferelatif                         *  eq.FR        ;
-       
+    
+    // double xbetatest =     findet;                                 
+    // stock_dur_emp2    * adferelatif     *  eq.FR_D2     +
+    // stock_dur_emp /* adferelatif  */       *  eq.FR_D     ;
     
     
-    // AJOUT on simule le niveau individuel et la pente individuelle selon leurs moyennes, variances et correlations
     
-    double estpente =  eq.Sig2pente_indiv * alea_indiv2;
+    
+    // AJOUT ANTHONY  on simule le niveau individuel et la pente individuelle selon leurs moyennes, variances et correlations
+    
+    double estpente = eq.meanpente_indiv + eq.Sig2pente_indiv * alea_indiv2;
     
     double estniv = 
+      eq.mean_indiv +
       eq.corr_indiv * eq.Sig2_indiv * alea_indiv2 +
       eq.Sig2_indiv * sqrt(1-eq.corr_indiv*eq.corr_indiv) * alea_indiv1;
-    // rmq : le vecteur (estniv,pente)' a été construit de sorte à suivre une loi gaussienne avec une moyenne et une matrice de covariance issues d'estimations.
+    // rmq VL : le vecteur (estniv,pente)' a été construit de sorte à suivre une loi gaussienne avec une moyenne et une matrice de covariance issues d'estimations.
+    double variance_an = 
+      eq.Sig2_an +
+      (stock_dur_statut == 1)                * eq.res_E_1er  +
+      stock_dur_statut6                      * eq.res_E_0    +
+      stock_dur_statut6 * adferelatif        * eq.res_FR_E_0 +
+      stock_dur_emp                          * eq.res_D      +
+      stock_dur_emp2                         * eq.res_D2     +
+      stock_dur_emp6                         * eq.res_D_0    +
+      stock_dur_emp6 * adferelatif           * eq.res_FR_D_0 +
+      adferelatif                            * eq.res_FR ;
     
-    double ecarttype_res=eq.Sig2_res;
-	
+    double ecarttype_an = sqrt( max(0.0, variance_an)) ;
+    
     bool indic_alea = (age<55) && !(options_sal.noAlea);
     double eps = min_max(alea_norm1(e1,e2), -2.0, 2.0) * indic_alea; 
-	// rmq : le vecteur (estniv,pente)' est indépendant de eps. En particulier, (estniv,pente,eps)' est gaussien (si on néglige le min_max...)
+	// rmq VL : le vecteur (estniv,pente)' est indépendant de eps. En particulier, (estniv,pente,eps)' est gaussien (si on néglige le min_max...)
 	
-	double ln_w=xbeta + estpente*stock_dur_emp + estniv + ecarttype_res*eps;	
-    double correctStruct = (X.sexe==1) ? cs.CORREC_HOMMES[t] : cs.CORREC_FEMMES[t];
-    double salaire = exp(ln_w) * correctStruct * M->SMPT[t];
+    // Correction FPE v.s. FPTH
+    double correct_fp = 
+      (in(X.statuts[age],{311,321})) ? 1.1 :
+      (in(X.statuts[age],{312,322})) ? 0.9 :
+      1.0 ;
     
-    if(t==109) {
+    /*alea_local = 0;
+    correct_fp = 1;
+    ecarttype_an = 0;
+    estpente = 0;
+    estniv = 0;*/
+    
+    double ln_w = xbeta + estpente*stock_dur_emp + estniv + ecarttype_an*eps;
+    double correctStruct = (X.sexe==1) ? cs.CORREC_HOMMES[t] : cs.CORREC_FEMMES[t];
+    double salaire = exp(ln_w) * M->SMPT[t] * correct_fp;
+    //double xbetatest2 =  estpente ;
+    
+    if(t==117) {// REBASAGE : 109 remplacé par des 117 (année t0)
       static Rdout df("calcul_salaires",
-      {"Id","age","correctStruct","estpente","estniv","ecarttype_res","stock_dur_emp","stock_dur_statut","ln_w","new","un","deux"});
+      {"Id","age","correctStruct","estpente","estniv","ecarttype_an","stock_dur_emp","stock_dur_statut","ln_w","new","old","un","deux"});
       df.push_line(
-        X.Id , age , correctStruct , estpente , estniv , ecarttype_res , stock_dur_emp , stock_dur_statut , ln_w , salaire ,  eq.Sig2pente_indiv , alea_indiv2);
+        X.Id , age , correctStruct , estpente , estniv , variance_an , stock_dur_emp , stock_dur_statut , ln_w , salaire , eq.meanpente_indiv , eq.Sig2pente_indiv , alea_indiv2);
     }
-
+    
     return salaire;
 }  
 

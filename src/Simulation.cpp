@@ -38,7 +38,10 @@ Simulation::Simulation(Environment env) : context(env)
  
   AN_FIN = options->AN_MAX%1900;
   AN_NB = options->AN_MAX%1900 + 1 ;
-  const double POP_BASE=(options->FM) ? 62765235 : 64612939;
+	const double POP_BASE=(options->FM) ? 64844037 : 67187000;  // chiffres : Insee Flash Réunion de 2020 et Bilan démographique 2017
+  // REBASAGE : mise à jour de la population : 1er janvier 2018
+
+
   M = make_shared<Macro>(Rdin<Macro>("macro"));
   ciblesDemo = make_shared<CiblesDemo>(Rdin<CiblesDemo>("CiblesDemo"));
 
@@ -74,8 +77,11 @@ Simulation::Simulation(Environment env) : context(env)
   M->RevaloCumFP[0] = 1;
   M->RevaloCumRG[0] = 1;
   for(auto t : indices(M->Prix)) {
+  if(t>0)
+  {
     M->RevaloCumFP[t] = M->RevaloCumFP[t-1] * (M->RevaloFP[t] > 0 ? M->RevaloFP[t] : 1);
     M->RevaloCumRG[t] = M->RevaloCumRG[t-1] * (M->RevaloRG[t] > 0 ? M->RevaloRG[t] : 1);
+  }
   }
   // Import échantillon et créer le vector pop
   auto ech = Rdin<Ech>("ech");
@@ -85,22 +91,36 @@ Simulation::Simulation(Environment env) : context(env)
   pop.clear();
   pop.reserve(200000);
   pop.emplace_back(); // ajoute l'individu fictif d'identifant 0
-  int j=0, k=0;
+  int j = 0, k = 0;
   for(int i : range(ech.Id.size())) {
       pop.emplace_back(ech,emp,fam,i,j,k);
+  }
+  
+  // Ajout du statut conjugal antérieur à l'année de simulation
+  auto union_base = Rdin<UnionBase>("union_base");
+  for(int l = 0; l < union_base.Id1.size(); l++) {
+    int annee_union = union_base.annee_union[l] - 1900;
+    if (annee_union < AN_BASE) {
+      Indiv& X = pop[union_base.Id1[l]];
+      for(int a = 0; a < X.age(annee_union); a++) {
+        X.conjoint[a] = 0;
+      }
+
+      Indiv& Y = pop[union_base.Id2[l]];
+      for(int a = 0; a < Y.age(annee_union); a++) {
+        Y.conjoint[a] =  0;
+      }
+    }
   }
   for(auto& X : pop) {
     X.retr = make_shared<Retraite>(X,50);
   }
 
   // Calcul des poids individuels
-  double pop_base = 0;
-  for(auto& X : pop) pop_base += (X.est_present(AN_BASE) && X.statuts[X.age(AN_BASE)]);
-  M->poids = POP_BASE / pop_base;
+  M->poids = POP_BASE / static_cast<double>(POP_BASE_ECHANTILLON);
   // importation des équations de sante
-  eq_sante =  Rdin<EqSante>("EqSante","NomVar",levels(INCID_0_F,INCID_0_H,INCID_1_F,INCID_1_H,MORT_F,MORT_H,PREVAL_F,PREVAL_H));
-  
-  }
+  eq_sante = Rdin<EqSante>("EqSante","NomVar",levels(INCID_0_F,INCID_0_H,INCID_1_F,INCID_1_H,MORT_F,MORT_H,PREVAL_F,PREVAL_H));
+}
 
 
 Simulation::~Simulation() {
@@ -113,7 +133,7 @@ Simulation::~Simulation() {
   mortalite_diff.reset();
   mortadiff_dip_F.reset();
   mortadiff_dip_H.reset();
-  finEtudeMoy.reset(); 
+  finEtudeMoy.reset();
   options.reset();
 }
 
@@ -160,35 +180,37 @@ void ecriture_droitsRetr(Indiv& X, DroitsRetr& r) {
    "taux_prorat_rg", "taux_prorat_in", "taux_prorat_fp", 
    "tp", "agetest", "ageliq", "primoliq", "liq", 
    "agefin_totliq", "agefin_primoliq", "ageprimoliq",
-   "indic_mc", "indic_mg", "indic_mc_in", "dar", "t","type_liq", 
-   "ageFinEmp", "ageFinAct", "partavtprimo", "partavtliq"/*,"derSalNet"*/
-  }); /* ,"type_liq",type_liq_labels */
+   "indic_mc", "indic_mg", "indic_mc_in", "t","type_liq", 
+   "ageFinEmp", "ageFinAct", "partavtprimo", "partavtliq",
+   "tauxRempl_net_horsMal_10", "tauxRempl_net_horsMal_10_rg"
+  });
   
   liquidations.push_line( 
-     X.Id,r.t+1900,X.sexe,X.anaiss,X.findet,
-     r.duree_cho, r.duree_PR, r.duree_inv, r.duree_snat, 
-     r.duree_avpf, r.duree_emprg, r.duree_fp, r.duree_fpa, 
-     r.duree_fps, r.duree_ag, r.duree_ag_ar, r.duree_emp, r.duree_in, 
-     r.duree_rg, r.duree_tot, r.dureecotmin_tot, 
-     r.dureecotdra_tot, r.duree_rg_maj, r.duree_fp_maj, 
-     r.duree_in_maj, r.duree_tot_maj, r.durdecote_fp, 
-     r.dursurcote_fp, r.durdecote_rg, r.dursurcote_rg, 
-     r.tauxliq_fp, r.tauxliq_rg, r.tauxliq_ar, 
-     r.majo_min_rg, r.majo_min_in, r.majo_min_fp, 
-     r.majo_3enf_rg, r.majo_3enf_ar, r.majo_3enf_ag, 
-     r.majo_3enf_in, r.majo_3enf_fp, r.min_cont, 
-     r.min_cont_in, r.min_garanti, r.sr_fp, r.sam_rg, 
-     r.sam_in, r.sam_rgin, r.sam_uni, r.points_arrco, 
-     r.points_agirc, r.points_agirc_arrco, r.coeffTemp, r.ageAnnulCoeffTemp, r.ntp_FP, r.VFU_rg, r.VFU_ar, 
-     r.VFU_ag, r.pliq, r.pension_fp, r.pension_rg, 
-     r.pension_ar, r.pension_ag, r.pension_ag_ar, r.pension_in, r.pension, 
-     r.taux_prorat_rg, r.taux_prorat_in, r.taux_prorat_fp, 
-     r.tp, r.agetest, r.ageliq, r.primoliq, r.liq, 
-     r.agefin_totliq, r.agefin_primoliq, r.ageprimoliq,
-     r.indic_mc, r.indic_mg, r.indic_mc_in, r.dar, r.t,r.type_liq, 
-     r.ageFinEmp(), r.ageFinAct(),
-     r.partavtprimo(r.ageprimoliq), r.partavtliq(r.ageliq)
-     /*, r.derSalNet()*/);   
+    X.Id,r.t+1900,X.sexe,X.anaiss,X.findet,
+    r.duree_cho, r.duree_PR, r.duree_inv, r.duree_snat, 
+    r.duree_avpf, r.duree_emprg, r.duree_fp, r.duree_fpa, 
+    r.duree_fps, r.duree_ag, r.duree_ag_ar, r.duree_emp, r.duree_in, 
+    r.duree_rg, r.duree_tot, r.dureecotmin_tot, 
+    r.dureecotdra_tot, r.duree_rg_maj, r.duree_fp_maj, 
+    r.duree_in_maj, r.duree_tot_maj, r.durdecote_fp, 
+    r.dursurcote_fp, r.durdecote_rg, r.dursurcote_rg, 
+    r.tauxliq_fp, r.tauxliq_rg, r.tauxliq_ar, 
+    r.majo_min_rg, r.majo_min_in, r.majo_min_fp, 
+    r.majo_3enf_rg, r.majo_3enf_ar, r.majo_3enf_ag, 
+    r.majo_3enf_in, r.majo_3enf_fp, r.min_cont, 
+    r.min_cont_in, r.min_garanti, r.sr_fp, r.sam_rg, 
+    r.sam_in, r.sam_rgin, r.sam_uni, r.points_arrco, 
+    r.points_agirc, r.points_agirc_arrco, r.coeffTemp, r.ageAnnulCoeffTemp, r.ntp_FP, r.VFU_rg, r.VFU_ar, 
+    r.VFU_ag, r.pliq, r.pension_fp, r.pension_rg, 
+    r.pension_ar, r.pension_ag, r.pension_ag_ar, r.pension_in, r.pension, 
+    r.taux_prorat_rg, r.taux_prorat_in, r.taux_prorat_fp, 
+    r.tp, r.agetest, r.ageliq, r.primoliq, r.liq, 
+    r.agefin_totliq, r.agefin_primoliq, r.ageprimoliq,
+    r.indic_mc, r.indic_mg, r.indic_mc_in, r.t,r.type_liq, 
+    r.ageFinEmp(), r.ageFinAct(),
+    r.partavtprimo(r.ageprimoliq), r.partavtliq(r.ageliq),
+    X.retr->tauxRempl_net_horsMal_10(), X.retr->tauxRempl_net_horsMal_10_rg()
+  );   
 }
 
 void ecriture_liquidations() {

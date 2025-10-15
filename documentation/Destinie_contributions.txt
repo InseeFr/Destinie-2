@@ -1,4 +1,4 @@
-# Destinie 2
+﻿# Destinie 2
 # Copyright © 2005-2018, Institut national de la statistique et des études économiques
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,32 +25,36 @@ et en particulier au sein de sa division Redistribution et
 Politiques Sociales.
 
 Auteurs de Destinie 2
-Cédric 			  Afsa 
-Patrick 		  Aubert
-Marion 			  Bachelet
-Magali 			  Beffy
-Didier 			  Blanchet 
-Sophie 			  Buffeteau
-Alexandre 		Cazenave-Lacroutz
-Emmanuelle 		Crenner
-Yves 			    Dubois
+Cédric                    Afsa 
+Patrick                   Aubert
+Marion                    Bachelet
+Magali                    Beffy
+Didier                    Blanchet 
+Sophie                    Buffeteau
+Alexandre                 Cazenave-Lacroutz
+Mathieu                   Chabaud
+Emmanuelle                Crenner
+Elise                     Dion
+Yves 			  Dubois
 Michel 			  Duée 
-Jean-François Foucher 
-Fanny 			  Godet
-Shengzhan		  Jia
-Aude 			    Leduc
-Sylvie 			  Le Minez
-Vieu			    Lin
-Claire 			  Marbot
-Anthony 		  Marino
-Simon 			  Rabaté
-Cyril 			  Rebillard 
-Sophie 			  Ricci
-Delphine 		  Roy
+Jean-François             Foucher 
+Fanny                     Godet
+Shengzhan                 Jia
+Aude                      Leduc
+Sylvie                    Le Minez
+Vieu                      Lin
+Claire                    Marbot
+Anthony                   Marino
+Anh Linh                  Piketty
+Simon                     Rabaté
+Cyril                     Rebillard 
+Sophie                    Ricci
+Delphine                  Roy
+Jean                      Rubin
 
 La construction du modèle Destinie 2 a également bénéficié 
 de la collaboration de 
-Bertrand 		Garbinti
+Bertrand                  Garbinti
 
 Le modèle Destinie 2 a également bénéficié des travaux 
 menés par l'ensemble des contributeurs au modèle Destinie 1.

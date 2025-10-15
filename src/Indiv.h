@@ -8,17 +8,17 @@ class Reversion;
 class Retraite;
 
 /**
-* \class Indiv
-* \brief Classe contenant l'ensemble des informations sur un individu.
-* 
-* Cette classe contient l'ensemble des informations sur l'individu
-* lues dans les tables ech, emp, et fam.
-* Elle contient de plus un pointeur sur un objet Retraite relatif
-* à sa situation courante. 
-*/
+ * \class Indiv
+ * \brief Classe contenant l'ensemble des informations sur un individu.
+ * 
+ * Cette classe contient l'ensemble des informations sur l'individu
+ * lues dans les tables ech, emp, et fam.
+ * Elle contient de plus un pointeur sur un objet Retraite relatif
+ * à sa situation courante. 
+ */
 class Indiv {
 public:
-
+  
   // Caracteristiques individuelles générales (ech)
   int Id        = 0;              ///< Identifiant de l'individu
   int sexe      = 0;              ///< Sexe 
@@ -39,19 +39,19 @@ public:
   double  k         = 0;          ///< Préférence pour le loisir 
   double  age_exo   = 0;          ///< Âge de liquidation exogène
   
- vector<double> salaires   		= vector<double>(AGE_MAX, 0.0) ;  ///< tableau des salaires indicés par l'âge 
- vector<int>    statuts    		= vector<int>(AGE_MAX, 0)      ;  ///< tableau des statuts indicés par l'âge 
- vector<int>    sante      		= vector<int>(AGE_MAX, 0)      ;  ///< tableau des états de santé indicés par l'âge 
- vector<int>	enfprestafam  	= vector<int>(AGE_MAX, 0) ;       ///< tableau indiquant si l'enfant a donné droit à des prestas fam pour un de ses parents (évite les doubles comptes des enfants)
- vector<int>	prestafam   	  = vector<int>(AGE_MAX, 0) ;       ///< tableau des types de prestation familiale indexé par l'age 
- vector<double> cotis_rg   		= vector<double>(AGE_MAX, 0.0) ;  ///< tableau des cotisations retraite au régime général par l'âge (part patronale et salariale)
- vector<double> cotis_fp   		= vector<double>(AGE_MAX, 0.0) ;  ///< tableau des cotisations retraite au régime de la fonction publique par l'âge 
- vector<double> cotis_in   		= vector<double>(AGE_MAX, 0.0) ;  ///< tableau des cotisations retraite au régime des indépendants par l'âge 
+  vector<double> salaires   		= vector<double>(AGE_MAX, 0.0) ;  ///< tableau des salaires indicés par l'âge 
+  vector<int>    statuts    		= vector<int>(AGE_MAX, 0)      ;  ///< tableau des statuts indicés par l'âge 
+  vector<int>    sante      		= vector<int>(AGE_MAX, 0)      ;  ///< tableau des états de santé indicés par l'âge 
+  vector<int>	enfprestafam  	= vector<int>(AGE_MAX, 0) ;       ///< tableau indiquant si l'enfant a donné droit à des prestas fam pour un de ses parents (évite les doubles comptes des enfants)
+  vector<int>	prestafam   	  = vector<int>(AGE_MAX, 0) ;       ///< tableau des types de prestation familiale indexé par l'age 
+  vector<double> cotis_rg   		= vector<double>(AGE_MAX, 0.0) ;  ///< tableau des cotisations retraite au régime général par l'âge (part patronale et salariale)
+  vector<double> cotis_fp   		= vector<double>(AGE_MAX, 0.0) ;  ///< tableau des cotisations retraite au régime de la fonction publique par l'âge 
+  vector<double> cotis_in   		= vector<double>(AGE_MAX, 0.0) ;  ///< tableau des cotisations retraite au régime des indépendants par l'âge 
   
   // Caractéristiques familiales (fam)
   vector<int> matri     = vector<int>(AGE_MAX, 0);    ///< tableau des situation matrimoniales par âge  
   vector<int> conjoint  = vector<int>(AGE_MAX, 0);    ///< tableau des identifiants de conjoint par âge 
-
+  
   // Identifiants des membres de la famille
   int pere = 0;                                   ///< identifiant du pere  
   int mere = 0;                                   ///< identifiant de la mère 
@@ -59,33 +59,28 @@ public:
   vector<int> enf = vector<int>(6, 0);            ///< tableau des identifiants des enfants 
   vector<int> anaissEnf = vector<int>(6, 0);      ///< tableau des années de naissances des enfants            
   
-  ptr<Retraite> retr =nullptr;   ///< Pointeur vers un objet de la classe Retraite  
+  ptr<Retraite> retr = nullptr;   ///< Pointeur vers un objet de la classe Retraite  
   
   
   /** \brief Indique si la personne est vivante à la date t et est présente en France 
    * @return Renvoie vrai si l'individu est présent à une date t et faux si l'individu n'est pas vivant ou pas encore présent sur le territoire.
-  */
+   */
   bool est_present(const int t) const
   {
-      return (Id!=0) && 
-        (t%1900 >= anaiss%1900) &&
-        (t%1900 < anaiss%1900 + ageMax) &&
-        (statuts[age(t%1900)] > 0);
+    return (Id!=0) && 
+      (t%1900 >= anaiss%1900) &&
+      (t%1900 < anaiss%1900 + ageMax) &&
+      (statuts[age(t%1900)] > 0);
   }
   
-  /** \brief Indique si la personne décède l'année t 
-   * \return `true`  si année du décès, `false` sinon
-  */
-  bool decede(int t);
-
   /** \brief Indique si la personne est à la charge d'un de ses parents
    *  \return `true` si la personne est à charge `false` sinon
-  */
+   */
   bool ACharge(int t);
   
   /** \brief Renvoie la personne de référence du ménage de l'individu
-  * \return Identifiant de la personne de référence du ménage
-  */
+   * \return Identifiant de la personne de référence du ménage
+   */
   Indiv& PersRef(int t);
   
   /** \brief Renvoie le nombre d'enfants à charge une année donnée*/
@@ -93,17 +88,17 @@ public:
   
   /** \brief Renvoie le nombre d'individus du ménage */ 
   int TailMen(int t);
-
+  
   /** \brief Salaire net de l'année t */
   double SalNet(int t);
-
+  
   /** \brief Revenu net de l'année t */
   double RevNet(int t);
   
   /** \brief Salaire moyen brut 
    *  \return Renvoie le salaire moyen de l'individu
    *  pour un âge donné et un nombre de salaires donné
-  */
+   */
   double SalMoyBrut(double agefin, int nb) const;
   
   
@@ -113,28 +108,28 @@ public:
   }
   
   /** \brief Renvoie la date précise à un âge fin */
-  double datefm(double age, double mois) {
+  double datefm(double age, double mois) const {
     int a = int(anaiss*12+moisnaiss+age*12+mois+1/24.0);
     return (a/12+(a%12)/12.0);
   }
-
+  
   /** \brief Renvoie la date (modulo 1900) pour un âge donné */
   int date(int age) const {
     return anaiss%1900 + age;
   }
-
+  
   /** \brief Indique si la personne est personne de référence de son ménage l'année t */
-  bool est_persRef(int t);
+  bool est_persRef(int t) const;
   
   /** \brief Indique si la personne est décédée l'année t */
-  bool est_decede(int t);
+  bool est_decede(int t) const;
   
   /** \brief Probabilité de survie à l'âge age1 sachant la survie à l'âge age0 */
   double survie(int age1, int age0);
-
+  
   /** \brief Espérance de vie à l'âge age0 */
   double esp_vie(int age0);
-
+  
   /** \brief Nombre d'enfants à l'âge \ref age*/
   inline int nb_enf(int age) const {
     int annee = date(age) + 1900;
@@ -167,6 +162,14 @@ public:
     return nbEnf;
   }
   
+  /** \bried Durée d'union */
+  inline int duree_union() const {
+    int duree = 0;
+    for(int a : range(matri.size())) {
+      duree += (matri[a] == MARIE);
+    }
+    return duree;
+  }
   
   /** \brief Constructeur */
   Indiv();
@@ -181,20 +184,21 @@ public:
   /**
    * \brief Constructeur d'un individu en copiant un individu
    */
-   Indiv( const Indiv& indivACopier); 
+  Indiv(const Indiv& indivACopier); 
   /** Destructeur */
-   ~Indiv() {
-     salaires.clear();
-     statuts.clear(); 
-     sante.clear();
-     enfprestafam.clear(); 
-     prestafam.clear();
-     matri.clear();
-     conjoint.clear();
-     retr.reset();
-     enf.clear();
-     anaissEnf.clear();
-   };
+  ~Indiv() {
+  salaires.clear();
+    statuts.clear();
+    sante.clear();
+    enfprestafam.clear(); 
+    prestafam.clear();
+    matri.clear();
+    conjoint.clear();
+    retr.reset();
+    enf.clear();
+    anaissEnf.clear();
+  }
+  
 };
 
 /** indique si une personne est présente à la date t à partir de son identifiant */

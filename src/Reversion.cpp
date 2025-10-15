@@ -5,7 +5,8 @@
    * Calcul le montant de reversion pour un individu
    */
   Reversion::Reversion(Indiv & X, Indiv & Y, int t, int legRetroMax) :
-      rev(0), rev_rg(0), rev_fp(0), rev_in(0), rev_ag(0), rev_ar(0), rev_ag_ar(0), ageliq_rev(0), nbEnfCharge(0),idConj(Y.Id)
+      rev(0), rev_rg(0), rev_fp(0), rev_in(0), rev_ag(0), rev_ar(0), rev_ag_ar(0),
+      ageliq_rev(0), nbEnfCharge(0), idConj(Y.Id)
   { 
     nbEnfCharge = X.NbEnfC(t);
     int age_y = 1900 + t - Y.anaiss;  
@@ -32,15 +33,14 @@
      dr->durees_majo();
      dr->DecoteSurcote();
      
+     dr->tauxliq_rg=1;
+     dr->tauxliq_ar=1;
+     
      if( !retraite_y.primoliq ) {
-        dr->tauxliq_rg=1;
-        dr->tauxliq_ar=1;
         dr->tauxliq_fp=1;
         dr->Liq();
      }
-     else if( !retraite_y.totliq ){
-        dr->tauxliq_rg=1;
-        dr->tauxliq_ar=1;
+     else {
         dr->SecondLiq();
      }
      retraite_y.liq = dr;
@@ -81,7 +81,6 @@
   }
   else if (options->SAMRgInUnique || (dr->l.LegSAM >= 2013 && (t >= 117  && retraite_y.liq->t>=117) && !options->SAMSepare)){// la reversion est liquidée apres 2017 et les droits directs associés aussi, on est donc sous LURA
 	 partmin = min_max((duree_rg_maj+duree_in_maj) / max(15.0, duree_rg_maj + duree_in_maj), 0, 1);
-	 //if (duree_rg_maj+duree_in_maj>0) ratio_rg = duree_rg_maj / (duree_rg_maj+duree_in_maj);
 	 double ratio_rg = (duree_rg_maj+duree_in_maj) >0 ? duree_rg_maj / (duree_rg_maj+duree_in_maj) : 0;
 	 double ratio_in = (duree_rg_maj+duree_in_maj) >0 ? duree_in_maj / (duree_rg_maj+duree_in_maj) : 0;
      rev_lura =M->TauxRevRG[t] * (retraite_y.pension_rg-retraite_y.liq->majo_3enf_rg+retraite_y.pension_in-retraite_y.liq->majo_3enf_in);

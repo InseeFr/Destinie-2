@@ -3,9 +3,9 @@
  * \brief Fichier contenant les outils permettant le calcul des cotisations prélevées sur les revenus d'activité et la pension de retraite.
  */
  
- #pragma once
+#pragma once
 
-class Indiv;
+#include "Indiv.h"
 
 
 /**
@@ -114,17 +114,7 @@ public:
   int Id, annee, age, statut;
   double partavtprimo, salaire, salaire_net, cotis_retr, cotis_retr_patr;
   
-  Cotisations(Indiv& X, int t) {
-      Id = X.Id;
-      annee = t;
-      age = X.age(t);
-      partavtprimo = X.retr->primoliq ? min_max(arr_mois(X.retr->primoliq->agefin_primoliq - age, X.moisnaiss+1),  0, 1) : 1;
-      statut = (X.retr->primoliq && partavtprimo < 1) ? 8 : X.statuts[age];
-      salaire         = X.salaires[age] * partavtprimo;
-      salaire_net     = X.salaires[age] - CotRet(X,age) - CotAut(X,age) - CSGSal(X,age) * partavtprimo;
-      cotis_retr      = CotRet(X,age) * partavtprimo;
-      cotis_retr_patr = CotRetrPatr(X,age) * partavtprimo;
-  }
+  Cotisations(Indiv& X, int t);
 };
 
 

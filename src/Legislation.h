@@ -53,6 +53,7 @@ class  Leg {
     double AgeMinRG;                ///<	 Âge minimal d'ouverture des droits, RG
     double AgeMaxRG;                ///<	 Âge maximal de liquidation RG
     double AgeAnnDecRG;             ///<	 Âge d'annulation de la décote au RG
+    double AgeMinInv;               ///<   Âge minimal d'ouverture des droits en cas d'invalidité
     double DureeMinFP;              ///<	 Durée minimale de carrière pour bénéficier d'une pension à la fonction publique (ajout  25/10/2010)
     double AnOuvDroitFP;            ///<	 Année d'ouverture des droits dans la fonction publique (peut être différente de l'année des 60 ans pour les catégories actives et les mères de 3 enfants) (ajout 09/12/2011)
     double AgeSurcote;              ///<	 Âge minimal pour le calcul de la surcote (60 ans avant la réforme de 2010, 62 ans progressivement après)
@@ -64,6 +65,7 @@ class  Leg {
     double AgeMinFP;                ///<	 Âge minimal d'ouverture des droits, FP (cet âge est défini par individu, après analyse de la catégorie pertinente) 
     double ageouvdroitfp;           ///<	 Âge d'ouverture des droits pour les fonctionnaires sédentaires calculé en fonction de la génération
     int    durfpa;                  ///<	 Durée passée en catégorie active
+    bool   surcote_parentale;       ///<   Dispositif de surcote parentale actif.
     
     
     /**

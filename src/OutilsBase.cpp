@@ -200,8 +200,8 @@ double norm1, norm2, alea1, alea2;
 for(int i=0; i<int((n+1)/2); i++) {
 	alea1=alea();
 	alea2=alea();
-	norm1=sqrt(-2 * log(alea1)) * cos(2*PI*alea2);
-	norm2=sqrt(-2 * log(alea1)) * sin(2*PI*alea2);
+	norm1=sqrt(-2 * log(alea1)) * cos(2*3.141592*alea2); // nagui : on a remplacé PI par 3.141592 car "PI" non reconnu dans le compilateur c++ (02/2022)
+	norm2=sqrt(-2 * log(alea1)) * sin(2*3.141592*alea2);
 	vecteur_gauss_standard.push_back(norm1);
 	vecteur_gauss_standard.push_back(norm2);
 	}

@@ -26,13 +26,13 @@ struct Indic_gen_age {
 
   Moyenne
     SMPTEch     ///< Salaire moyen par tête dans l'échantillon
-    ;
+  ;
     
   Taux 
     TxChomage,  ///< Taux de chômage
     TxActif,    ///< Taux d'activité
     TxCadre     ///< Pourcentage de cadres parmi les personnes en emploi
-    ;
+  ;
 };
 
 /**
@@ -45,7 +45,6 @@ void ecriture_indicateurs_gen_age(int t) {
   
   for(Indiv& X: pop) {
     if(X.est_present(t)) {
-
       int age = X.age(t);
 
       double partavtliq = X.retr->partavtliq(t);     
@@ -53,26 +52,26 @@ void ecriture_indicateurs_gen_age(int t) {
 	  auto& indicEnsemble = indics[0][age];
 
       indic.PopTOT        .push(true, 1, M->poids/1000);
-      indic.PopEmploi     .push(in(X.statuts[age], Statuts_occ), 1, M->poids/1000*partavtliq);
-      indic.PopActive     .push(in(X.statuts[age], Statuts_act), 1, M->poids/1000*partavtliq);
-      indic.PopChomage    .push(in(X.statuts[age], Statuts_cho), 1, M->poids/1000*partavtliq);
-      indic.PopRetraitee  .push(1,1- partavtliq, M->poids/1000);
-      indic.SalTot        .push(in(X.statuts[age], Statuts_occ), X.salaires[age], M->poids/1000*partavtliq);
-      indic.SMPTEch       .push(in(X.statuts[age], Statuts_occ), X.salaires[age], M->poids/1000*partavtliq);
-      indic.TxChomage     .push(in(X.statuts[age], Statuts_act), in(X.statuts[age], Statuts_occ)*partavtliq, M->poids/1000);
-      indic.TxActif       .push(true, in(X.statuts[age], Statuts_act)*partavtliq, M->poids/1000);  
-      indic.TxCadre       .push(X.statuts[age]==S_CAD, in(X.statuts[age], Statuts_occ)*partavtliq, M->poids/1000);
+      indic.PopEmploi     .push(in(X.statuts[age], Statuts_occ), 1, M->poids / 1000 * partavtliq);
+      indic.PopActive     .push(in(X.statuts[age], Statuts_act), 1, M->poids / 1000 * partavtliq);
+      indic.PopChomage    .push(in(X.statuts[age], Statuts_cho), 1, M->poids / 1000 * partavtliq);
+      indic.PopRetraitee  .push(true, 1 - partavtliq, M->poids/1000);
+      indic.SalTot        .push(in(X.statuts[age], Statuts_occ), X.salaires[age], M->poids / 1000 * partavtliq);
+      indic.SMPTEch       .push(in(X.statuts[age], Statuts_occ), X.salaires[age], M->poids / 1000 * partavtliq);
+      indic.TxChomage     .push(in(X.statuts[age], Statuts_cho), in(X.statuts[age], Statuts_act), M->poids / 1000 * partavtliq);
+      indic.TxActif       .push(in(X.statuts[age], Statuts_act), true, M->poids / 1000 * partavtliq);  
+      indic.TxCadre       .push(X.statuts[age] == S_CAD, in(X.statuts[age], Statuts_occ), M->poids / 1000 * partavtliq);
 	  
 	  indicEnsemble.PopTOT        .push(true, 1, M->poids/1000);
-      indicEnsemble.PopEmploi     .push(in(X.statuts[age], Statuts_occ), 1, M->poids/1000*partavtliq);
-      indicEnsemble.PopActive     .push(in(X.statuts[age], Statuts_act), 1, M->poids/1000*partavtliq);
-      indicEnsemble.PopChomage    .push(in(X.statuts[age], Statuts_cho), 1, M->poids/1000*partavtliq);
-      indicEnsemble.PopRetraitee  .push(1,1- partavtliq, M->poids/1000);
-      indicEnsemble.SalTot        .push(in(X.statuts[age], Statuts_occ), X.salaires[age], M->poids/1000*partavtliq);
-      indicEnsemble.SMPTEch       .push(in(X.statuts[age], Statuts_occ), X.salaires[age], M->poids/1000*partavtliq);
-      indicEnsemble.TxChomage     .push(in(X.statuts[age], Statuts_act), in(X.statuts[age], Statuts_occ)*partavtliq, M->poids/1000);
-      indicEnsemble.TxActif       .push(true, in(X.statuts[age], Statuts_act)*partavtliq, M->poids/1000);  
-      indicEnsemble.TxCadre       .push(X.statuts[age]==S_CAD, in(X.statuts[age], Statuts_occ)*partavtliq, M->poids/1000);
+      indicEnsemble.PopEmploi     .push(in(X.statuts[age], Statuts_occ), 1, M->poids / 1000 * partavtliq);
+      indicEnsemble.PopActive     .push(in(X.statuts[age], Statuts_act), 1, M->poids / 1000 * partavtliq);
+      indicEnsemble.PopChomage    .push(in(X.statuts[age], Statuts_cho), 1, M->poids / 1000 * partavtliq);
+      indicEnsemble.PopRetraitee  .push(true,1- partavtliq, M->poids/1000);
+      indicEnsemble.SalTot        .push(in(X.statuts[age], Statuts_occ), X.salaires[age], M->poids / 1000 * partavtliq);
+      indicEnsemble.SMPTEch       .push(in(X.statuts[age], Statuts_occ), X.salaires[age], M->poids / 1000 * partavtliq);
+      indicEnsemble.TxChomage     .push(in(X.statuts[age], Statuts_cho), in(X.statuts[age], Statuts_act), M->poids / 1000 * partavtliq);
+      indicEnsemble.TxActif       .push(in(X.statuts[age], Statuts_act), true, M->poids / 1000 * partavtliq);  
+      indicEnsemble.TxCadre       .push(X.statuts[age] == S_CAD, in(X.statuts[age], Statuts_occ), M->poids / 1000 * partavtliq);
       if(age>0)
         indic.immigrTot     .push(X.statuts[age-1] == 0, 1, M->poids/1000);
 		indicEnsemble.immigrTot     .push(X.statuts[age-1] == 0, 1, M->poids/1000);
@@ -88,7 +87,7 @@ void ecriture_indicateurs_gen_age(int t) {
       "immigrTot"});
   
 
-  const vector<string> label_sexe = {"ens","hom","fem"};
+  const vector<string> label_sexe = {"ens", "hom", "fem"};
   for(int s = 0; s < 3; s++)
   for(int a = 0; a < AGE_MAX; a++) {
       auto& i = indics[s][a];

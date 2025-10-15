@@ -17,9 +17,9 @@
 struct EqSalaires {
   double   _(Intercept),         _(E_1er),             _(E_0),               _(E),                 _(E2),                _(FR_E),            
            _(FR_E2),             _(FR_E_0),            _(FR_D2),             _(D),                 _(D2),                _(FR_D),            
-           _(D_0),               _(FR_D_0),            _(FR), _(log_fp)	,               _(Sig2pente_indiv),              
-           _(corr_indiv),       _(Sig2_indiv),    		
-		   _(Sig2_res);    
+           _(D_0),               _(FR_D_0),            _(FR),                _(meanpente_indiv),   _(Sig2pente_indiv),   _(res_E_1er),       
+           _(res_E_0),           _(res_FR_E_0),        _(res_D),             _(res_D2),            _(res_D_0),           _(res_FR_D_0),      
+           _(res_FR),            _(mean_indiv),        _(corr_indiv),       _(Sig2_indiv),        _(Sig2_an);    
  };
   
 
@@ -75,7 +75,7 @@ struct CStructSexeAge {
  */
 struct Salaire {    
   Environment& env;
-  vector<EqSalaires> eqs = Rdin<EqSalaires>("EqSalaires","NomVar",levels(FPE_F,FPE_H,FPHT_F,FPHT_H,IND_F,IND_H,PRI_F_deb,PRI_F_fin,PRI_H_deb,PRI_H_fin));
+  vector<EqSalaires> eqs = Rdin<EqSalaires>("EqSalaires","NomVar",levels(IND_F,IND_H,PRI_F,PRI_H,PUB_F,PUB_H));
   CStructSexeAge cs = Rdin<CStructSexeAge>("CStructSexeAge");
   Options_salaires options_sal = Rdin<Options_salaires>("options_salaires");
   

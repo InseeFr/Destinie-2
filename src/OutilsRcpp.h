@@ -369,8 +369,8 @@ inline std::vector<std::vector<std::vector<T>>>
   return tmp;
 }
 
-#define _(name,...) name = Rinput(#name,##__VA_ARGS__)
-#define levels(X...) Levels({X}, #X)
+#define _(name, ...) name = Rinput(#name, ##__VA_ARGS__)
+#define levels(...) Levels({__VA_ARGS__}, #__VA_ARGS__)
 
 /*
 template<typename T>
@@ -587,7 +587,7 @@ private:
     }
     
     df.attr("row.names") = row_names;
-    Rcpp::CharacterVector classes = {"data.frame","tbl_df","tbl"};
+    Rcpp::CharacterVector classes = {"tbl_df", "tbl", "data.frame"};
     df.attr("class") = classes;
     return df;
 	}

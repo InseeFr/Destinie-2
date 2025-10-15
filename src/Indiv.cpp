@@ -81,12 +81,12 @@ Indiv::Indiv(const Indiv & indivACopier) :
 
 }
 
-bool Indiv::est_decede(int t) {
+bool Indiv::est_decede(int t) const {
   return (t  >= anaiss%1900 + ageMax + 1 && statuts[ageMax+1]==0);
 }
 
 // Fonction : est_persRef
-bool Indiv::est_persRef(int t) {
+bool Indiv::est_persRef(int t) const {
   return (sexe==HOMME || !pop[conjoint[age(t)]].est_present(t));
 }
 

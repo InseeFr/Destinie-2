@@ -1510,3 +1510,18 @@
 #' @source Insee
 "fec_Travail_vie_Travail_mig_Travail"
 
+#' Nom des variantes démographiques
+#'
+#' @format ## `variante_demo_name`
+#' Un data frame avec 30 lignes et 7 colonnes :
+#'  \describe{
+#'   \item{number}{Numéro de la variante}
+#'   \item{fecondite}{Hypothèse de fécondité}
+#'   \item{esp_vie}{Hypothèse d'espérance de vie}
+#'   \item{migration}{Hypothèse de solde migratoire}
+#'   \item{name}{Nom de la variante}
+#'   \item{full_name}{Nom de la variante avec numéro}
+#'   \item{auto_name}{Nom de la variante dans un format détaillé}
+#' }
+#' @source Insee
+"variante_demo_name"

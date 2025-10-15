@@ -3,7 +3,6 @@
 #include "Migration.h"
 
 
-
 void mortalite(int t, bool option_mort_diff, bool option_mort_tirageCale,bool option_sante=false, bool option_mort_diff_dip=false) {
 
   auto indiv_par_age = make_vector2(121,3,deque<int>());
@@ -26,7 +25,11 @@ void mortalite(int t, bool option_mort_diff, bool option_mort_tirageCale,bool op
       // probabilité de survie
       //double p = 1-M->q_mort[sexe](t,age) ;
 	  double p = M->q_mort[sexe](t,age) ;
-	  double p_origine = M->q_mort[sexe](110,age) ;
+	  double p2017 = M->q_mort[sexe](117,age) ;
+	  if(options->noEvolMorta&&t>=117) {
+		p=p2017;
+	  }
+	  double p_origine = M->q_mort[sexe](118,age) ; // REBASAGE : les 110 sont remplacés par des 118 (année t0+1)
       if(age==120) p = 1;
       
       // Calcul probabilités de décès (ou de survie ?)
@@ -51,18 +54,18 @@ void mortalite(int t, bool option_mort_diff, bool option_mort_tirageCale,bool op
 		else if(option_mort_diff_dip && age > 30 && age < 100) {
           double p_diff = 1;
           if (X.sexe==HOMME){
-            if      ((X.dipl==1)) {p_diff =  mortadiff_dip_H->sansdip[X.age(t)]*p/p_origine;}
-            else if ((X.dipl==2)) {p_diff =  mortadiff_dip_H->Brevet[X.age(t)]*p/p_origine;}
-            else if ((X.dipl==3)) {p_diff =  mortadiff_dip_H->CAPBEP[X.age(t)]*p/p_origine;}
-            else if ((X.dipl==4)) {p_diff =  mortadiff_dip_H->BAC[X.age(t)]*p/p_origine ;}
-            else if ((X.dipl==5)) {p_diff =  mortadiff_dip_H->sup[X.age(t)]*p/p_origine; }
+            if      (X.dipl==1) {p_diff =  mortadiff_dip_H->sansdip[X.age(t)]*p/p_origine;}
+            else if (X.dipl==2) {p_diff =  mortadiff_dip_H->Brevet[X.age(t)]*p/p_origine;}
+            else if (X.dipl==3) {p_diff =  mortadiff_dip_H->CAPBEP[X.age(t)]*p/p_origine;}
+            else if (X.dipl==4) {p_diff =  mortadiff_dip_H->BAC[X.age(t)]*p/p_origine ;}
+            else if (X.dipl==5) {p_diff =  mortadiff_dip_H->sup[X.age(t)]*p/p_origine; }
           }
           if (X.sexe==FEMME){
-            if      ((X.dipl==1)) {p_diff =  mortadiff_dip_F->sansdip[X.age(t)]*p/p_origine;}
-            else if ((X.dipl==2)) {p_diff =  mortadiff_dip_F->Brevet[X.age(t)]*p/p_origine;}
-            else if ((X.dipl==3)) {p_diff =  mortadiff_dip_F->CAPBEP[X.age(t)]*p/p_origine;}
-            else if ((X.dipl==4)) {p_diff =  mortadiff_dip_F->BAC[X.age(t)]*p/p_origine;}
-            else if ((X.dipl==5)) {p_diff =  mortadiff_dip_F->sup[X.age(t)]*p/p_origine; }
+            if      (X.dipl==1) {p_diff =  mortadiff_dip_F->sansdip[X.age(t)]*p/p_origine;}
+            else if (X.dipl==2) {p_diff =  mortadiff_dip_F->Brevet[X.age(t)]*p/p_origine;}
+            else if (X.dipl==3) {p_diff =  mortadiff_dip_F->CAPBEP[X.age(t)]*p/p_origine;}
+            else if (X.dipl==4) {p_diff =  mortadiff_dip_F->BAC[X.age(t)]*p/p_origine;}
+            else if (X.dipl==5) {p_diff =  mortadiff_dip_F->sup[X.age(t)]*p/p_origine; }
           }
           probas[i] = p_diff;
         }

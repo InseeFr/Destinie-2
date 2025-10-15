@@ -134,7 +134,7 @@ void naissance (int t, bool option_tirageNonCale) {
     int e = liste_nvellemere[i];
     double u1=alea();
     double u2=alea();
-    double alea_adfe=sqrt(-2*log(u1))*cos(2*PI*u2);
+    double alea_adfe=sqrt(-2*log(u1))*cos(2*3.141592*u2);  // nagui : on a remplacé PI par 3.141592 car "PI" non reconnu dans le compilateur c++ (02/2022)
     int sexenn =liste_nvellemere_garcon[i] ? HOMME : FEMME ;
 	//(int Id, int sexe, int anaiss,  int findet, int age, int pere, int mere)
     pop.emplace_back(pop.size(),sexenn,t+1900,18,0,0,0);
@@ -152,11 +152,13 @@ void naissance (int t, bool option_tirageNonCale) {
     B.anaiss = t+1900;
     B.matri[B.age(t)]=1;
     if (liste_nvellemere_garcon[i]) {
-      findetnn=20.8-0.04825+0.22753*(nouv_pere.findet-20.8)+0.20332*(nouv_mere.findet-21.2)+2.68015*alea_adfe;
+		findetnn=20.8-0.17776+0.17691*(nouv_pere.findet-20.8)+0.17475*(nouv_mere.findet-21.2)+2.879*alea_adfe;
+	  // REBASAGE : ces équations ont été mises à jour en cohérence avec le rebasage 
       liste_G.push_back(B.Id);
     }
     else {
-      findetnn=21.2+ 0.06294+ 0.2122*(nouv_pere.findet-20.8)+0.21972*(nouv_mere.findet-21.2)+2.61275*alea_adfe;
+      findetnn=21.2+ 0.16752+ 0.14502*(nouv_pere.findet-20.8)+0.20536*(nouv_mere.findet-21.2)+2.832*alea_adfe;
+    // REBASAGE : ces équations ont été mises à jour en cohérence avec le rebasage 
       liste_F.push_back(B.Id);
     }
     B.findet=min_max(findetnn,16,30)+alea();
@@ -171,21 +173,23 @@ void naissance (int t, bool option_tirageNonCale) {
   int nb_g=liste_G.size();
   for (int e : range(nb_g)) {
     Indiv& Y = pop[liste_G[e]];
-    if (e<(nb_g*0.1162+alea())) {Y.dipl=SSDIPL;}
-    else if (e<(nb_g*0.1573+alea())) {Y.dipl=BREVET;}
-    else if (e<(nb_g*0.4111+alea())) {Y.dipl=CAP;} 
-    else if (e<(nb_g*0.6528+alea())) {Y.dipl=BAC;}
+     if (e<(nb_g*0.1009+alea())) {Y.dipl=SSDIPL;}
+    else if (e<(nb_g*0.1427+alea())) {Y.dipl=BREVET;}
+    else if (e<(nb_g*0.3476+alea())) {Y.dipl=CAP;} 
+    else if (e<(nb_g*0.5608+alea())) {Y.dipl=BAC;}
     else {Y.dipl=UNIV;}
+	// REBASAGE : ces équations ont été mises à jour en cohérence avec le rebasage
   }
   
   int nb_f=liste_F.size();
   for (int e : range(nb_f)) {
     Indiv& Y = pop[liste_F[e]];
-    if (e<(nb_f*0.086+alea())) {Y.dipl=SSDIPL;}
-    else if (e<(nb_f*0.1238+alea())) {Y.dipl=BREVET;}
-    else if (e<(nb_f*0.2921+alea())) {Y.dipl=CAP;} 
-    else if (e<(nb_f*0.5233+alea())) {Y.dipl=BAC;}
+    if (e<(nb_f*0.0778+alea())) {Y.dipl=SSDIPL;}
+    else if (e<(nb_f*0.1129+alea())) {Y.dipl=BREVET;}
+    else if (e<(nb_f*0.2537+alea())) {Y.dipl=CAP;} 
+    else if (e<(nb_f*0.464+alea())) {Y.dipl=BAC;}
     else {Y.dipl=UNIV;}
+	// REBASAGE : ces équations ont été mises à jour en cohérence avec le rebasage
   }
 
        

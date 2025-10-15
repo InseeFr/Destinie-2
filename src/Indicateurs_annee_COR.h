@@ -37,13 +37,20 @@ struct Indic_annee {
     Eff_Min,              ///< Nombre de bénéficiaires d'un minimum de pension
     M_Min,                ///< Masse des pensions annualisées de droit direct des bénéficiaires d'un minimum de pension
     
-    Eff_Derive,           ///< Nombre de réversataires
+    Eff_Derive,           ///< Nombre de réversataires au 31/12
     M_Derive,             ///< Montant total des droits dérivés
-    Eff_Derive_seul,      ///< Nombre d'individus bénéficiant uniquement d'une pension de réversion
+    M_Derive_parmi_indiv_DD, ///< Montant des droits dérivés parmi les individus bénéficiant d'une pension de droit direct
+    M_DD_parmi_indiv_Derive, ///< Somme des pensions annualisées de droit direct parmi les individus bénéficiant d'une pension de réversion
+    Eff_Derive_seul,      ///< Nombre d'individus bénéficiant uniquement d'une pension de réversion au 31/12
+    Eff_DD_seul,          ///< Nombre d'individus bénéficiant uniquement d'une pension de droit direct au 31/12
+    Eff_DD_et_Derive,     ///< Nombre d'individus bénéficiant d'une pension de droit direct et d'une pension de réversion au 31/12
     M_Derive_seul,        ///< Masse des pensions de réversion des individus ne bénéficiant pas de droit direct
     Eff_Flux_Derive,      ///< Flux de réversataires
     
     M_Pensions,           ///< Montant total des pensions annualisées
+    M_Pensions_parmi_indiv_DD, ///< Montant total des pensions annualisées parmi les individus bénéficiant d'une pension de droit direct
+    M_Pensions_parmi_indiv_Derive, ///< Montant total des pensions annualisées parmi les individus bénéficiant d'une pension de réversion
+    M_Pensions_parmi_indiv_DD_et_Derive, ///< Montant total des pensions annualisées parmi les individus bénéficiant d'une pension de droit direct et d'une pension de réversion
     
   	Eff_DD_Flux_coeffSoli,        ///< Flux de liquidants soumis à un coefficient de solidarité (cf. accord Arrco-Agirc d'octobre 2015)
   	M_DD_Flux_coeffSoli,  ///< Masse des pensions soumises à un coefficient de solidarité (cf. accord Arrco-Agirc d'octobre 2015)
@@ -91,7 +98,10 @@ struct Indic_annee {
     Age_Ret_Flux,             ///< Âge moyen de liquidation totale
     Dur_Ass_Flux,             ///< Durée moyenne d'assurance, y compris majorations, des liquidants
     PMoy_Flux_Derive,         ///< Montant moyen du droit de réversion des nouveaux réversataires
-	  PMoy_DD                    ///< Pension moyenne de droit direct, en euros 2012
+	  PMoy_DD,                  ///< Pension moyenne de droit direct
+	  PMoy_tot_parmi_indiv_DD,  ///< Pension moyenne totale (droits directs + dérivés) parmi les individus bénéficiant d'une pension de droit direct
+	  Pmoy_tot,                 ///< Pension moyenne totale (droits directs + dérivés)
+	  Sal_moy_31dec             ///< Salaire moyen au 31/12
     ;
     
   Ratio 

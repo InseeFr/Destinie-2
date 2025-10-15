@@ -37,20 +37,22 @@ void destinieTransMdt(Environment envSim) {
     if(X.statuts[age]==2) X.statuts[age] = 1;
 	// Rmq : dans ce qui suit, la condition X.statuts[age] != 0 vaut true ssi X n'est pas migrant. Le cas émigrant est exclus puisque age <= ageMax
 	// Rmq : lors du lancement de destinieDemographie(), les statuts des individus sont prolongés jusqu'au décès. La ligne ci-dessous réinitialise les status après findet sauf pour les migrants.
-    if (X.statuts[age] != 0 && annee > 2009 && age > X.findet) X.statuts[age] = 999;
+    if (X.statuts[age] != 0 && annee > 2017 && age > X.findet) X.statuts[age] = 999;
 	// cumul emploi etude.
 	bool cumEmpEtude = alea() < 0.60 * partTx(age,16,30) * partTx(X.anaiss,1950,1990);// Rmq : vaut 1 ssi alea<0.6, age>=16 et anaiss>=1950
-	if (X.statuts[age] != 0 && annee > 2009 && age == X.findet) X.statuts[age] =  cumEmpEtude ? 999 : S_SCO ; //cumul emploi etudes avec la meme formule que celle du redressement
-	if (X.statuts[age] != 0 && annee > 2009 && age < X.findet) X.statuts[age] =  S_SCO ;
+	if (X.statuts[age] != 0 && annee > 2017 && age == X.findet) X.statuts[age] =  cumEmpEtude ? 999 : S_SCO ; //cumul emploi etudes avec la meme formule que celle du redressement
+	if (X.statuts[age] != 0 && annee > 2017 && age < X.findet) X.statuts[age] =  S_SCO ;
     if (X.statuts[age]==311 || X.statuts[age]==321) X.typeFP = FPE;
     if(X.statuts[age]==312 || X.statuts[age]==322) X.typeFP = FPTH;
+	// REBASAGE : les 2009 sont remplacés par des 2017 (année t0)
+
   }
   
   if(!options->transNonCalees) 
-    for(int t : range(110,AN_NB))
+    for(int t : range(118,AN_NB)) // REBASAGE : les 110 sont remplacés par des 118 (année t0+1)
       trans.make_transitions(t,0,999);  
   else
-    for(int t : range(110,AN_NB))
+    for(int t : range(118,AN_NB)) // REBASAGE : les 110 sont remplacés par des 118 (année t0+1)
       trans.make_transitions_noncalees(t,0,999);
       
   // Réécrit la table emp
@@ -102,10 +104,12 @@ int recode_statut(int statut) {
 
 int duree_emp(Indiv& X, int age) {
   int dur_emp = 0;
-  for(int a : range(0,age+1)) // pourquoi age +1 ?
-    if(in(X.statuts[a],Statuts_occ))
+  for(int a : range(0, age + 1)) { // pourquoi age +1 ?
+    if(in(X.statuts[a],Statuts_occ)) {
       dur_emp++;
-    return dur_emp;
+	}
+  }
+  return dur_emp;
 }
 
 int duree_statut(Indiv& X, int age) {
@@ -427,7 +431,7 @@ void Transitions::ProbTrans(Indiv& X, int t) {
     double proba = exp(logit)/(1+exp(logit));
     
     
-    if(t==109) {
+    if(t==117) { // REBASAGE : 109 remplacé par des 117 (année t0) -> Tom : ce bout de code est vraisemblablement inutile???
       static auto df = Rdout("proba",{"proba","constante",
               "logit","Id","t","age0","gen","statut_avt","st_test","dest","periodeReg"
             },

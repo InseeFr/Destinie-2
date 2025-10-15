@@ -566,7 +566,61 @@ struct Fam {
   _(anaiss_enf6,0);
 };
 
+struct UnionBase {
+  /**
+  * \struct UnionBase
+  * \brief UnionBase contient les dates d'unions à l'initialisation de la population.
+  */
+  IntegerVector
+  /**
+  * \brief Identifiant du premier individu
+  */
+  _(Id1),
+  /**
+  * \brief Identifiant du conjoint
+  */
+  _(Id2),
+  /**
+  * \brief Année de l'union avec le conjoint
+  */
+  _(annee_union);
+};
 
+struct Union {
+  /**
+  * \struct Union
+  * \brief Union contient des informations sur les unions dans la population.
+  */
+  IntegerVector
+  /**
+  * \brief Identifiant du premier individu
+  */
+  _(Id1),
+  /**
+  * \brief Identifiant du conjoint
+  */
+  _(Id2),
+  /**
+  * \brief Date de mort du premier individu ou fin de simulation (hors émigration)
+  */
+  _(t_ageMax1),
+  /**
+  * \brief Date de mort du conjoint ou fin de simulation (hors émigration)
+  */
+  _(t_ageMax2),
+  /**
+  * \brief Année de l'union avec le conjoint
+  */
+  _(annee_union),
+  /**
+  * \brief Durée de l'union avec le conjoint
+  */
+  _(duree_union),
+  /**
+  * \brief Nombre d'enfants issus de l'union
+  */
+  _(nb_enf);
+};
 
 
 /**
@@ -588,11 +642,6 @@ struct Options {
   *  Ce dispositif a par ailleurs été supprimé par la réforme de 2010
   */
   _(NoRetrAntFP3Enf)     , 
-  /**
-  *  \brief Ne tient pas compte des réformes des retraites qui ont porté au-delà de 40 ans la durée 
-  *  d'assurance nécessaire à l'atteinte du taux plein.
-  */   
-  _(BlockDuree40),
   /**
   * \brief Neutralise la prise en compte des périodes assimilées dans le calcul de la durée validée
   */
@@ -670,36 +719,6 @@ struct Options {
   */
   _(SAMUnique)             , 
   /**
-  * \brief Prolonge l’augmentation des durées d’assurance pour pouvoir liquider au taux plein
-  */
-  _(ProlongDuree) , 
-  /**
-  * \brief Porte l'âge d'ouverture des droits à 64 ans
-  */
-  _(age64_67ans)  ,  
-  /**
-  * \brief Porte l'âge d'ouverture des droits et l'âge d'annulation de la décôte progressivement à 69 ans
-  */
-  _(age64_69ans)         , 
-  /**
-  * \brief Maintient les deux bornes d'âge à 60 et 65 ans
-  */    
-  _(age60_65ans)           , 
-  /**
-  * \brief Maintient l'âge d'ouvertue des droits à 60 ans mais l'âge d'anulation de la décôte est porté à 67 ans
-  */
-  _(age60_67ans)         ,
-  /**
-  * \brief Bloque la durée d'assurance nécessaire à l'obtention du taux plein au niveau de celle appliquée 
-  * à la génération 1960
-  */
-  _(BlockDureegen1960),  
-  /**
-  * \brief Neutralise l'application de l'accord AGIRC-ARRCO de 2015 (hormis les valeurs des revalorisations 
-  * de la valeur de service introduite dans le fichier de simulation)
-  */
-  _(NoAccordAgircArrco)    ,  
-  /**
   * \brief Ne crée pas le régime unique des complémentaires du privé à partir de 2019 
   */
   _(NoRegUniqAgircArrco), 
@@ -734,7 +753,7 @@ struct Options {
     _(inapte_exo)        ;    
   ///\}
   bool 
-    _(plafecretMinContSMPT)  ,  _(coeff_demo)          ,    
+    _(plafecretMinContSMPT)  ,   
     _(ecrit_dr_test),  
     _(cotisations)           ,  _(redresseSal)         ,  _(tirage_simple_naiss),
     _(FM)					 ,  _(sante) 			   ,  _(mort_diff_dip),
@@ -750,11 +769,11 @@ struct Options {
     _(m_incapacite,0.0);
   
   bool
-    _(SalNoEffetLinGen60)           ,  _(redresseSalNoFem)   ,
-    _(redresseCar)         ,  _(redresseFindet)        ,
-    _(prolongeDuree2013)     ,  _(effet_hrzn)          ,  _(super_effet_hrzn)   ,
-    _(effet_hrzn_indiv)      ,  _(SalNoEffetGen)       ,  _(transNonCalees)	,
-    _(DepInact), _(SecondLiq) ;
+    _(redresseSalNoFem)   ,
+    _(redresseCar),  _(redresseFindet),
+    _(effet_hrzn),  _(super_effet_hrzn), _(super_effet_hrzn_2023),
+    _(effet_hrzn_indiv), _(transNonCalees),
+    _(DepInact), _(SecondLiq), 	_(noEvolMorta);
 };
 
 
@@ -1201,7 +1220,14 @@ struct Macro {
   * Dernière mise à jour avec: <br>
   * Feuille : ParamSociauxXXXX / ParamRev
   */  
-  _(PlafRevRG) , 
+  _(PlafRevRG) ,
+    /**
+  * \brief Plafond de ressources pour toucher la majoration de la retraite de réversion, au régime général <br>
+  * Source: CNAV <br>
+  * Dernière mise à jour avec: <br>
+  * Feuille : ParamSociauxXXXX / ParamRev
+  */  
+  _(PlafMajoRevRG),
   /**
   * \brief Taux de réversion à l'ARRCO <br>
   * Source:  <br>
@@ -1488,7 +1514,7 @@ struct Macro {
   * Dernière mise à jour avec:  <br>
   * Feuille : ParamSociauxXXXX / ParamAutres
   */  
-  _(TauxAGFF_2) , 
+  _(TauxAGFF_2), 
   /**
   * \brief  Taux de cotisation pour Association pour le financement du fonds de financement 
   * de l'Agirc et de l'Arrco (AGFF) tranche 1,	Part salarié <br>
@@ -1496,7 +1522,7 @@ struct Macro {
   * Dernière mise à jour avec: <br>
   * Feuille : ParamSociauxXXXX / ParamAutres
   */  
-  _(TauxAGFF_S1) , 
+  _(TauxAGFF_S1), 
   /**
   * \brief Taux de cotisation pour Association pour le financement du fonds de financement 
   * de l'Agirc et de l'Arrco (AGFF) tranche 2,	Part salarié <br>
@@ -1504,7 +1530,49 @@ struct Macro {
   * Dernière mise à jour avec: <br>
   * Feuille : ParamSociauxXXXX / ParamAutres
   */  
-  _(TauxAGFF_S2), 
+  _(TauxAGFF_S2),
+  /**
+  * \brief Contribution d'équilibre général (CEG), totale, tranche 1 <br>
+  * Source: IPP/COR <br>
+  * Dernière mise à jour avec: <br>
+  * Feuille : ParamSociauxXXXX / ParamAutres
+  */  
+  _(TauxCEG_1), 
+  /**
+  * \brief Contribution d'équilibre général (CEG), totale, tranche 2 <br>
+  * Source: IPP/COR <br>
+  * Dernière mise à jour avec: <br>
+  * Feuille : ParamSociauxXXXX / ParamAutres
+  */  
+  _(TauxCEG_2),
+  /**
+  * \brief Contribution d'équilibre général (CEG), part salariés, tranche 1 <br>
+  * Source: IPP/COR <br>
+  * Dernière mise à jour avec: <br>
+  * Feuille : ParamSociauxXXXX / ParamAutres
+  */  
+  _(TauxCEG_S1), 
+  /**
+  * \brief Contribution d'équilibre général (CEG), part salariés, tranche 2 <br>
+  * Source: IPP/COR <br>
+  * Dernière mise à jour avec: <br>
+  * Feuille : ParamSociauxXXXX / ParamAutres
+  */  
+  _(TauxCEG_S2),
+  /**
+  * \brief Contribution exceptionnelle temporaire (CET), part salariés <br>
+  * Source: COR <br>
+  * Dernière mise à jour avec: <br>
+  * Feuille : ParamSociauxXXXX / ParamAutres
+  */  
+  _(TauxCET_S), 
+  /**
+  * \brief Contribution exceptionnelle temporaire (CET), totale <br>
+  * Source: COR <br>
+  * Dernière mise à jour avec: <br>
+  * Feuille : ParamSociauxXXXX / ParamAutres
+  */  
+  _(TauxCET),
   /**
   * \brief Taux de cotisation Assédic (chômage) <br>
   * Source: IPP <br>
@@ -1578,14 +1646,14 @@ struct Macro {
   * Dernière mise à jour avec: http://www.legislation.cnav.fr/Pages/bareme.aspx?Nom=prelevement_retraite_taux_prelevement_retraite_bar <br>
   * Feuille : ParamSociauxXXXX / ParamAutres
   */  
-  _(TauxCSGRetMin) , 
+  _(TauxCSGRetMin), 
   /**
   * \brief Seuil d'exonération à la Contribution Sociale Généralisée (CSG) pour la retraite, quand 1 part fiscale <br>
   * Source:  <br>
   * Dernière mise à jour avec: <br>
   * Feuille : ParamSociauxXXXX / ParamAutres
   */  
-  _(SeuilExoCSG)  , 
+  _(SeuilExoCSG), 
   /**
   * \brief  Seuil d'exonération à la Contribution Sociale Généralisée (CSG) pour la retraite, quand 2 parts fiscales <br>
   * Source:  <br>
@@ -1599,53 +1667,29 @@ struct Macro {
   * Dernière mise à jour avec: <br>
   * Feuille : ParamSociauxXXXX / ParamAutres
   */  
-  _(SeuilTxReduitCSG) , 
+  _(SeuilTxReduitCSG), 
   /**
   * \brief Seuil d'aplication du taux réduit de la Contribution Sociale Généralisée (CSG) quand 2 parts fiscales <br>
   * Source:  <br>
   * Dernière mise à jour avec: <br>
   * Feuille : ParamSociauxXXXX / ParamAutres
   */  
-  _(SeuilTxReduitCSG2) , 
+  _(SeuilTxReduitCSG2), 
   /**
   * \brief Série des seuils de pauvreté, à 60\% du niveau de vie médian <br>
   * Source: INSEE/COR <br>
   * Dernière mise à jour avec: <br>
   * Feuille : ParamSociauxXXXX / ParamAutres
   */  
-  _(SeuilPauvrete)     , 
-  
-  /**
-  * \brief Contribution exceptionnelle temporaire (CET), part salariés <br>
-  * Source:  <br>
-  * Dernière mise à jour avec: <br>
-  * Feuille : ParamSociauxXXXX / ParamAutres
-  */  
-  _(TauxCET_S)		, 
-  /**
-  * \brief Contribution exceptionnelle temporaire (CET), totale <br>
-  * Source:  <br>
-  * Dernière mise à jour avec: <br>
-  * Feuille : ParamSociauxXXXX / ParamAutres
-  */  
-  _(TauxCET),
-  
-  /**
-  * \brief Correcteur démographique <br>
-  * Source: Calculé dans la fonction interne de Destinie.cpp : destinieSimOptim. N'est utilisé que
-  * dans le cas où l'option options->coeff_demo est mise en oeuvre.
-  * Voir \cite dubois_koubi_2017
-  */  
-  _(correct_demo,0)  ;
+  _(SeuilPauvrete);
   
   
   NumericVector daterevalobase;      		///< Mois de revalorisation des régimes de base 
   NumericVector   daterevalocomp;		   	///< Mois de revalorisation des régimes complémentaires
-  //correct_demo,
   NumericVector   RevaloCumFP;         		///< Revalorisations cumulées des pensions liquidées au FP
   NumericVector   RevaloCumRG;         		///< Revalorisations cumulées des pensions liquidées au RG
   //coeff_correc_structure
-  ;  
+  
   /// Tables de survie
   vector<NumericMatrix> q_mort;  ///< Tables des quotients de mortalité
   vector<NumericMatrix> survie;  ///< Tables des taux de survie

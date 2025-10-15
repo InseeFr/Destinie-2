@@ -3,7 +3,7 @@
  * \brief Statistiques contient des structures qui facilitent la manipulation des indicateurs suivants : moyenne, somme, taux, ratio, quantile. Ces structures sont notamment utilisées dans \ref Indicateurs_annee_COR.h
  */
  
- #pragma once
+#pragma once
 
 #include <vector>
 #include <algorithm>
@@ -13,7 +13,6 @@ using namespace std;
  * \struct Indicateur
  * \brief Structure à l'origine des structures Moyenne, Ratio, Somme et Taux.
  */
- 
 struct Indicateur {
   public:
     virtual double resultat() = 0; // must provide a definition for virtual functions or declare = 0
@@ -26,21 +25,20 @@ struct Indicateur {
  * \struct Moyenne
  * \brief Structure permettant de manipuler des moyennes. 
  */
- 
 struct Moyenne : public Indicateur {
   double somme = 0;
   double compteur = 0;
   public:
   inline void push(bool cond, double val, double poids) {
-      somme += cond ? val * poids : 0;
-      compteur += cond ? poids : 0;
+      somme += (cond ? val * poids : 0);
+      compteur += (cond ? poids : 0);
   }
   inline void push(double val) {
       somme += val;
       compteur += 1;
   }
   double resultat() {
-      return compteur > 0 ? somme / compteur : 0;
+      return (compteur > 0) ? somme / compteur : 0;
   }  
 };
 
@@ -52,7 +50,7 @@ struct Somme : public Indicateur {
   double somme = 0;
   public:
   inline void push(bool cond, double val, double poids) {
-      somme += cond ? val * poids : 0;
+      somme += (cond ? val * poids : 0);
   }
   inline void push(double val) {
       somme += val;
@@ -67,15 +65,15 @@ struct Somme : public Indicateur {
  * \brief Structure permettant de manipuler des taux. 
  */
 struct Taux : public Indicateur {
-  double somme = 0;
-  double compteur = 0;
+  double compteur_num = 0;
+  double compteur_den = 0;
   public:
-  inline void push(bool cond, bool val, double poids) {
-      somme += val ? poids : 0;
-      compteur += cond ? poids : 0;
+  inline void push(bool cond_num, bool cond_den, double poids) {
+      compteur_num += (cond_num ? poids : 0);
+      compteur_den += (cond_den ? poids : 0);
   }
   double resultat() {
-      return compteur > 0 ? somme / compteur : 0;
+      return (compteur_den > 0) ? compteur_num / compteur_den : 0;
   }  
 };
 
@@ -88,12 +86,12 @@ struct Ratio : public Indicateur {
   double somme_num = 0;
   public:
   inline void push(bool cond, double val_num, double val_den) {
-      somme_den += cond ? val_den : 0;
-      somme_num += cond ? val_num : 0;
+	  somme_num += (cond ? val_num : 0);
+      somme_den += (cond ? val_den : 0);
   }
   
   double resultat() {
-      return somme_den > 0 ? somme_num / somme_den : 0;
+      return (somme_den > 0) ? somme_num / somme_den : 0;
   }
 };
 
@@ -111,10 +109,12 @@ struct quantile {
   }
   
   double resultat(double q) {
-    if (liste.size() <= 0)
+    if (liste.size() <= 0) {
         return 0;
-    if(!sorted)
+	}
+    if(!sorted) {
         sort(begin(liste), end(liste));
+	}
     sorted=true;
     return liste[round(q*liste.size())];
   }

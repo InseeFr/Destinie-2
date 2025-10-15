@@ -45,7 +45,9 @@ void evolsante(int t){
 				for(int i : indices(pop_sante)) {
 					Indiv& X = pop[pop_sante[i]];
 					int age=X.age(t);
-					double age_corr=(max(X.age(t)-2.0-options->m_incapacite*(M->espvie[sexe](max(t,110),age)-M->espvie[sexe](AN_BASE+1,age)),50.0)-50.0);
+										double age_corr=(max(X.age(t)-2.0-options->m_incapacite*(M->espvie[sexe](max(t,118),age)-M->espvie[sexe](AN_BASE+1,age)),50.0)-50.0);
+					// REBASAGE : 110 remplacé par 118 dans age_corr
+
 					double reg=-eq.Intercept
 					-eq.couple*(X.matri[age]==2)
 					-eq.enf4plus*(X.nb_enf(age)>=4)

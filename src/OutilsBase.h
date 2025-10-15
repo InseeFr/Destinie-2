@@ -228,7 +228,7 @@ inline int trimInf(double an, double mois) {
  *  \brief Arrondi une valeur positive au trimestre supérieur
  */  
 inline double ArrTrimSup(double x) {
-    return (x > 0)  ?  (1+floor(4*x))/4.0  :  0.0 ;
+    return (x > 0)  ?  ceil(4*x)/4.0  :  0.0 ;
 }
 
 /**

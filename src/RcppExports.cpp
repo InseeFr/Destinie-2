@@ -5,6 +5,21 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
+// destinieSimTRISimple
+void destinieSimTRISimple(Environment envSim);
+RcppExport SEXP _destinie_destinieSimTRISimple(SEXP envSimSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Environment >::type envSim(envSimSEXP);
+    destinieSimTRISimple(envSim);
+    return R_NilValue;
+END_RCPP
+}
 // destinieSimTRI2
 void destinieSimTRI2(Environment envSim);
 RcppExport SEXP _destinie_destinieSimTRI2(SEXP envSimSEXP) {
@@ -86,16 +101,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// destinieSimOptim
-void destinieSimOptim(Environment envSim);
-RcppExport SEXP _destinie_destinieSimOptim(SEXP envSimSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Environment >::type envSim(envSimSEXP);
-    destinieSimOptim(envSim);
-    return R_NilValue;
-END_RCPP
-}
 // destinieImputSal
 void destinieImputSal(Environment envSim);
 RcppExport SEXP _destinie_destinieImputSal(SEXP envSimSEXP) {
@@ -118,6 +123,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_destinie_destinieSimTRISimple", (DL_FUNC) &_destinie_destinieSimTRISimple, 1},
     {"_destinie_destinieSimTRI2", (DL_FUNC) &_destinie_destinieSimTRI2, 1},
     {"_destinie_destinieDemographie", (DL_FUNC) &_destinie_destinieDemographie, 1},
     {"_destinie_destinieCalageSalaires", (DL_FUNC) &_destinie_destinieCalageSalaires, 1},
@@ -126,7 +132,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_destinie_destinieSimIndiv", (DL_FUNC) &_destinie_destinieSimIndiv, 1},
     {"_destinie_destinieSimAgefin", (DL_FUNC) &_destinie_destinieSimAgefin, 1},
     {"_destinie_destinieFinCar", (DL_FUNC) &_destinie_destinieFinCar, 1},
-    {"_destinie_destinieSimOptim", (DL_FUNC) &_destinie_destinieSimOptim, 1},
     {"_destinie_destinieImputSal", (DL_FUNC) &_destinie_destinieImputSal, 1},
     {"_destinie_destinieTransMdt", (DL_FUNC) &_destinie_destinieTransMdt, 1},
     {NULL, NULL, 0}
